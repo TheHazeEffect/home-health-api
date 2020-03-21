@@ -6,13 +6,13 @@ stages:
     - test
 
     # install dependencies, react and node
-    before_script:
-        - dotnet restore
-        - dotnet --info
-        - curl -sL https://deb.nodesource.com/setup_10.x | bash -
-        - apt-get install -y nodejs
-        - npm install -g react
-    
+before_script:
+    - dotnet restore
+    - dotnet --info
+    - curl -sL https://deb.nodesource.com/setup_10.x | bash -
+    - apt-get install -y nodejs
+    - npm install -g react
+
 
 build:
     stage: build
