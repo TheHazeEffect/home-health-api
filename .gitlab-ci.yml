@@ -26,6 +26,7 @@ push_Image_to_GitlabRegsitry:
     tags:
         - docker
 
+#Todo replace external image with own or heroku cli image
 deploy_to_heroku:
     only:
         - master
@@ -35,9 +36,9 @@ deploy_to_heroku:
     script:
         - docker tag ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest registry.heroku.com/homehealth876/web:latest
         - docker push registry.heroku.com/homehealth876/web:last
-        - docker run --rm -e HEROKU_API_KEY=$HEROKU_API_KEY wingrunr21/alpine-heroku-cli container:release we
-        b --app=homehealth876
+        - "docker run --rm -e HEROKU_API_KEY=$HEROKU_API_KEY wingrunr21/alpine-heroku-cli container:release we
+        b --app=homehealth876"
     after_script:
         - docker logout registry.heroku.com
     
-    #Todo replace external image with own or heroku cli image
+    
