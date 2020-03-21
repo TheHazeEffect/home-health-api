@@ -2,10 +2,10 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
 
 WORKDIR /source
 # Copy project files
-COPY ["HomeHealth.csproj", "./src"]
-RUN cd src && ls -l
+COPY ["HomeHealth.csproj", "./Homehealth"]
+RUN ls -l
 #install dotnet dependencies
-RUN dotnet restore "src/HomeHealth.csproj"
+RUN dotnet restore "./Homehealth/HomeHealth.csproj"
 
 #install node dependencies
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
