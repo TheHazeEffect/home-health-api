@@ -13,11 +13,10 @@ RUN apt-get install -y nodejs
 COPY . .
 RUN npm --prefix ./ClientApp/src install -g react ./ClientApp/src
 
-#goto directory and build application
-WORKDIR /source/
 RUN dotnet publish -c Release -o /publish
 
-FROM  mcr.microsoft.com/dotnet/core/runtime:3.1
+#build runtimeimage
+FROM  mcr.microsoft.com/dotnet/core/aspnet:3.1
 WORKDIR /publish
 COPY --from=build-env /publish .
 ENTRYPOINT ["dotnet", "HomeHealth.dll"]
