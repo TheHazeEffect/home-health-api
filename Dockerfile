@@ -5,7 +5,7 @@ WORKDIR /source
 COPY ["HomeHealth.csproj", "./Homehealth"]
 RUN ls -l
 #install dotnet dependencies
-RUN dotnet restore "./Homehealth/HomeHealth.csproj"
+RUN dotnet restore HomeHealth/HomeHealth.csproj 
 
 #install node dependencies
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
