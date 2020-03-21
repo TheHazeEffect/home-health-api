@@ -1,39 +1,36 @@
-image: mcr.microsoft.com/dotnet/core/sdk:3.1
-
+image: docker:stable
 
 stages: 
     - build 
     - test
     - deploy
 
-    # install dependencies, react and node
+services:
+    - docker:dind
+
 before_script:
-    - dotnet restore
-    - dotnet --info
-    - curl -sL https://deb.nodesource.com/setup_10.x | bash -
-    - apt-get install -y nodejs
-    - npm install -g react
+    - docker info
 
 
-build:
+#     # install dependencies, react and node
+# before_script:
+#     - dotnet restore
+#     - dotnet --info
+#     - curl -sL https://deb.nodesource.com/setup_10.x | bash -
+#     - apt-get install -y nodejs
+#     - npm install -g react
+
+
+build_and_push_to_GitlabRegsitry:
+    only: master
     stage: build
+    before_script:
+        - docker login registry.gitlab.com -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD}
     script:
-        - dotnet build
+        - docker build -t ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest .
+        - docker push ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest
+    after_script:
+        - docker logout ${CI_REGISTRY)}
+    tags:
+        - docker
 
-test:
-    stage: test
-    script:
-        - dotnet test
-
-# deploy_to_production:
-#     stage: deploy
-#     image: ruby:latest
-#     script:
-#     - apt-get update -qy
-#     - apt-get install -y ruby-dev
-#     - gem install dpl
-#     - dpl --provider=heroku --app=homehealth876 --api-key=$HEROKU_API_KEY
-#     only:
-#     - master
-          
-          
