@@ -3,7 +3,7 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
 # Copy project files
 WORKDIR /source
 COPY ["HomeHealth.csproj", "./src"]
-
+RUN ls -l
 #install dotnet dependencies
 RUN dotnet restore "src/HomeHealth/HomeHealth.csproj"
 
