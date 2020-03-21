@@ -22,7 +22,8 @@ before_script:
 
 
 build_and_push_to_GitlabRegsitry:
-    only: master
+    only: 
+        - master
     stage: build
     before_script:
         - docker login registry.gitlab.com -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD}
