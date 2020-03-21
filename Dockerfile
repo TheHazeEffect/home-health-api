@@ -1,7 +1,7 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
 
-# Copy project files
 WORKDIR /source
+# Copy project files
 COPY ["HomeHealth.csproj", "./src"]
 RUN ls -l
 #install dotnet dependencies
@@ -11,7 +11,7 @@ RUN dotnet restore "src/HomeHealth/HomeHealth.csproj"
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 RUN apt-get install -y nodejs
 COPY . .
-RUN npm --prefix ./source/src/ClientApp/src install -g react ./src
+RUN npm --prefix ./src/ClientApp/src install -g react ./src/ClientApp/src
 
 #goto directory and build application
 WORKDIR /source/src
