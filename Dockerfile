@@ -21,4 +21,4 @@ WORKDIR /publish
 COPY --from=build-env /publish .
 # ENTRYPOINT ["dotnet", "HomeHealth.dll"]
 # CMD ["dotnet", "HomeHealth.dll"]
-CMD ASPNETCORE_URLS=http://*:$PORT dotnet HomeHealth.dll.API.dll
+CMD ASPNETCORE_URLS=http://*:$PORT dotnet HomeHealth.dll
