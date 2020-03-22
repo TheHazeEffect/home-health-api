@@ -8,23 +8,20 @@ stages:
 services:
     - docker:dind
 
-before_script:
-    - docker login registry.gitlab.com -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD}
 
-after_script:
-    - docker logout ${CI_REGISTRY)}
-
-
-push_Image_to_GitlabRegsitry:
-    only: 
-        - master
-    stage: build
-    before_script:
-    script:
-        - docker build -t ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest .
-        - docker push ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest
-    tags:
-        - docker
+# push_Image_to_GitlabRegsitry:
+#     only: 
+#         - master
+#     stage: build
+#     before_script:
+#         - docker login registry.gitlab.com -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD}
+#     script:
+#         - docker build -t ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest .
+#         - docker push ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest
+#     after_script:
+#         - docker logout ${CI_REGISTRY)}
+#     tags:
+#         - docker
 
 #Todo replace external image with own or heroku cli image
 deploy_to_heroku:
@@ -32,12 +29,12 @@ deploy_to_heroku:
         - master
     stage: deploy
     before_script:
-        -  docker login --username=troyanderson.d@gmail.com --password=$HEROKU_API_KEY registry.heroku.com
-    script:
+        - docker login registry.gitlab.com -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD}
         - docker pull ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest
-        - docker tag ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest registry.heroku.com/homehealth876/web:latest
+    script:
         - docker login --username=troyanderson.d@gmail.com --password=$HEROKU_API_KEY registry.heroku.com
-        - docker push registry.heroku.com/homehealth876/web:last
+        - docker tag ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest registry.heroku.com/homehealth876/web:latest
+        - docker push registry.heroku.com/homehealth876/web:lastest
         - "docker run --rm -e HEROKU_API_KEY=$HEROKU_API_KEY wingrunr21/alpine-heroku-cli container:release we
         b --app=homehealth876"
     after_script:
