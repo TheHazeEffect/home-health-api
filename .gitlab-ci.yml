@@ -34,7 +34,7 @@ deploy_to_heroku:
     script:
         - docker login --username=troyanderson.d@gmail.com --password=$HEROKU_API_KEY registry.heroku.com
         - docker tag ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest registry.heroku.com/homehealth876/web:latest
-        - docker push registry.heroku.com/homehealth876/web:lastest
+        - docker push registry.heroku.com/homehealth876/web:latest
         - "docker run --rm -e HEROKU_API_KEY=$HEROKU_API_KEY wingrunr21/alpine-heroku-cli container:release we
         b --app=homehealth876"
     after_script:
