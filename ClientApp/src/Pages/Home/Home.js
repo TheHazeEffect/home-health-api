@@ -15,11 +15,11 @@ export class Home extends Component {
             <img src={img1} alt="Smiley face" height="auto" width="auto"/> 
           </div>
           <div className="card text-box">
-            Connect with Professionals across the medical field to get the expert diagonsis that you need at the touch of a button
+            Connect with Professionals and get the expert consultation  you need at the touch of a button
           </div>
           
           <div className="card text-box">
-            Find Medical Professionals in your area and Schedule an appointment at your own convenience
+            Search for Medical professionals in your area and create appointments at your convenience
           </div>
           <div className="card">
             <img src={img2} alt="Smiley face" height="auto" width="auto"/> 
