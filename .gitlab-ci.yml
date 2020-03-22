@@ -9,19 +9,19 @@ services:
     - docker:dind
 
 
-# push_Image_to_GitlabRegsitry:
-#     only: 
-#         - master
-#     stage: build
-#     before_script:
-#         - docker login registry.gitlab.com -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD}
-#     script:
-#         - docker build -t ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest .
-#         - docker push ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest
-#     after_script:
-#         - docker logout ${CI_REGISTRY)}
-#     tags:
-#         - docker
+push_Image_to_GitlabRegsitry:
+    only: 
+        - master
+    stage: build
+    before_script:
+        - docker login registry.gitlab.com -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD}
+    script:
+        - docker build -t ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest .
+        - docker push ${CI_REGISTRY}/${CI_PROJECT_PATH}:latest
+    after_script:
+        - docker logout ${CI_REGISTRY)}
+    tags:
+        - docker
 
 #Todo replace external image with own or heroku cli image
 deploy_to_heroku:

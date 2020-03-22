@@ -19,4 +19,5 @@ RUN dotnet publish -c Release -o /publish
 FROM  mcr.microsoft.com/dotnet/core/aspnet:3.1.0
 WORKDIR /publish
 COPY --from=build-env /publish .
-ENTRYPOINT ["dotnet", "HomeHealth.dll"]
+# ENTRYPOINT ["dotnet", "HomeHealth.dll"]
+CMD ["dotnet", "HomeHealth.dll"]
