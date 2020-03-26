@@ -41,17 +41,11 @@ namespace HomeHealth
                 options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole> (config => {
-					config.SignIn.RequireConfirmedEmail = true;
+					config.SignIn.RequireConfirmedEmail = false;
 				}).AddEntityFrameworkStores<HomeHealthDbContext> ()
 				.AddDefaultTokenProviders ();
                 
-            // services.AddIdentityCore<ApplicationUser>(options => { 
-            //     options.SignIn.RequireConfirmedEmail = false;
-            // });
-            // new IdentityBuilder(typeof(ApplicationUser), typeof(IdentityRole), services)
-            //     .AddRoleManager<RoleManager<IdentityRole>>()
-            //     .AddSignInManager<SignInManager<ApplicationUser>>()
-            //     .AddEntityFrameworkStores<HomeHealthDbContext>();
+            
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
