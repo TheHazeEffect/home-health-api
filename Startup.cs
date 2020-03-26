@@ -1,14 +1,23 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+
+using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+
+using HomeHealth.Interfaces;
+using HomeHealth.Helpers;
+using HomeHealth.Services;
 using HomeHealth.Data;
 using HomeHealth.Identity;
+
 
 namespace HomeHealth
 {
@@ -18,11 +27,6 @@ namespace HomeHealth
         {
             Configuration = configuration;
 
-            //simply creates db if it doesn't exist, no migrations
-            // using (var context = new HomeHealthDbContext())
-            // {
-            //     context.Database.EnsureCreated();
-            // }
         }
 
         public IConfiguration Configuration { get; }
@@ -30,12 +34,8 @@ namespace HomeHealth
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddCors();
             services.AddControllersWithViews();
-
-            // services.AddEntityFramework()
-            //     .AddSqlite()
-            //     .AddDbContext<HomeHealthDbContext>();
 
             services.AddDbContext<HomeHealthDbContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
@@ -44,8 +44,35 @@ namespace HomeHealth
 					config.SignIn.RequireConfirmedEmail = false;
 				}).AddEntityFrameworkStores<HomeHealthDbContext> ()
 				.AddDefaultTokenProviders ();
+
+             // configure strongly typed settings objects
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+                services.Configure<AppSettings>(appSettingsSection);
+
+
+             // configure jwt authentication
+            var appSettings = appSettingsSection.Get<AppSettings>();
+            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
                 
-            
+            // configure DI for application services
+            services.AddScoped<IUserService, UserService>();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -68,13 +95,23 @@ namespace HomeHealth
                 app.UseHsts();
             }
 
+            app.UseRouting();
+
+
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
+            
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
-            app.UseRouting();
+            
 
             app.UseEndpoints(endpoints =>
             {
