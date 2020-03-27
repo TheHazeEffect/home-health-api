@@ -20,7 +20,7 @@
     font-size: 25px;
     color: rgb(0, 0, 0);
     box-shadow: rgba(0, 57, 190, 0.1) 0px 0.15rem 0.5rem, rgba(2, 8, 20, 0.1) 0px 0.075rem 0.175rem;
-    height: 100%;
+    height: auto;
     width: 90%;
     border-radius: 4px;
     transition: all 500ms;
