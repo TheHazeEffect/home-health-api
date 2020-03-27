@@ -15,5 +15,8 @@ namespace HomeHealth.Models
 
         [Required]
         public string Password { get; set; }
+
+        [Required]
+        public string RoleName { get; set; }
     }
 }

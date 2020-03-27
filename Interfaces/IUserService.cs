@@ -10,7 +10,7 @@ namespace HomeHealth.Interfaces
     {
         Task<User> AuthenticateAsync(string Email, string Password);
 
-        Task<bool> RegisterAsync(string FirstName,string LastName,string Email,string Password);
+        Task<bool> RegisterAsync(string FirstName,string LastName,string Email,string Password,string RoleName);
 
     }
 }

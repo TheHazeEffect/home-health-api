@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -8,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 
+using HomeHealth.Constants;
 using HomeHealth.Models;
 using HomeHealth.Data;
 using HomeHealth.Identity;
@@ -49,6 +51,7 @@ namespace HomeHealth.Services
                 if (AppUser == null)
                     return null;
 
+                var AppUserRoles = await _userManager.GetRolesAsync(AppUser);
                 // authentication successful so generate jwt token
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
@@ -56,7 +59,7 @@ namespace HomeHealth.Services
                 {
                     Subject = new ClaimsIdentity(new Claim[] 
                     {
-                        new Claim(ClaimTypes.Name, AppUser.Id.ToString())
+                        new Claim(Claims.ID, AppUser.Id.ToString())
                     }),
                     Expires = DateTime.UtcNow.AddDays(7),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -67,6 +70,7 @@ namespace HomeHealth.Services
                     FirstName = AppUser.FirstName,
                     LastName = AppUser.LastName,
                     Email = AppUser.Email,
+                    RoleName = AppUserRoles.ElementAt(0),
                     Token = tokenHandler.WriteToken(token)
                 };      
 
@@ -78,9 +82,12 @@ namespace HomeHealth.Services
             }
         }
 
-        public async Task<bool> RegisterAsync(string FirstName,string LastName,string Email,string Password){
+        public async Task<bool> RegisterAsync(string FirstName,string LastName,string Email,string Password,string RoleName){
                 
               try {
+                var roleExists =  await _roleManager.RoleExistsAsync(RoleName);
+                if(!roleExists)
+                    throw new System.InvalidOperationException("Role does not exist");
 
                 var AlreadyExists = await _userManager.FindByEmailAsync(Email);
 
@@ -95,9 +102,10 @@ namespace HomeHealth.Services
                         UserName = Email,
                     };
 
-                var result = await _userManager.CreateAsync(user, Password);
+                var CreateUser = await _userManager.CreateAsync(user, Password);
+                var AddUserToRole = await _userManager.AddToRoleAsync(user, RoleName);
                 
-                if(result.Succeeded) {
+                if(CreateUser.Succeeded && AddUserToRole.Succeeded) {
 
                     return true;
                 }
@@ -112,5 +120,6 @@ namespace HomeHealth.Services
               }
 
         }
+
     }
 }

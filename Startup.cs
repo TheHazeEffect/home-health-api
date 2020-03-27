@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 
+using HomeHealth.Constants;
 using HomeHealth.Interfaces;
 using HomeHealth.Helpers;
 using HomeHealth.Services;
@@ -45,10 +46,15 @@ namespace HomeHealth
 				}).AddEntityFrameworkStores<HomeHealthDbContext> ()
 				.AddDefaultTokenProviders ();
 
+
              // configure strongly typed settings objects
             var appSettingsSection = Configuration.GetSection("AppSettings");
                 services.Configure<AppSettings>(appSettingsSection);
 
+            services.AddAuthorization(options => {
+                options.AddPolicy(Roles.MedicalProfessional,
+                    policy => policy.RequireAssertion(context => context.User.HasClaim(c => c.Value == "Admin")));
+            });
 
              // configure jwt authentication
             var appSettings = appSettingsSection.Get<AppSettings>();

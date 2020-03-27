@@ -37,9 +37,8 @@ namespace HomeHealth.Controllers
         public async Task<IActionResult> Register([FromBody]UserRegisterDto Registerdto) {
 
             try {
-
                 var successful = await _userService.RegisterAsync(Registerdto.FirstName,
-                Registerdto.LastName,Registerdto.Email,Registerdto.Password);
+                Registerdto.LastName,Registerdto.Email,Registerdto.Password,Registerdto.RoleName);
 
                 if(successful)
                 {
