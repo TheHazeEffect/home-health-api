@@ -24,7 +24,7 @@ namespace HomeHealth.data.tables
         public string AppReason { get; set; }
 
         [Required]
-        public string? ProfessionalId { get; set; }
+        public string ProfessionalId { get; set; }
 
         [Required]
         public float totalcost {get; set; }

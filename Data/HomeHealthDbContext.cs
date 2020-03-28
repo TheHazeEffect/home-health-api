@@ -31,6 +31,8 @@ namespace HomeHealth.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Appointments>(entity =>
             {
                 entity.ToTable("appointment");
@@ -58,14 +60,17 @@ namespace HomeHealth.Data
                 entity.Property(e => e.PatientId).HasColumnName("patient_id");
 
                 entity.HasOne(d => d.Professional)
-                    .WithMany(p => p.Appointments)
+                    .WithMany(p => p.Appointmentsprof)
                     .HasForeignKey(d => d.ProfessionalId)
-                    .HasConstraintName("fk_User_id");
+                    .OnDelete(DeleteBehavior.NoAction)
+                    .HasConstraintName("fk_User_Profesional_id");
 
                 entity.HasOne(d => d.Patient)
-                    .WithMany(p => p.Appointments)
+                    .WithMany(p => p.AppointmentsPati)
                     .HasForeignKey(d => d.PatientId)
-                    .HasConstraintName("fk_User_id");
+                    .OnDelete(DeleteBehavior.NoAction)
+                    .HasConstraintName("fk_User_patient_id");
+
             });
 
             modelBuilder.Entity<Charges>(entity =>
@@ -88,7 +93,7 @@ namespace HomeHealth.Data
                 entity.HasOne(d => d.Professional_Service)
                     .WithMany(p => p.Charges)
                     .HasForeignKey(d => d.Prof_serviceId)
-                    .HasConstraintName("fk_Prof_Service_id");
+                    .HasConstraintName("fk_Charges_prof_service_id");
             });
 
             modelBuilder.Entity<Professionals>(entity =>
@@ -113,7 +118,11 @@ namespace HomeHealth.Data
                     .IsUnicode(false)
                     .IsFixedLength();
 
-          
+                 entity.HasOne(d => d.user)
+                    .WithOne(p => p.Professional)
+                    .HasForeignKey<Professionals>(d => d.userId)
+                    .HasConstraintName("fk_Prof_User");
+
 
             });
 
@@ -130,22 +139,23 @@ namespace HomeHealth.Data
                 entity.Property(e => e.RecieverId).HasColumnName("patient_id");
 
                 entity.HasOne(d => d.Sender)
-                    .WithMany(p => p.Messages)
+                    .WithMany(p => p.MessagesSent)
                     .HasForeignKey(d => d.SenderId)
-                    .HasConstraintName("fk_doctor_id1");
+                    .HasConstraintName("fk_Messages_SenderUser");
 
                 entity.HasOne(d => d.Reciever)
-                    .WithMany(p => p.Messages)
+                    .WithMany(p => p.MessagesRec)
                     .HasForeignKey(d => d.RecieverId)
-                    .HasConstraintName("fk_patient_id1");
+                    .HasConstraintName("fk_messages_recieverUser");
             });
 
-             modelBuilder.Entity<Professional_Service>(entity =>
+            modelBuilder.Entity<Professional_Service>(entity =>
             {
+                
 
-                entity.ToTable("Prof_service_id");
+                entity.ToTable("Professional_Service");
 
-                entity.HasKey(e => e.Professional_ServiceId);
+                entity.HasKey(e => e.Professional_ServiceId).HasName("Prof_service_id");
 
                 entity.Property(e => e.ServiceCost).HasColumnName("Service_cost");
 
@@ -154,14 +164,27 @@ namespace HomeHealth.Data
                 entity.HasOne(d => d.Service)
                     .WithMany(p => p.prof_services)
                     .HasForeignKey(d => d.ServiceId)
-                    .HasConstraintName("fk_doctor_id1");
+                    .HasConstraintName("fk_prof_service__service");
 
                 entity.HasOne(d => d.Professional)
                     .WithMany(p => p.Prof_services)
                     .HasForeignKey(d => d.ProfessionalId)
-                    .HasConstraintName("fk_doctor_id1");
+                    .HasConstraintName("k_prof_service_Professional");
 
             });
+
+            modelBuilder.Entity<HomeHealth.data.tables.Services>(entity =>
+            {
+
+                entity.ToTable("Service");
+
+                entity.HasKey(e => e.ServiceId);
+
+                entity.Property(e => e.ServiceName).HasColumnName("Service_name");
+
+            });
+
+            
 
 
 

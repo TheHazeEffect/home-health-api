@@ -11,8 +11,10 @@ namespace HomeHealth.Identity
 
         public ApplicationUser()
         {
-            Appointments = new HashSet<Appointments>();
-            Messages = new HashSet<Messages>();
+            Appointmentsprof = new HashSet<Appointments>();
+            AppointmentsPati = new HashSet<Appointments>();
+            MessagesSent = new HashSet<Messages>();
+            MessagesRec = new HashSet<Messages>();
         }
         public string FirstName {get; set;}
 
@@ -23,12 +25,13 @@ namespace HomeHealth.Identity
         public int age {get;set;}
 
 
-        public virtual ICollection<Appointments> Appointments { get; set; }
+        public virtual ICollection<Appointments> Appointmentsprof { get; set; }
+        public virtual ICollection<Appointments> AppointmentsPati { get; set; }
 
         public virtual Professionals Professional {get;set;}
 
-        [Required]
-        public virtual ICollection<Messages> Messages {get;set;}
+        public virtual ICollection<Messages> MessagesSent {get;set;}
+        public virtual ICollection<Messages> MessagesRec {get;set;}
 
 
         
