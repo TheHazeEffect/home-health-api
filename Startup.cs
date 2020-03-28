@@ -38,8 +38,11 @@ namespace HomeHealth
             services.AddCors();
             services.AddControllersWithViews();
 
+            // services.AddDbContext<HomeHealthDbContext>(options =>
+            //     options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
+
             services.AddDbContext<HomeHealthDbContext>(options =>
-                options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("HomeHealthdb")));
 
             services.AddIdentity<ApplicationUser, IdentityRole> (config => {
 					config.SignIn.RequireConfirmedEmail = false;
