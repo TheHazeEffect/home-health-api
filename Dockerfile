@@ -6,7 +6,6 @@ COPY ["HomeHealth.csproj", "."]
 RUN ls -l
 #install dotnet dependencies
 RUN dotnet restore "HomeHealth.csproj"
-RUN dotnet ef database update
 
 #install node dependencies
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
