@@ -27,22 +27,28 @@ namespace HomeHealth
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-
+            
         }
+
 
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services, IWebHostEnvironment env)
         {
+            var contentRoot = Configuration.GetValue<string>(WebHostDefaults.ContentRootKey);
             services.AddCors();
             services.AddControllersWithViews();
 
-            services.AddDbContext<HomeHealthDbContext>(options =>
-                options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
+            // if(env.IsDevelopment()){
+                services.AddDbContext<HomeHealthDbContext>(options =>
+                    options.UseSqlite(contentRoot + "/" + Configuration.GetConnectionString("SqliteConnection")));
 
-            // services.AddDbContext<HomeHealthDbContext>(options =>
-            //     options.UseSqlServer(Configuration.GetConnectionString("HomeHealthdb")));
+            // }else {
+            //     services.AddDbContext<HomeHealthDbContext>(options =>
+            //         options.UseSqlServer(Configuration.GetConnectionString("HomeHealthdb")));
+            // }
+
 
             services.AddIdentity<ApplicationUser, IdentityRole> (config => {
 					config.SignIn.RequireConfirmedEmail = false;
