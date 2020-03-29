@@ -34,7 +34,7 @@ namespace HomeHealth
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services, IWebHostEnvironment env)
+        public void ConfigureServices(IServiceCollection services)
         {
             var contentRoot = Configuration.GetValue<string>(WebHostDefaults.ContentRootKey);
             services.AddCors();
@@ -42,7 +42,7 @@ namespace HomeHealth
 
             // if(env.IsDevelopment()){
                 services.AddDbContext<HomeHealthDbContext>(options =>
-                    options.UseSqlite(contentRoot + "/" + Configuration.GetConnectionString("SqliteConnection")));
+                    options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
 
             // }else {
             //     services.AddDbContext<HomeHealthDbContext>(options =>
@@ -97,8 +97,9 @@ namespace HomeHealth
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, HomeHealthDbContext dbContext)
         {
+            dbContext.Database.Migrate();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
