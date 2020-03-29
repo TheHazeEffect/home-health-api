@@ -55,7 +55,7 @@ namespace HomeHealth.Migrations
                 columns: table => new
                 {
                     ServiceId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Service_name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
@@ -68,7 +68,7 @@ namespace HomeHealth.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -89,7 +89,7 @@ namespace HomeHealth.Migrations
                 columns: table => new
                 {
                     appointment_id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     app_date = table.Column<DateTime>(type: "date", nullable: false),
                     app_time = table.Column<DateTime>(type: "datetime", nullable: false),
                     app_reason = table.Column<string>(unicode: false, nullable: false),
@@ -117,7 +117,7 @@ namespace HomeHealth.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -202,21 +202,21 @@ namespace HomeHealth.Migrations
                 columns: table => new
                 {
                     ProfessionalsId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     user_id = table.Column<string>(nullable: false),
                     City = table.Column<string>(nullable: true),
                     state_parish = table.Column<string>(nullable: true),
                     Country = table.Column<string>(nullable: false),
                     doctors_Address1 = table.Column<string>(unicode: false, fixedLength: true, maxLength: 80, nullable: true),
                     doctors_Address2 = table.Column<string>(unicode: false, fixedLength: true, maxLength: 80, nullable: true),
-                    ServicesServiceId = table.Column<int>(nullable: true)
+                    ServiceId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("pk_Duser_id", x => x.ProfessionalsId);
                     table.ForeignKey(
-                        name: "FK_ProfessionalsId_Service_ServicesServiceId",
-                        column: x => x.ServicesServiceId,
+                        name: "FK_ProfessionalsId_Service_ServiceId",
+                        column: x => x.ServiceId,
                         principalTable: "Service",
                         principalColumn: "ServiceId",
                         onDelete: ReferentialAction.Restrict);
@@ -233,7 +233,7 @@ namespace HomeHealth.Migrations
                 columns: table => new
                 {
                     message1_id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     doctor_id = table.Column<string>(nullable: true),
                     patient_id = table.Column<string>(nullable: true),
                     ProfessionalsId = table.Column<int>(nullable: true)
@@ -266,7 +266,7 @@ namespace HomeHealth.Migrations
                 columns: table => new
                 {
                     Professional_ServiceId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     ServiceId = table.Column<int>(nullable: true),
                     Service_cost = table.Column<float>(nullable: true),
                     ProfessionalId = table.Column<int>(nullable: true)
@@ -293,11 +293,11 @@ namespace HomeHealth.Migrations
                 columns: table => new
                 {
                     ChargeId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     appointment_id = table.Column<int>(nullable: false),
                     service_id = table.Column<int>(nullable: false),
                     Service_Cost = table.Column<int>(nullable: false),
-                    ServicesServiceId = table.Column<int>(nullable: true)
+                    ServiceId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -315,8 +315,8 @@ namespace HomeHealth.Migrations
                         principalColumn: "Professional_ServiceId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_bill_Service_ServicesServiceId",
-                        column: x => x.ServicesServiceId,
+                        name: "FK_bill_Service_ServiceId",
+                        column: x => x.ServiceId,
                         principalTable: "Service",
                         principalColumn: "ServiceId",
                         onDelete: ReferentialAction.Restrict);
@@ -341,8 +341,7 @@ namespace HomeHealth.Migrations
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
-                unique: true,
-                filter: "[NormalizedName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -368,8 +367,7 @@ namespace HomeHealth.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
-                unique: true,
-                filter: "[NormalizedUserName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_bill_appointment_id",
@@ -382,9 +380,9 @@ namespace HomeHealth.Migrations
                 column: "service_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_bill_ServicesServiceId",
+                name: "IX_bill_ServiceId",
                 table: "bill",
-                column: "ServicesServiceId");
+                column: "ServiceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_message1_ProfessionalsId",
@@ -412,9 +410,9 @@ namespace HomeHealth.Migrations
                 column: "ServiceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProfessionalsId_ServicesServiceId",
+                name: "IX_ProfessionalsId_ServiceId",
                 table: "ProfessionalsId",
-                column: "ServicesServiceId");
+                column: "ServiceId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProfessionalsId_user_id",

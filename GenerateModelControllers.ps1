@@ -6,7 +6,7 @@
      'controller ' +
      '-name ' + $_.BaseName + 'Controller ' +
      '-api ' +
-     '-m HomeHealth.Models.' + $_.BaseName + ' ' +
+     '-m HomeHealth.data.tables.' + $_.BaseName + ' ' +
      '-dc HomeHealthDbContext ' +
      '-outDir Controllers ' +
      '-namespace HomeHealth.Controllers'
@@ -15,5 +15,5 @@
      $scaffoldCmd 
 
 	# Excute commands (uncomment this line):
-    # iex $scaffoldCmd
+    iex $scaffoldCmd
 }

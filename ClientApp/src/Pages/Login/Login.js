@@ -38,7 +38,7 @@ export const Login = () => {
 
     switch(name) {
 
-        case 'Email' :
+        case "Email" :
         case "Passowrd" :
          errors[name] =  value.length > 0 ? "" : `must enter value for ${name} field`
           break;
@@ -84,9 +84,9 @@ export const Login = () => {
             variant="primary" 
             type="submit"
             onClick={handleSubmit}>
-            Submit
+            LogIn
           </Button>
-      </Form>
+        </Form>
       </React.Fragment>
   );
 

@@ -14,22 +14,21 @@ export class Home extends Component {
     return (
       <React.Fragment>
         <Row>
-            <Col lg={true}  className="card">
+            <Col lg={true}  className="card margin-top10">
               <Image src={img1} alt="Smiley face" height="auto" width="auto"/> 
             </Col>
-            <Col lg={true} className="card text-box">
+            <Col lg={true} className="card text-box margin-top10">
               Connect with Professionals and get the expert consultation you need at the touch of a button
             </Col>
         </Row>
         <Row>
-          <Col lg={true} className="card text-box">
+          <Col lg={true} className="card text-box margin-top10">
             Find Medical Facilities in your area and create appointments at your own convenience
           </Col>
-          <Col lg={true} className="card">
+          <Col lg={true} className="card margin-top10">
             <Image src={img2} alt="Smiley face" height="auto" width="auto"/> 
           </Col>
         </Row>
-
           <div className="card">Sign up Now!</div>
       </React.Fragment>
     );

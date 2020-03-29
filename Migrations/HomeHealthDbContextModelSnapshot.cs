@@ -3,7 +3,6 @@ using System;
 using HomeHealth.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HomeHealth.Migrations
@@ -15,73 +14,71 @@ namespace HomeHealth.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.3")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "3.1.3");
 
             modelBuilder.Entity("HomeHealth.Identity.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(256)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Gender")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasColumnType("nvarchar(256)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(256);
 
                     b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(256)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(256);
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(256)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(256);
 
                     b.Property<int>("age")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -90,8 +87,7 @@ namespace HomeHealth.Migrations
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+                        .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -101,8 +97,7 @@ namespace HomeHealth.Migrations
                     b.Property<int>("AppointmentId")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("appointment_id")
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime?>("AppDate")
                         .IsRequired()
@@ -112,7 +107,7 @@ namespace HomeHealth.Migrations
                     b.Property<string>("AppReason")
                         .IsRequired()
                         .HasColumnName("app_reason")
-                        .HasColumnType("varchar(max)")
+                        .HasColumnType("TEXT")
                         .IsUnicode(false);
 
                     b.Property<DateTime?>("AppTime")
@@ -123,16 +118,16 @@ namespace HomeHealth.Migrations
                     b.Property<string>("PatientId")
                         .IsRequired()
                         .HasColumnName("patient_id")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ProfessionalId")
                         .IsRequired()
                         .HasColumnName("doctor_id")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("TEXT");
 
                     b.Property<float>("totalcost")
                         .HasColumnName("Total_cost")
-                        .HasColumnType("real");
+                        .HasColumnType("REAL");
 
                     b.HasKey("AppointmentId");
 
@@ -147,26 +142,25 @@ namespace HomeHealth.Migrations
                 {
                     b.Property<int>("ChargeId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("AppointmentId")
                         .IsRequired()
                         .HasColumnName("appointment_id")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("Prof_serviceId")
                         .IsRequired()
                         .HasColumnName("service_id")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
-                    b.Property<int?>("ServicesServiceId")
-                        .HasColumnType("int");
+                    b.Property<int?>("ServiceId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("serviceCost")
                         .IsRequired()
                         .HasColumnName("Service_Cost")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("ChargeId");
 
@@ -174,7 +168,7 @@ namespace HomeHealth.Migrations
 
                     b.HasIndex("Prof_serviceId");
 
-                    b.HasIndex("ServicesServiceId");
+                    b.HasIndex("ServiceId");
 
                     b.ToTable("bill");
                 });
@@ -184,19 +178,18 @@ namespace HomeHealth.Migrations
                     b.Property<int>("Message1Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("message1_id")
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("ProfessionalsId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("RecieverId")
                         .HasColumnName("patient_id")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("SenderId")
                         .HasColumnName("doctor_id")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Message1Id")
                         .HasName("message1_id");
@@ -214,19 +207,18 @@ namespace HomeHealth.Migrations
                 {
                     b.Property<int>("Professional_ServiceId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("ProfessionalId")
                         .HasColumnName("ProfessionalId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.Property<float?>("ServiceCost")
                         .HasColumnName("Service_cost")
-                        .HasColumnType("real");
+                        .HasColumnType("REAL");
 
                     b.Property<int?>("ServiceId")
-                        .HasColumnType("int");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Professional_ServiceId")
                         .HasName("Prof_service_id");
@@ -242,45 +234,44 @@ namespace HomeHealth.Migrations
                 {
                     b.Property<int>("ProfessionalsId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Country")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("DoctorsAddress1")
                         .HasColumnName("doctors_Address1")
-                        .HasColumnType("char(80)")
+                        .HasColumnType("TEXT")
                         .IsFixedLength(true)
                         .HasMaxLength(80)
                         .IsUnicode(false);
 
                     b.Property<string>("DoctorsAddress2")
                         .HasColumnName("doctors_Address2")
-                        .HasColumnType("char(80)")
+                        .HasColumnType("TEXT")
                         .IsFixedLength(true)
                         .HasMaxLength(80)
                         .IsUnicode(false);
 
-                    b.Property<int?>("ServicesServiceId")
-                        .HasColumnType("int");
+                    b.Property<int?>("ServiceId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("state_parish")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("userId")
                         .IsRequired()
                         .HasColumnName("user_id")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("ProfessionalsId")
                         .HasName("pk_Duser_id");
 
-                    b.HasIndex("ServicesServiceId");
+                    b.HasIndex("ServiceId");
 
                     b.HasIndex("userId")
                         .IsUnique();
@@ -288,17 +279,16 @@ namespace HomeHealth.Migrations
                     b.ToTable("ProfessionalsId");
                 });
 
-            modelBuilder.Entity("HomeHealth.data.tables.Services", b =>
+            modelBuilder.Entity("HomeHealth.data.tables.Service", b =>
                 {
                     b.Property<int>("ServiceId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("ServiceName")
                         .IsRequired()
                         .HasColumnName("Service_name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("ServiceId");
 
@@ -308,26 +298,25 @@ namespace HomeHealth.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(256)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(256);
 
                     b.Property<string>("NormalizedName")
-                        .HasColumnType("nvarchar(256)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
+                        .HasName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles");
                 });
@@ -336,18 +325,17 @@ namespace HomeHealth.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("RoleId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -360,18 +348,17 @@ namespace HomeHealth.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -383,17 +370,17 @@ namespace HomeHealth.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -405,10 +392,10 @@ namespace HomeHealth.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("RoleId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -420,16 +407,16 @@ namespace HomeHealth.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Value")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
@@ -469,9 +456,9 @@ namespace HomeHealth.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("HomeHealth.data.tables.Services", null)
+                    b.HasOne("HomeHealth.data.tables.Service", null)
                         .WithMany("Charges")
-                        .HasForeignKey("ServicesServiceId");
+                        .HasForeignKey("ServiceId");
                 });
 
             modelBuilder.Entity("HomeHealth.data.tables.Messages", b =>
@@ -498,7 +485,7 @@ namespace HomeHealth.Migrations
                         .HasForeignKey("ProfessionalId")
                         .HasConstraintName("k_prof_service_Professional");
 
-                    b.HasOne("HomeHealth.data.tables.Services", "Service")
+                    b.HasOne("HomeHealth.data.tables.Service", "Service")
                         .WithMany("prof_services")
                         .HasForeignKey("ServiceId")
                         .HasConstraintName("fk_prof_service__service");
@@ -506,9 +493,9 @@ namespace HomeHealth.Migrations
 
             modelBuilder.Entity("HomeHealth.data.tables.Professionals", b =>
                 {
-                    b.HasOne("HomeHealth.data.tables.Services", null)
+                    b.HasOne("HomeHealth.data.tables.Service", null)
                         .WithMany("Professionals")
-                        .HasForeignKey("ServicesServiceId");
+                        .HasForeignKey("ServiceId");
 
                     b.HasOne("HomeHealth.Identity.ApplicationUser", "user")
                         .WithOne("Professional")

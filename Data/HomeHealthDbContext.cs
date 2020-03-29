@@ -27,7 +27,7 @@ namespace HomeHealth.Data
         public virtual DbSet<Professionals> Professional { get; set; }
         public virtual DbSet<Messages> Message { get; set; }
         public virtual DbSet<Professional_Service> Professional_Service { get; set; }
-        public virtual DbSet<HomeHealth.data.tables.Services> Service { get; set; }
+        public virtual DbSet<Service> Service { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -173,7 +173,7 @@ namespace HomeHealth.Data
 
             });
 
-            modelBuilder.Entity<HomeHealth.data.tables.Services>(entity =>
+            modelBuilder.Entity<HomeHealth.data.tables.Service>(entity =>
             {
 
                 entity.ToTable("Service");

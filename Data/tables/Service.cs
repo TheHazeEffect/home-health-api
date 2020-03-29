@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HomeHealth.data.tables
 {
-    public partial class Services
+    public partial class Service
     {
-        public Services()
+        public Service()
         {
             Professionals = new HashSet<Professionals>();
             Charges = new HashSet<Charges>();
@@ -16,7 +16,7 @@ namespace HomeHealth.data.tables
         public int ServiceId { get; set; }
 
         [Required]
-        public string? ServiceName { get; set; }
+        public string ServiceName { get; set; }
 
         public virtual ICollection<Professionals> Professionals { get; set; }
         public virtual ICollection<Charges> Charges { get; set; }

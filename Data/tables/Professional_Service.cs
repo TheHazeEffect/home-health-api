@@ -15,7 +15,7 @@ namespace HomeHealth.data.tables
         public float? ServiceCost { get; set; }
         public int? ProfessionalId { get; set; }
 
-        public virtual Services Service { get; set; }
+        public virtual Service Service { get; set; }
         public virtual Professionals Professional { get; set; }
         public virtual ICollection<Charges> Charges { get; set; }
     }

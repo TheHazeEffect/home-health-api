@@ -27,10 +27,11 @@ namespace HomeHealth
         {
             var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
             var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+            var dbContext = services.GetRequiredService<HomeHealthDbContext>();
 
             //Seeders
             await SeedRoles.Init(roleManager);
-
+            await SeedServices.Init(dbContext);
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
             {
                
