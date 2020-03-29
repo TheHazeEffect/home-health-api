@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
+using System;
 using Microsoft.IdentityModel.Tokens;
 
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
@@ -36,15 +37,17 @@ namespace HomeHealth
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var contentRoot = Configuration.GetValue<string>(WebHostDefaults.ContentRootKey);
+            var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             services.AddCors();
             services.AddControllersWithViews();
 
-            // if(env.IsDevelopment()){
+            // if (env  == "Development")
+            // {
                 services.AddDbContext<HomeHealthDbContext>(options =>
-                    options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
+                    options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));   
+            // }
 
-            // }else {
+            // else {
             //     services.AddDbContext<HomeHealthDbContext>(options =>
             //         options.UseSqlServer(Configuration.GetConnectionString("HomeHealthdb")));
             // }
@@ -97,9 +100,8 @@ namespace HomeHealth
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, HomeHealthDbContext dbContext)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            dbContext.Database.Migrate();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

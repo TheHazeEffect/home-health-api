@@ -29,6 +29,7 @@ namespace HomeHealth
             var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
             var dbContext = services.GetRequiredService<HomeHealthDbContext>();
 
+            dbContext.Database.Migrate();
             //Seeders
             await SeedRoles.Init(roleManager);
             await SeedServices.Init(dbContext);
