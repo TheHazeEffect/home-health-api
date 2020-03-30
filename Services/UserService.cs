@@ -42,13 +42,18 @@ namespace HomeHealth.Services
             _context = context;
         }
 
-        public async Task<User> AuthenticateAsync(string Email, string password)
+        public async Task<User> AuthenticateAsync(string Email, string Password)
         {
             try {
                 var AppUser = await _userManager.FindByEmailAsync(Email);
 
                 // return null if user not found
                 if (AppUser == null)
+                    return null;
+
+                var result = await _signInManager.CheckPasswordSignInAsync(AppUser,Password,false);
+
+                if(!result.Succeeded)
                     return null;
 
                 var AppUserRoles = await _userManager.GetRolesAsync(AppUser);

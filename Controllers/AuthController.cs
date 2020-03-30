@@ -27,7 +27,7 @@ namespace HomeHealth.Controllers
             var user = await _userService.AuthenticateAsync(Login.Email, Login.Password);
 
             if (user == null)
-                return BadRequest(new { message = "Username or password is incorrect" });
+                return BadRequest(new { message = "Email or password is incorrect" });
 
             return Ok(user);
         }
