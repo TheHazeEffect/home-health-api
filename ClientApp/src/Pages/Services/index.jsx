@@ -4,7 +4,7 @@ import axios from "axios";
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import CardDeck from 'react-bootstrap/CardDeck'
-
+import './Services.css'
 
 
 export const ServicesPage = () => {
@@ -21,6 +21,38 @@ export const ServicesPage = () => {
 
         fetchServices();
     },[])
+
+    const createLayout = (array) => {
+
+        const ArrayLength = array.length-1;
+        var layout = []
+
+        const col =  (x) => < Card className="" key={array[x].ServiceId}>
+            <Card.Img variant="top" src="https://images.pexels.com/photos/3845677/pexels-photo-3845677.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" />
+
+            <Card.Body>
+            <Card.Title>{array[x].serviceName}</Card.Title>
+            
+            </Card.Body>
+            </Card>
+        const Row =  (y) => <CardDeck>
+            {y<=ArrayLength? col(y) : false}        
+            {y+1<=ArrayLength? col(y+1) : false}        
+            {i+2<=ArrayLength? col(y+2) : false}          
+            </CardDeck>
+
+        var i = 0;
+        while(i <= ArrayLength){
+
+            const row = Row(i)
+        
+            i=i+3
+            layout.push(row);
+        }
+
+        return layout;
+
+    }
 
     return(
         <>
@@ -40,24 +72,13 @@ export const ServicesPage = () => {
         <br />
         <br />
         {console.log(services)}
-        <CardDeck>
-        { [...Array(3)].map( (s,i) => (
+        {
         
-        
-           < Card key={i}>
-            <Card.Img variant="top" src="https://images.pexels.com/photos/3845677/pexels-photo-3845677.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940" />
-
-            <Card.Body>
-              <Card.Title>Dentist</Card.Title>
-              
-            </Card.Body>
-            </Card>
             
-            
+         createLayout(services)
           
-        ))}
+        }
   
-    </CardDeck>
         </>
     )
 }
