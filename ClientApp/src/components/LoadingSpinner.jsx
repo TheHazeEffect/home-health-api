@@ -1,6 +1,5 @@
 import React from "react";
 import Spinner from 'react-bootstrap/Spinner'
-
 export const LoadingSpinner = ({
 Show,
 SetShow
@@ -9,7 +8,7 @@ SetShow
         <>
             {
                 Show === true ? 
-                    <Spinner animation="border" variant="primary" />
+                    <Spinner className="spinner" animation="border" variant="primary" />
                 :
                     false
             }

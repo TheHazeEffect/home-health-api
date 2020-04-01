@@ -1,12 +1,20 @@
 import React ,{useState, useEffect} from 'react'
 import {RegisterForm} from "./RegisterForm";
 import { AlertComp } from "../../components/AlertComp";
-import {axios} from 'axios'
+import axios from 'axios'
 
 
 
 export const RegisterPage = () => {
-    
+
+    const AlertFactory = (Show,Variant,Heading,Content) => (
+        {
+            Variant: Variant,
+            Heading: Heading,
+            Content: Content
+        }
+
+    )  
    
 
     const initialRegisterState = {
@@ -16,9 +24,20 @@ export const RegisterPage = () => {
         Password : "",
         RoleName : ""
     }
+
+    const initialAlertObj = {
+        Variant : "",
+        Heading : "",
+        content : ""
+    }
     
     const [RegisterObj,setRegisterObj] = useState({...initialRegisterState })
     const [errorObj,SetErrorObj] = useState({...initialRegisterState})
+
+    const [AlertProps,setAlertProps] = useState({...initialAlertObj})
+    const [ShowAlert,setShowAlert] = useState(false)
+    const [Loading,setLoading] = useState(false)
+
     
     
     const handleChange = (event) => {
@@ -48,12 +67,33 @@ export const RegisterPage = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         
-        var result = await axios
-        .post("/auth/signup",RegisterObj)
+        try {
+
+
+            setLoading(true)            
+            var result = await axios
+            .post("/auth/signup",RegisterObj)
+            setLoading(false)
 
         
-        console.log(result)
+            const AlertObj = result.status === 200 ?
+            AlertFactory(true,"sucess","Login Success","you Have Sucessfully LoggedIn") 
+            :
+            AlertFactory(true,"danger","Login Attempt Failed","Incorrect User Credentials")
+            
+            setShowAlert(true)
+            setAlertProps(AlertObj)
+            
+            console.log(result)
+        }catch {
 
+            setLoading(false)
+            const AlertObj = AlertFactory(true,"danger","Login Attempt Failed","Incorrect User Credentials")
+            
+            setShowAlert(true)
+            setAlertProps(AlertObj)            
+        }
+        
     }
     
     useEffect( () => {
@@ -64,8 +104,15 @@ export const RegisterPage = () => {
 
     return(
         <>
+
+            <AlertComp
+                {...AlertProps}
+                Show={ShowAlert}
+                setShow={setShowAlert}
+            />     
            
             <RegisterForm
+                Show={Loading}
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
             />

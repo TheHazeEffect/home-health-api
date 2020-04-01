@@ -2,7 +2,6 @@ import React, {useState,useEffect} from 'react'
 import { LoginForm } from "./LoginForm";
 import axios from 'axios'
 import { AlertComp } from "../../components/AlertComp";
-import { LoadingSpinner } from "../../components/LoadingSpinner";
 
 
 
@@ -99,15 +98,13 @@ export const LoginPage = () => {
   
     return(
         <>
-            <LoadingSpinner 
-                Show={Loading}
-            />
             <AlertComp
                 {...AlertProps}
                 Show={ShowAlert}
                 setShow={setShowAlert}
             />     
                 <LoginForm
+                Show={Loading}
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
                 />

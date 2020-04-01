@@ -3,17 +3,23 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import {FormInput} from '../../components/Forms/FormInput'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
+import Card from 'react-bootstrap/Card'
+import { LoadingSpinner } from "../../components/LoadingSpinner";
+
+
 import './Register.css'
 
 
 export const RegisterForm = ({
+  Show,
   handleChange,
   handleSubmit
 }) => {
   // static displayName = Register.name;
     return (
       <React.Fragment>
-        <h1>Register</h1>
+        <Card className="loginform">
+        <h1>Sign Up</h1>
         <Form>
           
           <Form.Group controlId="formBasic">
@@ -80,14 +86,28 @@ export const RegisterForm = ({
           </ButtonGroup>
           <br />
           <br />
-
-          <Button 
-            variant="primary" 
-            type="submit"
-            onClick={handleSubmit}>
-            Register
-          </Button>
+          {
+                  Show === true ?
+                  <Button 
+                    variant="primary" 
+                    type="submit"
+                    onClick={ (e)=> e.preventDefault()}
+                          >
+                      <LoadingSpinner 
+                        Show={Show}
+                      />
+                    </Button>
+                  :
+                  <Button 
+                    variant="primary" 
+                    type="submit"
+                    onClick={handleSubmit}>
+                      Sign Up
+                  </Button>
+          }
+          
         </Form>
+      </Card>
       </React.Fragment>
     );
 }
