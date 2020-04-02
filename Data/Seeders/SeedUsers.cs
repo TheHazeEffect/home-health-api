@@ -127,6 +127,22 @@ namespace HomeHealth.Data.Seeders
 
 
             
+            //removing duplicates
+
+            // var profserv = await context.Professional_Service.ToListAsync();
+
+                
+            // foreach (var service in serviceList)
+            // {
+            //         foreach (var prof in profserv)
+            //         {
+
+            //             prof.ser
+                            
+                            
+                        
+            //         }
+            // }
                 
 
                 // .RuleFor( prof => prof.latitute,(faker) => faker.Address.Latitude;
