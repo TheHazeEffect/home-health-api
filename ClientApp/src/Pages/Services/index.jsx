@@ -4,19 +4,32 @@ import axios from "axios";
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import CardDeck from 'react-bootstrap/CardDeck'
+import { LoadingSpinner } from "../../components/LoadingSpinner";
+
 import './Services.css'
 
 
 export const ServicesPage = () => {
 
     const [services,setServices] = useState([])
+    const [loading, setLoading] = useState(false)
     useEffect (() => {
 
-        const fetchServices = async () => {
-            var result = await axios.get("/api/service")
 
-            setServices(result.data)
-            console.log(result.data)
+        const fetchServices = async () => {
+            setLoading(true);
+
+            try {
+
+                var result = await axios.get("/api/service")
+                
+                setServices(result.data)
+                console.log(result.data)
+
+            }catch(error){
+                console.log(error)
+            }
+            setLoading(false)
         }
 
         fetchServices();
@@ -59,9 +72,8 @@ export const ServicesPage = () => {
         <Row>
             <Col>
             <Card className="text-center">
-                <Card.Header>Services</Card.Header>
                 <Card.Body>
-                    <Card.Title>Special title treatment</Card.Title>
+                    <Card.Title>Services</Card.Title>
                     <Card.Text>
                         Search through our array of medical professionals by the serivces the offer
                     </Card.Text>
@@ -75,7 +87,11 @@ export const ServicesPage = () => {
         {
         
             
-         createLayout(services)
+          loading === true ? 
+            <div className="centerloader">
+                <LoadingSpinner Show={loading} /> <span>Loading . . .</span>
+            </div>
+            : createLayout(services)
           
         }
   
