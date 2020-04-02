@@ -66,7 +66,6 @@ namespace HomeHealth.Data.Seeders
                 }
 
             }
-            var serviceList = await context.Service.ToListAsync();
             var roleList = await roleManager.Roles.ToListAsync();
 
             var professionalRules = new Faker<Professionals>()
@@ -90,13 +89,40 @@ namespace HomeHealth.Data.Seeders
             foreach (var professional in Professionals)
             {
                 professional.user = createdUsers.ElementAt(count);
-                Console.WriteLine("COUNT IS ------------------" + count);
+                
                 count++;
                 
             }
 
             await context.Professional.AddRangeAsync( Professionals);
+
+
+            var serviceList = await context.Service.ToListAsync();
             
+            var prof_serviceRules = new Faker<Professional_Service>()
+                .Rules((f,ps) =>
+                {
+                    ps.ServiceCost = f.Random.Float(2000,4000);
+                    ps.Service = serviceList.ElementAt(f.Random.Int(0,11));
+
+                });
+
+
+            var prof_services = prof_serviceRules.Generate(90);
+
+            count = 0;
+            foreach (var pf in prof_services)
+            {
+                pf.Professional = Professionals.ElementAt(count);
+                count++;
+                if(count==30){
+                    count = 0;
+                }
+            }
+
+            await context.Professional_Service.AddRangeAsync(prof_services);
+            
+
             await context.SaveChangesAsync();
 
 
@@ -104,15 +130,7 @@ namespace HomeHealth.Data.Seeders
                 
 
                 // .RuleFor( prof => prof.latitute,(faker) => faker.Address.Latitude;
-                // .RuleFor( prof => prof.Longitute,(faker) => faker.Address.Longitude;
-
-
-            
-
-
-                
-                
-                
+                // .RuleFor( prof => prof.Longitute,(faker) => faker.Address.Longitude               
 
             
         }
