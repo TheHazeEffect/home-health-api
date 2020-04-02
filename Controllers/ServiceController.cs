@@ -28,6 +28,15 @@ namespace HomeHealth.Controllers
             return await _context.Service.ToListAsync();
         }
 
+        [HttpGet("{ServiceId}/Professionals")]
+        public async Task<ActionResult<IEnumerable<Service>>> getProfessionalsForService(int ServiceId){
+
+            return await _context.Service
+                .Where(S => S.ServiceId == ServiceId)
+                .Include("Professionals")
+                .ToListAsync();
+        }
+
         // GET: api/Services/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Service>> GetServices(int id)

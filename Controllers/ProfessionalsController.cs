@@ -25,7 +25,9 @@ namespace HomeHealth.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Professionals>>> GetProfessional()
         {
-            return await _context.Professional.ToListAsync();
+            return await _context.Professional
+                .Include("user")
+                .ToListAsync();
         }
 
         // GET: api/Professionals/5

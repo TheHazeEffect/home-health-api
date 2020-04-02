@@ -18,6 +18,7 @@ export default class App extends Component {
         <Route path='/Login' component={LoginPage} />
         <Route path='/Register' component={RegisterPage} />
         <Route path='/Services' component={ServicesPage} />
+        <Route path='/Services/:id' component={ServicesPage} />
       </Layout>
     );
   }

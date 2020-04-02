@@ -31,8 +31,10 @@ namespace HomeHealth
 
             dbContext.Database.Migrate();
             //Seeders
+
             await SeedRoles.Init(roleManager);
             await SeedServices.Init(dbContext);
+            await SeedUsers.Init(roleManager,dbContext,userManager);
             if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
             {
                

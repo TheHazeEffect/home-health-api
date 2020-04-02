@@ -126,6 +126,8 @@ namespace HomeHealth.Data
 
             });
 
+            
+
             modelBuilder.Entity<Messages>(entity =>
             {
                 entity.ToTable("message1");
