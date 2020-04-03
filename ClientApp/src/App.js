@@ -6,6 +6,7 @@ import { RegisterPage } from './Pages/Register';
 import { LoginPage } from './Pages/Login/';
 import { ServicesPage } from './Pages/Services';
 import { ProfForService } from './Pages/ProfForService';
+import { Professional } from './Pages/Professional';
 
 import './custom.css'
 
@@ -24,6 +25,7 @@ export default class App extends Component {
         <Route path='/Login' component={LoginPage} />
         <Route path='/Register' component={RegisterPage} />
         <Route exact path='/Services' component={ServicesPage} />
+        <Route exact path='/Professional/:id' component={Professional} />
         <Route exact path='/Services/:id/professionals' component={ProfForService} />
       </Layout>
     );

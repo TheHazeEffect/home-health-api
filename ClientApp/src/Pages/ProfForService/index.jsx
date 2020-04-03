@@ -62,13 +62,15 @@ export const ProfForService = ({match}) => {
         const col =  (x) => <Card className="" key={array[x].professionalsId}>
             
             <Card.Title>{`${array[x].user.firstName} ${array[x].user.lastName}`}</Card.Title>
-            <Card.Img variant="top" src={returnImgForGender(array[x].user.gender)} />
+            <Link to={`/Professional/${array[x].professionalsId}/`} >
+                <Card.Img variant="top" src={returnImgForGender(array[x].user.gender)} />
+            </Link>
 
             <Card.Body>
     <Card.Text>{`${array[x].city} ${array[x].state_parish} ${array[x].country}`}</Card.Text>
             </Card.Body>
             </Card>
-        const Row =  (y,i) => <React.Fragment key={new Date().getTime().toString() + i}><CardDeck>
+        const Row =  (y) => <React.Fragment key={`${new Date().getTime()} ${y}`}><CardDeck>
             {y<=ArrayLength? col(y) : false}        
             {y+1<=ArrayLength? col(y+1) : false}        
             {y+2<=ArrayLength? col(y+2) : false}          
@@ -82,7 +84,7 @@ export const ProfForService = ({match}) => {
 
             const row = Row(i)
         
-            layout.push(row,i);
+            layout.push(row);
             i=i+3
         }
 

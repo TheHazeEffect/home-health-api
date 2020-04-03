@@ -42,7 +42,7 @@ export const ServicesPage = () => {
         const ArrayLength = array.length-1;
         var layout = []
 
-        const col =  (x) => <Card className="" key={array[x].serviceId}>
+        const col =  (x) => (<Card className="" key={array[x].serviceId}>
 
                 <Link to={`services/${array[x].serviceId}/Professionals`} >
 
@@ -53,23 +53,24 @@ export const ServicesPage = () => {
                 <Card.Title>{array[x].serviceName}</Card.Title>
                 
                 </Card.Body>
-            </Card>
-        const Row =  (y,i) => <React.Fragment key={new Date().getTime().toString() + i}>
-                <CardDeck> 
-                {y<=ArrayLength? col(y) : false}        
-                {y+1<=ArrayLength? col(y+1) : false}        
-                {y+2<=ArrayLength? col(y+2) : false}    
-                </CardDeck>
+            </Card>)
+        const Row =  (y) => (<React.Fragment key={`${new Date().getTime()} ${y}`}>
+                
+                {<CardDeck> 
+                { y   <= ArrayLength   ? col(y)   : false }         
+                { y+1 <= ArrayLength   ? col(y+1) : false }        
+                { y+2 <= ArrayLength   ? col(y+2) : false }   
+                </CardDeck>}
                 <br/>
                 <br/>
-                </React.Fragment>    
+        </React.Fragment> )   
 
         var i = 0;
         while(i <= ArrayLength){
 
             const row = Row(i)
         
-            layout.push(row,i);
+            layout.push(row);
             i=i+3
         }
 

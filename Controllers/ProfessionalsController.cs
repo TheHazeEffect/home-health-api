@@ -43,6 +43,21 @@ namespace HomeHealth.Controllers
 
             return professionals;
         }
+        [HttpGet("{id}/details")]
+        public async Task<ActionResult<Professionals>> GetProfessionalsDetails(int id)
+        {
+            var professionals = await _context.Professional
+                .Include("Prof_services.Service")
+                .Include("user")
+                .FirstOrDefaultAsync( p => p.ProfessionalsId == id);
+
+            if (professionals == null)
+            {
+                return NotFound();
+            }
+
+            return professionals;
+        }
 
         // PUT: api/Professionals/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
