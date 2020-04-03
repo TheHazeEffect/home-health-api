@@ -42,6 +42,7 @@ namespace HomeHealth.Data.Seeders
                 : 
                     Bogus.DataSets.Name.Gender.Male))
                 .RuleFor(user => user.age, (faker) => faker.Random.Int(30,50))
+                .RuleFor(user => user.PhoneNumber, (faker) => faker.Phone.PhoneNumber())
                 .RuleFor(user => user.Email, (faker,user) => faker.Internet.Email(user.FirstName,user.LastName))
                 .RuleFor(user => user.UserName, (faker,user) => faker.Internet.Email(user.FirstName,user.LastName));
 

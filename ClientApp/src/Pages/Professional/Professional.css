@@ -1,0 +1,13 @@
+.prof-icon{
+    width: 25vw;
+    margin-top: 7.5%;
+}
+
+.prof-col {
+    min-height: 50vh;
+}
+
+.prof-details {
+    display: inline;
+    text-align: left;
+}

@@ -59,25 +59,27 @@ export const ProfForService = ({match}) => {
         const ArrayLength = array.length-1;
         var layout = []
 
-        const col =  (x) => <Card className="" key={array[x].professionalsId}>
-            
-            <Card.Title>{`${array[x].user.firstName} ${array[x].user.lastName}`}</Card.Title>
-            <Link to={`/Professional/${array[x].professionalsId}/`} >
-                <Card.Img variant="top" src={returnImgForGender(array[x].user.gender)} />
-            </Link>
+        const col =  (x) =><Col>
+                <Card className="" key={array[x].professionalsId}>
+                    <Card.Header>{`${array[x].user.firstName} ${array[x].user.lastName}`}</Card.Header>
+                    <Link to={`/Professional/${array[x].professionalsId}/`} >
+                        <Card.Img variant="top" src={returnImgForGender(array[x].user.gender)} />
+                    </Link>
 
-            <Card.Body>
-    <Card.Text>{`${array[x].city} ${array[x].state_parish} ${array[x].country}`}</Card.Text>
-            </Card.Body>
-            </Card>
-        const Row =  (y) => <React.Fragment key={`${new Date().getTime()} ${y}`}><CardDeck>
+                    <Card.Body>
+            <           Card.Text>{`${array[x].city} ${array[x].state_parish} ${array[x].country}`}</Card.Text>
+                    </Card.Body>
+                </Card>
+            </Col>
+        const Row =  (y) => <React.Fragment key={y}><CardDeck >
+
             {y<=ArrayLength? col(y) : false}        
             {y+1<=ArrayLength? col(y+1) : false}        
             {y+2<=ArrayLength? col(y+2) : false}          
             </CardDeck>
             <br/>
             <br/>
-            </React.Fragment>
+        </React.Fragment>
 
         var i = 0;
         while(i <= ArrayLength){
