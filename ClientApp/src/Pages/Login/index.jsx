@@ -58,8 +58,8 @@ export const LoginPage = ({LoginUser}) => {
             const AlertObj = result.status === 200 
             ?
             () =>{
-            const {email,token,roleName} = result.data
-            LoginUser(email,roleName,token);
+            const {email,token,roleName,firstName} = result.data
+            LoginUser(email,firstName,roleName,token);
             return AlertFactory(true,"sucess","Login Success","you Have Sucessfully LoggedIn") 
             }
             :

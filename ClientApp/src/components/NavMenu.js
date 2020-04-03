@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { LogoutUser } from "../Redux/Actions/actions";
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
+import NavDropdown from 'react-bootstrap/NavDropdown'
+import Button from 'react-bootstrap/Button'
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
 
@@ -43,12 +45,23 @@ class NavMenu extends Component {
                   <NavLink tag={Link} className="text-dark" to="/Services">Services</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/Login">
-                    {user.email === null ?  "Login"  : user.email}                    
-                  </NavLink>
+                  {user.firstName === null ? 
+                      <NavLink tag={Link} className="text-dark" to="/Login">Login </NavLink>
+
+                    : 
+                      <NavDropdown title={`Hi ${user.firstName } =)`} id="nav-dropdown">
+                        <NavDropdown.Item eventKey="4.1">Settings</NavDropdown.Item>
+                        <NavDropdown.Divider />
+                        <NavDropdown.Item eventKey="4.2">Log Out</NavDropdown.Item>
+                      </NavDropdown>
+   
+                   }     
+          
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/Register">Register</NavLink>
+                <Button variant="primary">
+                  Sign up
+                </Button>
                 </NavItem>
               </ul>
             </Collapse>

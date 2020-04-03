@@ -2,6 +2,7 @@ import { LOGIN,LOGOUT } from '../Actions/actions';
 
 const initialState = {
   user :{
+        firstName: null,
         email: null,
         token: null,
         roleName: null
@@ -13,6 +14,7 @@ function userReducer(user = initialState, action) {
     case LOGIN:
       return {
           user : {
+                firstName: action.firstName,
                 email: action.email,
                 token: action.token,
                 roleName: action.roleName
@@ -22,6 +24,7 @@ function userReducer(user = initialState, action) {
     case LOGOUT:
         return {
             user: {
+                firstName:null,
                 email : null,
                 token: null,
                 roleName : null

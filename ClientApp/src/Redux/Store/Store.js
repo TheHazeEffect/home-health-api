@@ -4,7 +4,8 @@ import rootReducer from '../Reducers/reducers';
 
 
 const initialState = {
-   user : { 
+   user : {
+        firstName:null,
         email: null,
         token: null,
         roleName: null}
