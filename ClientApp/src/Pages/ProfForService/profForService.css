@@ -1,0 +1,10 @@
+.servicecard {
+    width: 20vw;
+    height: 20vh;
+}
+
+.centerloader{
+    padding-top: 5%;
+    display: flex;
+    justify-content: center;
+}

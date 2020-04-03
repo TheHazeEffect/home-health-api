@@ -28,17 +28,7 @@ namespace HomeHealth.Controllers
             return await _context.Service.ToListAsync();
         }
 
-        [HttpGet("{ServiceId}/Professionals")]
-        public async Task<ActionResult<IEnumerable<Professionals>>> getProfessionalsForService(int ServiceId){
-
-            return await _context.Professional_Service
-                .Include("Professional.user")
-                .Where( pf => pf.ServiceId == ServiceId)
-                .Select( ps => ps.Professional)
-                .ToListAsync();
-                
-        }
-
+        
         // GET: api/Services/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Service>> GetServices(int id)
@@ -53,6 +43,16 @@ namespace HomeHealth.Controllers
             return services;
         }
 
+        [HttpGet("{ServiceId}/Professionals")]
+        public async Task<ActionResult<IEnumerable<Professionals>>> getProfessionalsForService(int ServiceId){
+
+            return await _context.Professional_Service
+                .Include("Professional.user")
+                .Where( pf => pf.ServiceId == ServiceId)
+                .Select( ps => ps.Professional)
+                .ToListAsync();
+                
+        }
         // PUT: api/Services/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
