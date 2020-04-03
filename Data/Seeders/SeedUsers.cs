@@ -46,7 +46,11 @@ namespace HomeHealth.Data.Seeders
                 .RuleFor(user => user.Email, (faker,user) => faker.Internet.Email(user.FirstName,user.LastName))
                 .RuleFor(user => user.UserName, (faker,user) => faker.Internet.Email(user.FirstName,user.LastName));
 
-            var users = UserRules.Generate(GeneratedUsers);
+            var users = UserRules.Generate(GeneratedUsers-1);
+
+            var myUser = userFactory("Troy","Anderson","Male",22);
+
+            users.Add(myUser);
 
             foreach (var user in users)
             {
@@ -158,8 +162,8 @@ namespace HomeHealth.Data.Seeders
                 LastName = lastname,
                 Gender = Gender,
                 age = Age,
-                Email = firstname+lastname+"@gmail.com",
-                UserName = firstname+lastname+"@gmail.com"
+                Email = firstname+lastname+".d@gmail.com",
+                UserName = firstname+lastname+".d@gmail.com"
             };
         }
     }

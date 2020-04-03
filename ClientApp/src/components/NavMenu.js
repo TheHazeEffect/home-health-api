@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { LogoutUser } from "../Redux/Actions/actions";
 import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
 
-export class NavMenu extends Component {
+class NavMenu extends Component {
   static displayName = NavMenu.name;
 
   constructor (props) {
@@ -22,6 +24,10 @@ export class NavMenu extends Component {
   }
 
   render () {
+
+    const user = this.props.user
+    console.log(user)
+    console.log("--------------------------")
     return (
       <header>
         <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" light>
@@ -37,7 +43,9 @@ export class NavMenu extends Component {
                   <NavLink tag={Link} className="text-dark" to="/Services">Services</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/Login">Login</NavLink>
+                  <NavLink tag={Link} className="text-dark" to="/Login">
+                    {user.email === null ?  "Login"  : user.email}                    
+                  </NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink tag={Link} className="text-dark" to="/Register">Register</NavLink>
@@ -50,3 +58,15 @@ export class NavMenu extends Component {
     );
   }
 }
+
+const mapStateToprops = state => {
+  return {
+    user : state.user
+  }
+};
+
+const mapDispatchToProps = {
+  LogoutUser:LogoutUser
+}
+
+export default connect(mapStateToprops,mapDispatchToProps)(NavMenu)

@@ -7,6 +7,10 @@ import { LoginPage } from './Pages/Login/';
 import { ServicesPage } from './Pages/Services';
 import { ProfForService } from './Pages/ProfForService';
 import { Professional } from './Pages/Professional';
+import { connect } from 'react-redux';
+import { LoginUser } from './Redux/Actions/actions';
+
+
 
 import './custom.css'
 
@@ -18,11 +22,15 @@ export default class App extends Component {
   render () {
 
 
+    const mapDispatchToProps = {
+      LoginUser:LoginUser
+    }
+
 
     return (
       <Layout>
         <Route exact path='/' component={Home} />
-        <Route path='/Login' component={LoginPage} />
+        <Route path='/Login' component={connect(null,mapDispatchToProps)(LoginPage)} />
         <Route path='/Register' component={RegisterPage} />
         <Route exact path='/Services' component={ServicesPage} />
         <Route exact path='/Professional/:id' component={Professional} />

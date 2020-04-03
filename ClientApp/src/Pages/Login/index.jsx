@@ -6,7 +6,7 @@ import { AlertComp } from "../../components/AlertComp";
 
 
 
-export const LoginPage = () => {
+export const LoginPage = ({LoginUser}) => {
     // static displayName = Login.name;
 
     const AlertFactory = (Show,Variant,Heading,Content) => (
@@ -53,9 +53,15 @@ export const LoginPage = () => {
             .post("/auth/login",LoginObj)
             setLoading(false)
             
+
             
-            const AlertObj = result.status === 200 ?
-            AlertFactory(true,"sucess","Login Success","you Have Sucessfully LoggedIn") 
+            const AlertObj = result.status === 200 
+            ?
+            () =>{
+            const {email,token,roleName} = result.data
+            LoginUser(email,roleName,token);
+            return AlertFactory(true,"sucess","Login Success","you Have Sucessfully LoggedIn") 
+            }
             :
             AlertFactory(true,"danger","Login Attempt Failed","Incorrect User Credentials")
             
