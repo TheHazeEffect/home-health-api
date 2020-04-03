@@ -1,6 +1,6 @@
 import React, {useEffect,useState} from "react"
 import Card from 'react-bootstrap/Card'
-
+import { Link } from 'react-router-dom';
 import axios from "axios";
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -42,7 +42,7 @@ export const ProfForService = ({match}) => {
         }
 
         fetchData();
-    },[])
+    },[match.params.id])
 
     const returnImgForGender = (string) => {
 
@@ -59,27 +59,31 @@ export const ProfForService = ({match}) => {
         const ArrayLength = array.length-1;
         var layout = []
 
-        const col =  (x) => < Card className="" key={array[x].professionalsId}>
+        const col =  (x) => <Card className="" key={array[x].professionalsId}>
+            
+            <Card.Title>{`${array[x].user.firstName} ${array[x].user.lastName}`}</Card.Title>
             <Card.Img variant="top" src={returnImgForGender(array[x].user.gender)} />
 
             <Card.Body>
-            <Card.Title>{`${array[x].user.firstName} ${array[x].user.lastName}`}</Card.Title>
     <Card.Text>{`${array[x].city} ${array[x].state_parish} ${array[x].country}`}</Card.Text>
             </Card.Body>
             </Card>
-        const Row =  (y) => <CardDeck>
+        const Row =  (y,i) => <React.Fragment key={new Date().getTime().toString() + i}><CardDeck>
             {y<=ArrayLength? col(y) : false}        
             {y+1<=ArrayLength? col(y+1) : false}        
-            {i+2<=ArrayLength? col(y+2) : false}          
+            {y+2<=ArrayLength? col(y+2) : false}          
             </CardDeck>
+            <br/>
+            <br/>
+            </React.Fragment>
 
         var i = 0;
         while(i <= ArrayLength){
 
             const row = Row(i)
         
+            layout.push(row,i);
             i=i+3
-            layout.push(row);
         }
 
         return layout;
@@ -92,9 +96,14 @@ export const ProfForService = ({match}) => {
             <Col>
             <Card className="text-center">
                 <Card.Body>
-                    <Card.Title>{Service.serviceName}</Card.Title>
+                <Card.Title>
+                    <Link to='/services'>
+                        <i className="fas fa-arrow-circle-left"></i> {' '}
+                    </Link>
+                    {Service.serviceName}
+                </Card.Title>
                     <Card.Text>
-                        Here's a List the leading {Service.serviceName} in the industry
+                        leading professionals in {Service.serviceName}
                     </Card.Text>
                 </Card.Body>
             </Card>
