@@ -1,6 +1,5 @@
-import React, {useState,useEffect} from 'react'
+import React, {useState} from 'react'
 import axios from 'axios'
-import { LoadingSpinner } from "../components/LoadingSpinner";
 import { AlertComp } from "../components/AlertComp";
 
 
@@ -90,7 +89,7 @@ otherprops
 
     return (
         <Component 
-           { ...otherprops}
+            {...otherprops}
             Loading={Loading}
             handleChange={handleChange}
             handleSubmit={handleSubmit}

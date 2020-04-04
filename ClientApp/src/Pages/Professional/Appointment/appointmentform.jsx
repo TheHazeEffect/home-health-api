@@ -2,15 +2,18 @@ import React from "react";
 import { FormInput } from "../../../components/Forms/FormInput";
 import { FormTextArea } from "../../../components/Forms/FormTextArea";
 import Form from 'react-bootstrap/Form'
-import Button from 'react-bootstrap/Button'
+
 
 export const Appointmentform = ({
-    handleChange,
+  handleChange,
+  AlertComp
 }) => {
     return (
-       
+  
+          <>
+
+            {AlertComp}
             <Form className="bottompadding">
-            
               <FormInput
                 fieldName="AppDate"
                 FieldLabel = "Date"
@@ -35,8 +38,9 @@ export const Appointmentform = ({
                 onchange={handleChange}
 
               />
+              
             
             </Form>
-       
+       </>
     );
 } 

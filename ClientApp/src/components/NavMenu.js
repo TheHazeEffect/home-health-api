@@ -45,7 +45,7 @@ class NavMenu extends Component {
                   <NavLink tag={Link} className="text-dark" to="/Services">Services</NavLink>
                 </NavItem>
                 <NavItem>
-                  {user.firstName === null ? 
+                  {user.loggedin === false ? 
                       <NavLink tag={Link} className="text-dark" to="/Login">Login </NavLink>
 
                     : 

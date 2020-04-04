@@ -6,7 +6,9 @@ namespace HomeHealth.data.tables
 {
     public partial class Messages
     {
-        public int Message1Id { get; set; }
+        public int MessageId { get; set; }
+
+        public string Content {get;set;}
         public string SenderId { get; set; }
         public string RecieverId { get; set; }
 

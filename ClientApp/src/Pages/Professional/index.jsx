@@ -13,7 +13,7 @@ import { MakeAppointment } from "./Appointment";
 import './Professional.css'
 
 
-export const Professional = ({match}) => {
+export const Professional = ({match,user}) => {
 
     const [Professional,setProfessional] = useState(null)
     const [loading, setLoading] = useState(false)
@@ -59,10 +59,7 @@ export const Professional = ({match}) => {
 
     return(
         <>
-        <MakeAppointment
-            show={ShowAppoinment}
-            setShow={setShowAppointment}
-        />
+        
         {
 
             loading === true  || Professional === null ? 
@@ -71,6 +68,12 @@ export const Professional = ({match}) => {
                 </div> 
             : 
             <>
+            <MakeAppointment
+                profId={Professional.professionalsId}
+                show={ShowAppoinment}
+                setShow={setShowAppointment}
+                patientId={1}
+            />
             <Row>
                 <Col>
                 <Card className="text-center">
@@ -106,7 +109,7 @@ export const Professional = ({match}) => {
                             </Card.Text>
                         </Card.Body>
                         <Card.Footer>
-                            <Button onClick={()=> setShowAppointment(true)}className="prof-button" variant="success">Make Appointment</Button>{' '}
+                            <Button onClick={()=> setShowAppointment(true)}className="prof-button" variant="success" disabled={user.loggedin === false ? true :  false}>Make Appointment</Button>{' '}
                             <Button className="prof-button" variant="info">Send Message</Button>{' '}
                         </Card.Footer>
                     </Card>

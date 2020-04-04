@@ -48,7 +48,7 @@ namespace HomeHealth.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutMessages(int id, Messages messages)
         {
-            if (id != messages.Message1Id)
+            if (id != messages.MessageId)
             {
                 return BadRequest();
             }
@@ -83,7 +83,7 @@ namespace HomeHealth.Controllers
             _context.Message.Add(messages);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetMessages", new { id = messages.Message1Id }, messages);
+            return CreatedAtAction("GetMessages", new { id = messages.MessageId }, messages);
         }
 
         // DELETE: api/Messages/5
@@ -104,7 +104,7 @@ namespace HomeHealth.Controllers
 
         private bool MessagesExists(int id)
         {
-            return _context.Message.Any(e => e.Message1Id == id);
+            return _context.Message.Any(e => e.MessageId == id);
         }
     }
 }

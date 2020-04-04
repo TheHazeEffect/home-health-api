@@ -5,6 +5,7 @@ import rootReducer from '../Reducers/reducers';
 
 const initialState = {
    user : {
+        loggedin : false,
         firstName:null,
         email: null,
         token: null,

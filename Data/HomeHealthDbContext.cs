@@ -130,15 +130,16 @@ namespace HomeHealth.Data
 
             modelBuilder.Entity<Messages>(entity =>
             {
-                entity.ToTable("message1");
+                entity.ToTable("message");
 
-                entity.HasKey(e => e.Message1Id).HasName("message1_id");;
+                entity.HasKey(e => e.MessageId).HasName("message_id");;
 
-                entity.Property(e => e.Message1Id).HasColumnName("message1_id");
+                entity.Property(e => e.MessageId).HasColumnName("message_id");
+                entity.Property(e => e.Content).HasColumnName("Content");
 
-                entity.Property(e => e.SenderId).HasColumnName("doctor_id");
+                entity.Property(e => e.SenderId).HasColumnName("SenderId");
 
-                entity.Property(e => e.RecieverId).HasColumnName("patient_id");
+                entity.Property(e => e.RecieverId).HasColumnName("ReceiverId");
 
                 entity.HasOne(d => d.Sender)
                     .WithMany(p => p.MessagesSent)

@@ -1,35 +1,32 @@
 import React from 'react'
 import Modal from 'react-bootstrap/Modal'
-import { Appointmentform } from "./appointmentform";
+import { MessageForm } from "./MessageForm";
 import { FormHoc } from "../../../HOC/FormHoc";
 
 import Button from 'react-bootstrap/Button'
 import { LoadingSpinner } from "../../../components/LoadingSpinner";
 
 
-export const MakeAppointment = ({
+export const SendMessage = ({
     show,
     setShow,
     profId,
-    patientId,
-    services
+    PatientId
 }) => {
 
-    const endpoint = "/api/appointments"
-    const initialAppointmentObj = {
-        AppDate: "",
-        AppTime: "",
-        AppReason: "",
-        ProfessionalId: profId,
-        totalcost : 5000,
-        PatientId : patientId
-    } 
+    const endpoint = "/api/Messages"
+    const initailMessageObj = {
 
-    const formcomp = ({handleSubmit,Loading}) => {
+        SenderId : PatientId,
+        RecieverId : profId,
+        Content : ""
+    }
 
-      return <>
+    const formComp = ({handleSubmit, Loading}) => {
 
-        <Appointmentform/>
+        return <>
+            
+        <MessageForm/>
         {
           Loading === true ?
           <Button 
@@ -48,7 +45,7 @@ export const MakeAppointment = ({
             variant="primary" 
             type="submit"
             onClick={handleSubmit}>
-              Submit Appointment
+              Submit Message
           </Button>
         }
           <Button 
@@ -56,23 +53,25 @@ export const MakeAppointment = ({
             variant="danger" 
             onClick={() => setShow(false)}>Cancel
         </Button>
-      </>
+
+
+        </>
     }
 
+    
     return (
         <>
            <Modal show={show} >
               <Modal.Dialog>
                 <Modal.Header >
-                    <Modal.Title> Make an Appointment</Modal.Title>
+                    <Modal.Title> Send A Message</Modal.Title>
                 </Modal.Header>
 
                <Modal.Body>
 
               {
 
-                FormHoc(endpoint,formcomp,initialAppointmentObj,
-
+                FormHoc(endpoint,formComp,initailMessageObj
                 )
               }
 
@@ -87,4 +86,8 @@ export const MakeAppointment = ({
         </>
 
     );
+
+    
+
+
 }
