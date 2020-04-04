@@ -2,7 +2,7 @@ import React from 'react';
 import Form from 'react-bootstrap/Form'
 
 
-export const FormInput = ({
+export const FormTextArea = ({
     FieldLabel,
     onchange,
     fieldName,
@@ -14,7 +14,8 @@ export const FormInput = ({
         <>
             <Form.Group >
                 <Form.Label>{FieldLabel}</Form.Label>
-                <Form.Control
+                <Form.Control 
+                    as="textarea" rows="3"
                     name={fieldName}
                     type={fieldType} 
                     placeholder={placeholder}

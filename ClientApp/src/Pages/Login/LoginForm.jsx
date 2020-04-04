@@ -21,7 +21,6 @@ export const LoginForm = ({
           <h1>Log In</h1>
           <Form className="bottompadding">
             
-            <Form.Group controlId="formBasicEmail">
               <FormInput
                 fieldName="Email"
                 FieldLabel = "Email address"
@@ -32,18 +31,14 @@ export const LoginForm = ({
               <Form.Text className="text-muted">
                 We'll never share your email with anyone else.
               </Form.Text>
-            </Form.Group>
 
-            <Form.Group controlId="formBasicPassword">
               <FormInput
                 fieldName="Password"
                 FieldLabel = "Password"
                 placeholder = "password"
                 fieldType = "password"
                 onchange = {handleChange}
-              />
-            </Form.Group>
-            
+              />           
             
             
                 {

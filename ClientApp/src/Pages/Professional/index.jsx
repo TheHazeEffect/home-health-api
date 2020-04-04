@@ -7,8 +7,9 @@ import Tab from 'react-bootstrap/Tab'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Button from 'react-bootstrap/Button'
 import { LoadingSpinner } from "../../components/LoadingSpinner";
-
+import { Appointmentform } from "./appointmentform";
 import './Professional.css'
 
 
@@ -16,6 +17,8 @@ export const Professional = ({match}) => {
 
     const [Professional,setProfessional] = useState(null)
     const [loading, setLoading] = useState(false)
+    const [ShowMessage,setShowMessage] = useState(false)
+    const [ShowAppoinment,setShowAppointment] = useState(false)
 
     
 
@@ -43,6 +46,14 @@ export const Professional = ({match}) => {
     },[match.params.id])
 
 
+    const handleChange = () => {
+
+    }
+
+    const handleSubmit = () => {
+
+    }
+
 
 
     const returnImgForGender = (string) => {
@@ -58,7 +69,14 @@ export const Professional = ({match}) => {
 
     return(
         <>
+        <Appointmentform
+            show={ShowAppoinment}
+            setShow={setShowAppointment}
+            handleChange={handleChange}
+            handleSubmit={handleSubmit}
+        />
         {
+
             loading === true  || Professional === null ? 
                 <div className="centerloader">
                     <LoadingSpinner Show={loading} /> <span>Loading . . .</span>
@@ -99,6 +117,10 @@ export const Professional = ({match}) => {
                                 {`${Professional.city} ${Professional.state_parish} ${Professional.country}`}
                             </Card.Text>
                         </Card.Body>
+                        <Card.Footer>
+                            <Button onClick={()=> setShowAppointment(true)}className="prof-button" variant="success">Make Appointment</Button>{' '}
+                            <Button className="prof-button" variant="info">Send Message</Button>{' '}
+                        </Card.Footer>
                     </Card>
                 </Col>
                 <Col  >
