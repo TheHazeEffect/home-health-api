@@ -1,23 +1,24 @@
 import React, {useState,useEffect} from 'react'
 import axios from 'axios'
-
+import { LoadingSpinner } from "../components/LoadingSpinner";
 import { AlertComp } from "../components/AlertComp";
 
 
 import {  AlertFactory } from "../Factory/Alertfactory";
 
 
-export const FormHoc = ({
+export const FormHoc = (
 endpoint,
 Component,
-initialPayLoadObj
+initialPayLoadObj,
+otherprops
 
-}) => {
+) => {
 
     const initialAlertObj =  AlertFactory("","","")
 
-    const [PayloadObj,setPayloadObj] = useState(...initialPayLoadObj)
-    const [ErrorObj,setErrorObj] = useState(...initialPayLoadObj)
+    const [PayloadObj,setPayloadObj] = useState({...initialPayLoadObj})
+    const [ErrorObj,setErrorObj] = useState({...initialPayLoadObj})
 
     const [AlertProps,setAlertProps] = useState({...initialAlertObj})
     const [ShowAlert,setShowAlert] = useState(false)
@@ -39,7 +40,7 @@ initialPayLoadObj
             AlertFactory("danger","Oops!",result.data.message)
 
 
-            setLoading(true)
+            setLoading(false)
             setShowAlert(true)
             setAlertProps(AlertObj)
 
@@ -49,6 +50,7 @@ initialPayLoadObj
 
         }catch(ex) {
 
+            console.log(ex)
             setLoading(false)
             const AlertObj = AlertFactory("danger","Oops!","Something went wrong")
             
@@ -60,7 +62,7 @@ initialPayLoadObj
     
 
     const handleChange = (event) => {
-        const [name,value] = event.target
+        const {name,value} = event.target
         let errors = ErrorObj
         switch(name) {
 
@@ -73,8 +75,9 @@ initialPayLoadObj
             
         }
 
+        console.table(PayloadObj)
         setErrorObj(errors)
-        setPayloadObj([...PayloadObj, [name]:value])
+        setPayloadObj({...PayloadObj, [name]:value})
 
     }
     
@@ -84,17 +87,15 @@ initialPayLoadObj
                         setShow={setShowAlert}
                     />  
 
-    const CustomLoadingSpinner =  <LoadingSpinner 
-                Show={Loading}
-            />
 
     return (
         <Component 
            { ...otherprops}
+            Loading={Loading}
             handleChange={handleChange}
             handleSubmit={handleSubmit}
+            ErrorObj={ErrorObj}
             AlertComp={CustomAlertComp}
-            LoadingSpinner={CustomLoadingSpinner}
         />
     );
 }

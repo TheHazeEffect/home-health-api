@@ -11,15 +11,19 @@ import './Register.css'
 
 
 export const RegisterForm = ({
-  Show,
   handleChange,
-  handleSubmit
+  handleSubmit,
+  Loading,
+  ErrorObj,
+  AlertComp
 }) => {
   // static displayName = Register.name;
     return (
       <React.Fragment>
         <Card className="loginform">
         <h1>Sign Up</h1>
+
+        {AlertComp}
         <Form>
           
           <Form.Group controlId="formBasic">
@@ -87,14 +91,14 @@ export const RegisterForm = ({
           <br />
           <br />
           {
-                  Show === true ?
+                  Loading === true ?
                   <Button 
                     variant="primary" 
                     type="submit"
                     onClick={ (e)=> e.preventDefault()}
                           >
                       <LoadingSpinner 
-                        Show={Show}
+                        Show={Loading}
                       />
                     </Button>
                   :

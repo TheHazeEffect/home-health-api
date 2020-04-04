@@ -59,9 +59,11 @@ class NavMenu extends Component {
           
                 </NavItem>
                 <NavItem>
-                <Button variant="primary">
-                  Sign up
-                </Button>
+                  <Link to="/Register">
+                    <Button variant="primary">
+                        Sign up
+                    </Button>
+                  </Link>
                 </NavItem>
               </ul>
             </Collapse>
