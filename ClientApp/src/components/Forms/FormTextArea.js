@@ -17,7 +17,7 @@ export const FormTextArea = ({
                 <Form.Control 
                     as="textarea" rows="3"
                     name={fieldName}
-                    type={fieldType} 
+                    // type={fieldType} 
                     placeholder={placeholder}
                     onChange={onchange}
                 />

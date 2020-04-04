@@ -9,7 +9,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import { LoadingSpinner } from "../../components/LoadingSpinner";
-import { Appointmentform } from "./appointmentform";
+import { MakeAppointment } from "./Appointment";
 import './Professional.css'
 
 
@@ -46,16 +46,6 @@ export const Professional = ({match}) => {
     },[match.params.id])
 
 
-    const handleChange = () => {
-
-    }
-
-    const handleSubmit = () => {
-
-    }
-
-
-
     const returnImgForGender = (string) => {
 
         const imgurl = string === "Male" ? 
@@ -69,11 +59,9 @@ export const Professional = ({match}) => {
 
     return(
         <>
-        <Appointmentform
+        <MakeAppointment
             show={ShowAppoinment}
             setShow={setShowAppointment}
-            handleChange={handleChange}
-            handleSubmit={handleSubmit}
         />
         {
 

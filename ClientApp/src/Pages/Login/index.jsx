@@ -3,20 +3,13 @@ import { LoginForm } from "./LoginForm";
 import axios from 'axios'
 import { AlertComp } from "../../components/AlertComp";
 
+import { AlertFactory } from "../../Factory/Alertfactory";
 
 
 
 export const LoginPage = ({LoginUser}) => {
     // static displayName = Login.name;
 
-    const AlertFactory = (Show,Variant,Heading,Content) => (
-        {
-            Variant: Variant,
-            Heading: Heading,
-            Content: Content
-        }
-
-    )
    
 
     const initialLoginObj = {
@@ -24,11 +17,8 @@ export const LoginPage = ({LoginUser}) => {
         Passowrd : ""
     } 
 
-    const initialAlertObj = {
-        Variant : "",
-        Heading : "",
-        content : ""
-    }
+    const initialAlertObj =  AlertFactory("","","")
+
   
     const [LoginObj,setLoginObj] = useState({...initialLoginObj })
     const [errorObj,SetErrorObj] = useState({...initialLoginObj})
@@ -51,20 +41,20 @@ export const LoginPage = ({LoginUser}) => {
             setLoading(true)
             var result = await axios
             .post("/auth/login",LoginObj)
-            setLoading(false)
             
-
+            
             
             const AlertObj = result.status === 200 
             ?
             () =>{
-            const {email,token,roleName,firstName} = result.data
-            LoginUser(email,firstName,roleName,token);
-            return AlertFactory(true,"sucess","Login Success","you Have Sucessfully LoggedIn") 
+                const {email,token,roleName,firstName} = result.data
+                LoginUser(email,firstName,roleName,token);
+                return AlertFactory("sucess","Login Success","you Have Sucessfully LoggedIn") 
             }
             :
-            AlertFactory(true,"danger","Login Attempt Failed","Incorrect User Credentials")
+            AlertFactory("danger","Login Attempt Failed","Incorrect User Credentials")
             
+            setLoading(false)
             setShowAlert(true)
             setAlertProps(AlertObj)
             
@@ -73,7 +63,7 @@ export const LoginPage = ({LoginUser}) => {
 
 
             setLoading(false)
-            const AlertObj = AlertFactory(true,"danger","Login Attempt Failed","Incorrect User Credentials")
+            const AlertObj = AlertFactory("danger","Login Attempt Failed","Incorrect User Credentials")
             
             setShowAlert(true)
             setAlertProps(AlertObj)
