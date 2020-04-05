@@ -1,4 +1,8 @@
 import { LOGIN,LOGOUT } from '../Actions/actions';
+import { loadState, saveState,clearState } from '../Store/SessionStorage';
+
+
+
 
 const initialState = {
   user :{
@@ -14,18 +18,23 @@ const initialState = {
 function userReducer(user = initialState, action) {
   switch(action.type) {
     case LOGIN:
-      return {
-          user : {
-                loggedin: true,
-                id: action.id,
-                firstName: action.firstName,
-                email: action.email,
-                token: action.token,
-                roleName: action.roleName
-            }
-        };      
+
+        const userObj = {
+            user : {
+                  loggedin: true,
+                  id: action.id,
+                  firstName: action.firstName,
+                  email: action.email,
+                  token: action.token,
+                  roleName: action.roleName
+              }
+          };      
+        saveState(userObj)
+        return userObj
       
     case LOGOUT:
+        
+        clearState()
         return {
             user: {
                 id: null,
@@ -38,6 +47,7 @@ function userReducer(user = initialState, action) {
         };
 
     default:
+        window.sessionStorage.setItem('user', null);
       return user;
   };
 }

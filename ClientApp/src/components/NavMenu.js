@@ -28,6 +28,7 @@ class NavMenu extends Component {
   render () {
 
     const user = this.props.user
+    const LogoutUser = this.props.LogoutUser
     console.log(user)
     console.log("--------------------------")
     return (
@@ -52,7 +53,13 @@ class NavMenu extends Component {
                       <NavDropdown title={`Hi ${user.firstName } =)`} id="nav-dropdown">
                         <NavDropdown.Item eventKey="4.1">Settings</NavDropdown.Item>
                         <NavDropdown.Divider />
-                        <NavDropdown.Item eventKey="4.2">Log Out</NavDropdown.Item>
+                        <NavDropdown.Item 
+                          eventKey="4.2"
+                          onClick={ () => LogoutUser()}
+                                                  
+                          >
+                            Log Out
+                        </NavDropdown.Item>
                       </NavDropdown>
    
                    }     

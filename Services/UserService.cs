@@ -78,7 +78,8 @@ namespace HomeHealth.Services
                     Email = AppUser.Email,
                     RoleName = AppUserRoles.ElementAt(0),
                     Token = tokenHandler.WriteToken(token)
-                };      
+                };   
+                  
 
                 return user;
             }catch(Exception ex) {

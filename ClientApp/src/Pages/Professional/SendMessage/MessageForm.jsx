@@ -20,14 +20,13 @@ export const MessageForm = ({
     return (
         <>
              <Modal show={show} onHide={() => setShow(false)}>
+              {AlertComp}
               <Modal.Dialog>
                 <Modal.Header >
                     <Modal.Title> Send A Message</Modal.Title>
                 </Modal.Header>
 
-               <Modal.Body>
-
-                {AlertComp}
+               <Modal.Body>  
                 <Form className="bottompadding">
                   
                   <FormTextArea

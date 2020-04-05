@@ -29,6 +29,26 @@ namespace HomeHealth.Controllers
             if (user == null)
                 return BadRequest(new { message = "Email or password is incorrect" });
 
+            Console.WriteLine("-------------------ID");   
+                Console.WriteLine(user.Id);   
+                Console.WriteLine("-------------------ID"); 
+
+            return Ok(user);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("logout")]
+        public async Task<IActionResult> logout([FromBody]UserLoginDto Login)
+        {
+            var user = await _userService.AuthenticateAsync(Login.Email, Login.Password);
+
+            if (user == null)
+                return BadRequest(new { message = "Email or password is incorrect" });
+
+            Console.WriteLine("-------------------ID");   
+                Console.WriteLine(user.Id);   
+                Console.WriteLine("-------------------ID"); 
+
             return Ok(user);
         }
 

@@ -1,20 +1,13 @@
 
 import { createStore } from 'redux';
 import rootReducer from '../Reducers/reducers';
+import { loadState } from './SessionStorage';
 
 
-const initialState = {
-   user : {
-        loggedin : false,
-        id: null,
-        firstName:null,
-        email: null,
-        token: null,
-        roleName: null}
-}
+const persistedState = loadState();
 
 export default createStore(
     rootReducer,
-    initialState,
+    persistedState,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   );

@@ -7,13 +7,13 @@ export const SendMessage = ({
     show,
     setShow,
     profId,
-    PatientId
+    patientId
 }) => {
 
     const endpoint = "/api/Messages"
     const initailMessageObj = {
 
-        SenderId : PatientId,
+        SenderId : patientId,
         RecieverId : profId,
         Content : ""
     }

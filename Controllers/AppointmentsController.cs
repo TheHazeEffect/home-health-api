@@ -80,10 +80,24 @@ namespace HomeHealth.Controllers
         [HttpPost]
         public async Task<ActionResult<Appointments>> PostAppointments(Appointments appointments)
         {
-            _context.Appointment.Add(appointments);
-            await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAppointments", new { id = appointments.AppointmentId }, appointments);
+            try {
+
+                _context.Appointment.Add(appointments);
+                await _context.SaveChangesAsync();
+
+                return Ok(new { message = "Appointment Scheduled", appointments});
+
+
+
+            }catch(Exception ex) {
+                    Console.WriteLine(ex);
+                    return BadRequest(new { message = "Oop Something went wrong", appointments});
+
+            }
+            
+
+
         }
 
         // DELETE: api/Appointments/5

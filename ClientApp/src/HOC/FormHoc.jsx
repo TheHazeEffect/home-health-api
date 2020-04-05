@@ -37,7 +37,7 @@ otherprops
 
             const AlertObj = result.status === 200 
             ?
-            AlertFactory("sucess","Success!",result.data.message) 
+            AlertFactory("success","Success!",result.data.message) 
             :
             AlertFactory("danger","Oops!",result.data.message)
 
