@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using HomeHealth.Data;
 using HomeHealth.data.tables;
@@ -32,6 +33,12 @@ namespace HomeHealth.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Messages>> GetMessages(int id)
         {
+            // var Token =  await HttpContext.GetTokenAsync("access_token");
+
+            // if(Token == null){
+            //     return Unauthorized();
+            // }
+
             var messages = await _context.Message.FindAsync(id);
 
             if (messages == null)

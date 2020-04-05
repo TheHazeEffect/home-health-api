@@ -30,7 +30,7 @@ class NavMenu extends Component {
     const user = this.props.user
     const LogoutUser = this.props.LogoutUser
     console.log(user)
-    console.log("--------------------------")
+    console.log("--------------------------User State")
     return (
       <header>
         <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" light>
@@ -51,7 +51,11 @@ class NavMenu extends Component {
 
                     : 
                       <NavDropdown title={`Hi ${user.firstName } =)`} id="nav-dropdown">
-                        <NavDropdown.Item eventKey="4.1">Settings</NavDropdown.Item>
+                        <NavDropdown.Item eventKey="4.1">
+                          <NavLink tag={Link} className="text-dark" to={`/profile/${user.id}`}>
+                            Profile
+                          </NavLink>                          
+                        </NavDropdown.Item>
                         <NavDropdown.Divider />
                         <NavDropdown.Item 
                           eventKey="4.2"
