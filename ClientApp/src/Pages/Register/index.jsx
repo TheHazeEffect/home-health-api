@@ -1,4 +1,3 @@
-import React ,{useState, useEffect} from 'react'
 import {RegisterForm} from "./RegisterForm";
 
 import { FormHoc } from "../../HOC/FormHoc";
@@ -26,11 +25,4 @@ export const RegisterPage = () => {
             ,{}
         )    
     );
-
-            {/* <AlertComp
-                {...AlertProps}
-                Show={ShowAlert}
-                setShow={setShowAlert}
-            />      */}       
-    
 }

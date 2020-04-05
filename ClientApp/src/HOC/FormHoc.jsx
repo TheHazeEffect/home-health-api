@@ -29,6 +29,9 @@ otherprops
         try {
             setLoading(true)
 
+            console.log("Payload-------------------")
+            console.log(PayloadObj)
+            console.log("Payload-------------------")
             var result = await axios
                 .post(endpoint,PayloadObj)
 
@@ -43,7 +46,10 @@ otherprops
             setShowAlert(true)
             setAlertProps(AlertObj)
 
+            console.log("Response-------------------")
+
             console.log(result)
+            console.log("Response-------------------")
 
 
 
@@ -90,6 +96,7 @@ otherprops
     return (
         <Component 
             {...otherprops}
+            PayloadObj={PayloadObj}
             Loading={Loading}
             handleChange={handleChange}
             handleSubmit={handleSubmit}

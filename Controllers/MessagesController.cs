@@ -80,10 +80,20 @@ namespace HomeHealth.Controllers
         [HttpPost]
         public async Task<ActionResult<Messages>> PostMessages(Messages messages)
         {
-            _context.Message.Add(messages);
-            await _context.SaveChangesAsync();
+            try {
 
-            return CreatedAtAction("GetMessages", new { id = messages.MessageId }, messages);
+
+                _context.Message.Add(messages);
+                await _context.SaveChangesAsync();
+
+
+                return Ok( new { message = "Message Sent!",messages});
+         
+            }catch(Exception ex) {
+                Console.WriteLine(ex);
+                return BadRequest(new { message = "Something went wrong",messages});
+
+            }
         }
 
         // DELETE: api/Messages/5

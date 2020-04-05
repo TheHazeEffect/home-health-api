@@ -64,7 +64,7 @@ namespace HomeHealth.Services
                 {
                     Subject = new ClaimsIdentity(new Claim[] 
                     {
-                        new Claim(Claims.ID, AppUser.Id.ToString())
+                        new Claim(Claims.ID, AppUser.Id)
                     }),
                     Expires = DateTime.UtcNow.AddDays(7),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -72,6 +72,7 @@ namespace HomeHealth.Services
                 var token = tokenHandler.CreateToken(tokenDescriptor);
 
                 var user = new User {
+                    Id = AppUser.Id,
                     FirstName = AppUser.FirstName,
                     LastName = AppUser.LastName,
                     Email = AppUser.Email,

@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HomeHealth.Migrations
 {
     [DbContext(typeof(HomeHealthDbContext))]
-    [Migration("20200329073526_initial")]
-    partial class initial
+    [Migration("20200404231548_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -177,24 +177,28 @@ namespace HomeHealth.Migrations
 
             modelBuilder.Entity("HomeHealth.data.tables.Messages", b =>
                 {
-                    b.Property<int>("Message1Id")
+                    b.Property<int>("MessageId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("message1_id")
+                        .HasColumnName("message_id")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Content")
+                        .HasColumnName("Content")
+                        .HasColumnType("TEXT");
 
                     b.Property<int?>("ProfessionalsId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("RecieverId")
-                        .HasColumnName("patient_id")
+                        .HasColumnName("ReceiverId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SenderId")
-                        .HasColumnName("doctor_id")
+                        .HasColumnName("SenderId")
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Message1Id")
-                        .HasName("message1_id");
+                    b.HasKey("MessageId")
+                        .HasName("message_id");
 
                     b.HasIndex("ProfessionalsId");
 
@@ -202,7 +206,7 @@ namespace HomeHealth.Migrations
 
                     b.HasIndex("SenderId");
 
-                    b.ToTable("message1");
+                    b.ToTable("message");
                 });
 
             modelBuilder.Entity("HomeHealth.data.tables.Professional_Service", b =>
@@ -239,6 +243,7 @@ namespace HomeHealth.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("City")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Country")
@@ -246,6 +251,7 @@ namespace HomeHealth.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("DoctorsAddress1")
+                        .IsRequired()
                         .HasColumnName("doctors_Address1")
                         .HasColumnType("TEXT")
                         .IsFixedLength(true)
@@ -253,6 +259,7 @@ namespace HomeHealth.Migrations
                         .IsUnicode(false);
 
                     b.Property<string>("DoctorsAddress2")
+                        .IsRequired()
                         .HasColumnName("doctors_Address2")
                         .HasColumnType("TEXT")
                         .IsFixedLength(true)
@@ -263,6 +270,7 @@ namespace HomeHealth.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("state_parish")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("userId")

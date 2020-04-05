@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HomeHealth.Migrations
 {
-    public partial class initial : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -204,11 +204,11 @@ namespace HomeHealth.Migrations
                     ProfessionalsId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     user_id = table.Column<string>(nullable: false),
-                    City = table.Column<string>(nullable: true),
-                    state_parish = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: false),
+                    state_parish = table.Column<string>(nullable: false),
                     Country = table.Column<string>(nullable: false),
-                    doctors_Address1 = table.Column<string>(unicode: false, fixedLength: true, maxLength: 80, nullable: true),
-                    doctors_Address2 = table.Column<string>(unicode: false, fixedLength: true, maxLength: 80, nullable: true),
+                    doctors_Address1 = table.Column<string>(unicode: false, fixedLength: true, maxLength: 80, nullable: false),
+                    doctors_Address2 = table.Column<string>(unicode: false, fixedLength: true, maxLength: 80, nullable: false),
                     ServiceId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -229,33 +229,34 @@ namespace HomeHealth.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "message1",
+                name: "message",
                 columns: table => new
                 {
-                    message1_id = table.Column<int>(nullable: false)
+                    message_id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    doctor_id = table.Column<string>(nullable: true),
-                    patient_id = table.Column<string>(nullable: true),
+                    Content = table.Column<string>(nullable: true),
+                    SenderId = table.Column<string>(nullable: true),
+                    ReceiverId = table.Column<string>(nullable: true),
                     ProfessionalsId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("message1_id", x => x.message1_id);
+                    table.PrimaryKey("message_id", x => x.message_id);
                     table.ForeignKey(
-                        name: "FK_message1_ProfessionalsId_ProfessionalsId",
+                        name: "FK_message_ProfessionalsId_ProfessionalsId",
                         column: x => x.ProfessionalsId,
                         principalTable: "ProfessionalsId",
                         principalColumn: "ProfessionalsId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "fk_messages_recieverUser",
-                        column: x => x.patient_id,
+                        column: x => x.ReceiverId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "fk_Messages_SenderUser",
-                        column: x => x.doctor_id,
+                        column: x => x.SenderId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -385,19 +386,19 @@ namespace HomeHealth.Migrations
                 column: "ServiceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_message1_ProfessionalsId",
-                table: "message1",
+                name: "IX_message_ProfessionalsId",
+                table: "message",
                 column: "ProfessionalsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_message1_patient_id",
-                table: "message1",
-                column: "patient_id");
+                name: "IX_message_ReceiverId",
+                table: "message",
+                column: "ReceiverId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_message1_doctor_id",
-                table: "message1",
-                column: "doctor_id");
+                name: "IX_message_SenderId",
+                table: "message",
+                column: "SenderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Professional_Service_ProfessionalId",
@@ -442,7 +443,7 @@ namespace HomeHealth.Migrations
                 name: "bill");
 
             migrationBuilder.DropTable(
-                name: "message1");
+                name: "message");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

@@ -7,7 +7,8 @@ export const FormTextArea = ({
     onchange,
     fieldName,
     fieldType,
-    placeholder
+    placeholder,
+    value
 }) => {
 
     return (

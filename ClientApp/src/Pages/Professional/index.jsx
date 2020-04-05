@@ -10,6 +10,7 @@ import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import { LoadingSpinner } from "../../components/LoadingSpinner";
 import { MakeAppointment } from "./Appointment";
+import { SendMessage } from "./SendMessage";
 import './Professional.css'
 
 
@@ -68,11 +69,18 @@ export const Professional = ({match,user}) => {
                 </div> 
             : 
             <>
+            <SendMessage 
+                profId={Professional.user.id}
+                show={ShowMessage}
+                setShow={setShowMessage}
+                patientId={user.id}
+            
+            />
             <MakeAppointment
-                profId={Professional.professionalsId}
+                profId={Professional.user.id}
                 show={ShowAppoinment}
                 setShow={setShowAppointment}
-                patientId={1}
+                patientId={user.id}
             />
             <Row>
                 <Col>
@@ -109,8 +117,20 @@ export const Professional = ({match,user}) => {
                             </Card.Text>
                         </Card.Body>
                         <Card.Footer>
-                            <Button onClick={()=> setShowAppointment(true)}className="prof-button" variant="success" disabled={user.loggedin === false ? true :  false}>Make Appointment</Button>{' '}
-                            <Button className="prof-button" variant="info">Send Message</Button>{' '}
+                            <Button 
+                                onClick={()=> setShowAppointment(true)}
+                                className="prof-button" 
+                                variant="success" 
+                                disabled={user.loggedin === false ? true :  false}>
+                                    Make Appointment
+                            </Button>{' '}
+                            <Button
+                                onClick={ () => setShowMessage(true)}
+                                className="prof-button" 
+                                disabled={user.loggedin === false ? true :  false}
+                                variant="info">
+                                    Send Message
+                            </Button>{' '}
                         </Card.Footer>
                     </Card>
                 </Col>
