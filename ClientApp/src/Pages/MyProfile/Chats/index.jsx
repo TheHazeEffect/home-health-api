@@ -5,7 +5,7 @@ import Card from 'react-bootstrap/Card'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Table from 'react-bootstrap/Table'
-
+import Badge from 'react-bootstrap/Badge'
 import { LoadingSpinner } from "../../../components/LoadingSpinner";
 import './Chat.css'
 
@@ -89,7 +89,10 @@ export const Chats = ({user}) => {
                     <Card>
                         <Accordion.Toggle as={"tr"} className="ChatHead"  eventKey={H.id} key={`${H.id} - ${x}`}>
                             <i className="fas fa-user-circle"></i> {" "} 
-                            {`${H.firstName} ${H.lastName} - ${H.conversation.length}`} <br />
+                            {`${H.firstName} ${H.lastName}`} {" "}
+                            <Badge pill variant="success">
+                                {H.conversation.length}
+                            </Badge>{' '}
                         </Accordion.Toggle>
                        {
                            

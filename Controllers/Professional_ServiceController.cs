@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HomeHealth.Data;
 using HomeHealth.data.tables;
+using HomeHealth.Entities;
 
 namespace HomeHealth.Controllers
 {
@@ -40,6 +41,28 @@ namespace HomeHealth.Controllers
             }
 
             return professional_Service;
+        }
+        [HttpGet("profile/{id}")]
+        public async Task<ActionResult<ProfileServicesDto>> GetProfessional_Service(string id)
+        {
+            var services = await _context.Professional_Service
+                .Include("Professional")
+                .Include("Service")
+                .Where( PS => PS.Professional.userId == id )
+                .Select( PS => new ProfileServicesDto{
+                    id = (int)PS.ServiceId,
+                    Name = PS.Service.ServiceName,
+                    Cost = (float)PS.ServiceCost
+
+                })
+                .ToListAsync();
+
+            if (services == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(services);
         }
 
         // PUT: api/Professional_Service/5
