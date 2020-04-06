@@ -1,5 +1,5 @@
 import { LOGIN,LOGOUT } from '../Actions/actions';
-import { loadState, saveState,clearState } from '../Store/SessionStorage';
+import { saveState,clearState } from '../Store/SessionStorage';
 
 
 

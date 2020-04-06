@@ -1,6 +1,5 @@
 
 import React from "react";
-import Tabs from 'react-bootstrap/Tabs'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Tab from 'react-bootstrap/Tab'
@@ -9,7 +8,7 @@ import Nav from 'react-bootstrap/Nav'
 import { Tabitems } from "./Tabitems";
 
 
-export const MyProfile = ({}) => {
+export const MyProfile = () => {
     return (
         <>
             <Tab.Container id="left-tabs-example" defaultActiveKey={Tabitems[0].eventKey}>
@@ -34,7 +33,7 @@ export const MyProfile = ({}) => {
                         {
                             Tabitems.map( (tabitem,i) => (
                                 <Tab.Pane eventKey={tabitem.eventKey} key={i}>
-                                    {tabitem.content}
+                                    <tabitem.content/>
                                 </Tab.Pane>
                             ))
                         }

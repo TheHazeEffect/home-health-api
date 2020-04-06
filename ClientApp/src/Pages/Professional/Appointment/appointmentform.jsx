@@ -3,6 +3,7 @@ import React from "react";
 import Modal from 'react-bootstrap/Modal'
 import { FormInput } from "../../../components/Forms/FormInput";
 import { FormTextArea } from "../../../components/Forms/FormTextArea";
+import { FormCheckbox } from "../../../components/Forms/FormCheckbox";
 import Form from 'react-bootstrap/Form'
 
 import Button from 'react-bootstrap/Button'
@@ -14,49 +15,59 @@ export const Appointmentform = ({
   AlertComp,
   handleChange,
   show,
-  setShow
+  setShow,
+  Services
 }) => {
     return (
   
         <>
           <Modal show={show} onHide={() => setShow(false)} >
-              <Modal.Dialog>
-                <Modal.Header >
-                    <Modal.Title> Make an Appointment</Modal.Title>
-                </Modal.Header>
+            <Modal.Dialog>
+              <Modal.Header >
+                <Modal.Title> Make an Appointment</Modal.Title>
+              </Modal.Header>
 
-               <Modal.Body>
+              <Modal.Body>
+                {AlertComp}
+                <Form className="bottompadding">
 
-          {AlertComp}
-          <Form className="bottompadding">
-            <FormInput
-              fieldName="AppDate"
-              FieldLabel = "Date"
-              placeholder = ""
-              fieldType = "date"
-              onchange = {handleChange}
-            />
-            
+                  <FormInput
+                    fieldName="AppDate"
+                    FieldLabel = "Date"
+                    placeholder = ""
+                    fieldType = "date"
+                    onchange = {handleChange}
+                  />
+    
+                  <FormInput
+                    fieldName="AppTime"
+                    FieldLabel = "Time"
+                    placeholder = ""
+                    fieldType = "time"
+                    onchange = {handleChange}
+                  />
 
-            <FormInput
-              fieldName="AppTime"
-              FieldLabel = "Time"
-              placeholder = ""
-              fieldType = "time"
-              onchange = {handleChange}
-            />
+                  <FormTextArea
+                    fieldName="AppReason"
+                    FieldLabel="Reason"
+                    placeholder = "Reason for making an Appointment"
+                    onchange={handleChange}
+                  />
 
-            <FormTextArea
-              fieldName="AppReason"
-              FieldLabel="Reason"
-              placeholder = "Reason for making an Appointment"
-              onchange={handleChange}
+                {
+                  Services.map( (S,i) => (
+                    <FormCheckbox
+                    key={i}
+                    FieldLabel={`${S.service.serviceName} - ${S.serviceCost}`}
+                    fieldName={"ServiceList"}
+                    value={S.professional_ServiceId}
+                    onchange={handleChange}
+                    />
+                ))}
 
-            />
+                </Form>
 
-        </Form>
-
-        </Modal.Body>
+              </Modal.Body>
               <Modal.Footer>
               {
                   Loading === true ?

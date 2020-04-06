@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import axios from 'axios'
 import { AlertComp } from "../components/AlertComp";
 
@@ -46,10 +46,7 @@ otherprops
             setShowAlert(true)
             setAlertProps(AlertObj)
 
-            console.log("Response-------------------")
 
-            console.log(result)
-            console.log("Response-------------------")
 
 
 
@@ -62,7 +59,16 @@ otherprops
             setShowAlert(true)
             setAlertProps(AlertObj)
         }
+        console.log("Response-------------------")
+
+        console.log(result)
+        console.log("Response-------------------")
+
     }
+
+    useEffect( () => {
+        console.log(PayloadObj)
+    },[PayloadObj])
     
     
 
@@ -71,18 +77,27 @@ otherprops
         let errors = ErrorObj
         switch(name) {
 
-            case name:
+            case "ServiceList":
+                console.log(PayloadObj[name])
+                const numval = parseInt(value)
+                const found = PayloadObj[name].includes(numval)
+                var newList = PayloadObj[name]
+                console.log(found)
+                if(!found){
+                    newList.push(numval)
+                    setPayloadObj({...PayloadObj, [name]: newList})
+                }else{
+                    newList = newList.filter( S => S!==numval)
+                    setPayloadObj({...PayloadObj,[name] : newList })
+                }
+                break;
+            default:
                 errors[name] = value.length > 0 ? "" : `Must enter a value for ${name}`
+                setErrorObj(errors)
+                setPayloadObj({...PayloadObj, [name]:value})
                 break;
-            default :
-                console.log("How did it get here?")
-                break;
-            
+        
         }
-
-        console.table(PayloadObj)
-        setErrorObj(errors)
-        setPayloadObj({...PayloadObj, [name]:value})
 
     }
     

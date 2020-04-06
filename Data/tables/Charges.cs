@@ -15,7 +15,7 @@ namespace HomeHealth.data.tables
         public int? Prof_serviceId {get;set;}
 
         [Required]
-        public int? serviceCost { get; set; }
+        public float? serviceCost { get; set; }
 
         public virtual Appointments Appointment {get; set;}
         public virtual Professional_Service Professional_Service { get; set; }

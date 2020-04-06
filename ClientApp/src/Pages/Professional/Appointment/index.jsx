@@ -8,17 +8,20 @@ export const MakeAppointment = ({
     setShow,
     profId,
     patientId,
-    services
+    Services
 }) => {
 
-    const endpoint = "/api/appointments"
+    
+
+    const endpoint = "/api/appointments/transaction"
     const initialAppointmentObj = {
         AppDate: "",
         AppTime: "",
         AppReason: "",
         ProfessionalId: profId,
         totalcost : 5000,
-        PatientId : patientId
+        PatientId : patientId,
+        ServiceList: []
     } 
 
 
@@ -26,7 +29,7 @@ export const MakeAppointment = ({
         endpoint,
         Appointmentform,
         initialAppointmentObj,
-        {show,setShow}
+        {show,setShow,Services}
       )
       
     );

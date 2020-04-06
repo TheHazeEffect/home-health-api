@@ -42,7 +42,7 @@ export default class App extends Component {
         <Route exact path='/' component={Home} />
         <Route path='/Login' component={connectedLogin} />
         <Route path='/Register' component={RegisterPage} />
-        <Route path='/Profile/:id' component={MyProfile} />
+        <Route path='/Profile' component={MyProfile} />
         <Route exact path='/Services' component={ServicesPage} />
         <Route exact path='/Professional/:id' component={connectedProf} />
         <Route exact path='/Services/:id/professionals' component={ProfForService} />

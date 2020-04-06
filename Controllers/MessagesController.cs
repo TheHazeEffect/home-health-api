@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using HomeHealth.Data;
+using HomeHealth.Entities;
 using HomeHealth.data.tables;
 
 namespace HomeHealth.Controllers
@@ -49,6 +50,78 @@ namespace HomeHealth.Controllers
             return messages;
         }
 
+        [HttpGet("Chat/{id}")]
+        public async Task<ActionResult<IEnumerable<ChatHistory>>> GetChatMessages(string id)
+        {
+            var messages = await _context.Message
+                .Where( M => M.ReceiverId == id || M.SenderId == id)
+                .Include("Sender")
+                .Include("Reciever")
+                .ToListAsync();
+
+            var History = new HashSet<ChatHistory>();
+            foreach (var message in messages)
+            {
+                var found = History.FirstOrDefault(H => 
+                    H.Id == message.SenderId || 
+                    H.Id == message.ReceiverId
+                );
+
+                //check if already in list
+                if(found != null)
+                    continue;
+                
+                           
+                if(message.ReceiverId == id){
+                    
+                    if(message.SenderId != null){
+                        var userinfo = new ChatHistory{
+                            Id = message.SenderId,
+                            FirstName = message.Sender.FirstName,
+                            LastName = message.Sender.LastName,
+                            Email = message.Sender.Email,
+                            Conversation = new HashSet<Messages>()
+                        };
+                        History.Add(userinfo);
+                    }
+
+                }else if(message.SenderId == id){
+
+                    if(message.ReceiverId != null){
+                        var userinfo = new ChatHistory{
+                            Id = message.ReceiverId,
+                            FirstName = message.Reciever.FirstName,
+                            LastName = message.Reciever.LastName,
+                            Email = message.Reciever.Email,
+                            Conversation = new HashSet<Messages>()
+
+                        };
+                        History.Add(userinfo);
+                    }
+
+                }
+
+            }
+
+            foreach (var item in History)
+            {
+                var MessageList = messages.FindAll( m => m.SenderId == id && m.ReceiverId == item.Id ||
+                m.ReceiverId == id && m.SenderId == item.Id);
+
+                MessageList.Sort((x, y) => DateTime.Compare(x.TimeStamp, y.TimeStamp));
+                foreach (var item2 in MessageList)
+                {
+                    item2.Sender = null;
+                    item2.Reciever = null;
+                    item.Conversation.Add(item2);
+                }
+                    
+            }
+
+
+            return Ok(History);
+        }
+
         // PUT: api/Messages/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
@@ -89,7 +162,7 @@ namespace HomeHealth.Controllers
         {
             try {
 
-
+                messages.TimeStamp = DateTime.Now;
                 _context.Message.Add(messages);
                 await _context.SaveChangesAsync();
 

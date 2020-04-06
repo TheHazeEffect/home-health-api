@@ -52,7 +52,7 @@ class NavMenu extends Component {
                     : 
                       <NavDropdown title={`Hi ${user.firstName } =)`} id="nav-dropdown">
                         <NavDropdown.Item eventKey="4.1">
-                          <NavLink tag={Link} className="text-dark" to={`/profile/${user.id}`}>
+                          <NavLink tag={Link} className="text-dark" to={`/profile`}>
                             Profile
                           </NavLink>                          
                         </NavDropdown.Item>

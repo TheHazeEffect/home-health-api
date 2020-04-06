@@ -77,6 +77,7 @@ export const Professional = ({match,user}) => {
             
             />
             <MakeAppointment
+                Services ={Professional.prof_services}
                 profId={Professional.user.id}
                 show={ShowAppoinment}
                 setShow={setShowAppointment}
@@ -141,16 +142,22 @@ export const Professional = ({match,user}) => {
                             <Tab  eventKey="Details" title="Professional Details">
                                 <Card className="prof-col prof-details">                   
                                     <Card.Body>
-                                   
-                                        <Card.Text>
-                                        Email : 
-                                        </Card.Text>
-                                        <Card.Subtitle>
-                                            {Professional.user.email}
-                                        </Card.Subtitle>
-                                    <Card.Title>
+                                
+                                    <Card.Subtitle>
+                                        Email : {Professional.user.email}
+                                    </Card.Subtitle>
+                                    <hr/>
+                                    <Card.Subtitle>
                                         Contact: {Professional.user.phoneNumber}
-                                    </Card.Title>
+                                    </Card.Subtitle>
+                                    <hr/>
+                                    <Card.Subtitle>
+                                        Biography
+                                    </Card.Subtitle>
+                                    <hr />
+                                    <Card.Subtitle>
+                                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maiores, ad inventore ipsa odit ex dolorum fugiat saepe voluptate molestias magni nostrum. Architecto repellendus repellat optio ut minima officiis obcaecati doloribus?
+                                    </Card.Subtitle>
                                 
                                     </Card.Body>
                                 </Card>
@@ -159,10 +166,15 @@ export const Professional = ({match,user}) => {
                                 <Card className="prof-col prof-details">                   
                                     <Card.Body>
                                         <ListGroup variant="flush">
-                                            <ListGroup.Item >Cras justo odio</ListGroup.Item>
-                                            <ListGroup.Item >Dapibus ac facilisis in</ListGroup.Item>
-                                            <ListGroup.Item >Morbi leo risus</ListGroup.Item>
-                                            <ListGroup.Item >Porta ac consectetur ac</ListGroup.Item>
+                                            {Professional.prof_services.map( (PS,i) => (
+                                                <>
+                                                    <ListGroup.Item as={Card.Subtitle} key={i}>
+                                                        {`${PS.service.serviceName} - $${PS.serviceCost}JMD`}
+                                                    </ListGroup.Item>
+                                                    <hr />
+                                                </> 
+                                            ))}
+    
                                         </ListGroup>
                                     </Card.Body>
                                 </Card>

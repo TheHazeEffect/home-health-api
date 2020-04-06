@@ -3,14 +3,16 @@ using System;
 using HomeHealth.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HomeHealth.Migrations
 {
     [DbContext(typeof(HomeHealthDbContext))]
-    partial class HomeHealthDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200405124747_colname")]
+    partial class colname
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -193,10 +195,6 @@ namespace HomeHealth.Migrations
 
                     b.Property<string>("SenderId")
                         .HasColumnName("SenderId")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime>("TimeStamp")
-                        .HasColumnName("TimeStamp")
                         .HasColumnType("TEXT");
 
                     b.HasKey("MessageId")

@@ -1,4 +1,3 @@
-import React from 'react'
 import { MessageForm } from "./MessageForm";
 import { FormHoc } from "../../../HOC/FormHoc";
 

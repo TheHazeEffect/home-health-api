@@ -134,12 +134,14 @@ namespace HomeHealth.Data
 
                 entity.HasKey(e => e.MessageId).HasName("message_id");;
 
+                entity.Property( e => e.TimeStamp).HasColumnName("TimeStamp");
+
                 entity.Property(e => e.MessageId).HasColumnName("message_id");
                 entity.Property(e => e.Content).HasColumnName("Content");
 
                 entity.Property(e => e.SenderId).HasColumnName("SenderId");
 
-                entity.Property(e => e.RecieverId).HasColumnName("ReceiverId");
+                entity.Property(e => e.ReceiverId).HasColumnName("ReceiverId");
 
                 entity.HasOne(d => d.Sender)
                     .WithMany(p => p.MessagesSent)
@@ -148,7 +150,7 @@ namespace HomeHealth.Data
 
                 entity.HasOne(d => d.Reciever)
                     .WithMany(p => p.MessagesRec)
-                    .HasForeignKey(d => d.RecieverId)
+                    .HasForeignKey(d => d.ReceiverId)
                     .HasConstraintName("fk_messages_recieverUser");
             });
 
