@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HomeHealth.Migrations
 {
     [DbContext(typeof(HomeHealthDbContext))]
-    [Migration("20200404231548_init")]
-    partial class init
+    [Migration("20200406091208_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,6 +28,9 @@ namespace HomeHealth.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("Dob")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
@@ -78,9 +81,6 @@ namespace HomeHealth.Migrations
                     b.Property<string>("UserName")
                         .HasColumnType("TEXT")
                         .HasMaxLength(256);
-
-                    b.Property<int>("age")
-                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -159,10 +159,10 @@ namespace HomeHealth.Migrations
                     b.Property<int?>("ServiceId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("serviceCost")
+                    b.Property<float?>("serviceCost")
                         .IsRequired()
                         .HasColumnName("Service_Cost")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("REAL");
 
                     b.HasKey("ChargeId");
 
@@ -189,7 +189,7 @@ namespace HomeHealth.Migrations
                     b.Property<int?>("ProfessionalsId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("RecieverId")
+                    b.Property<string>("ReceiverId")
                         .HasColumnName("ReceiverId")
                         .HasColumnType("TEXT");
 
@@ -197,12 +197,16 @@ namespace HomeHealth.Migrations
                         .HasColumnName("SenderId")
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("TimeStamp")
+                        .HasColumnName("TimeStamp")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("MessageId")
                         .HasName("message_id");
 
                     b.HasIndex("ProfessionalsId");
 
-                    b.HasIndex("RecieverId");
+                    b.HasIndex("ReceiverId");
 
                     b.HasIndex("SenderId");
 
@@ -241,6 +245,12 @@ namespace HomeHealth.Migrations
                     b.Property<int>("ProfessionalsId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Biography")
+                        .IsRequired()
+                        .HasColumnName("Biography")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(500);
 
                     b.Property<string>("City")
                         .IsRequired()
@@ -479,7 +489,7 @@ namespace HomeHealth.Migrations
 
                     b.HasOne("HomeHealth.Identity.ApplicationUser", "Reciever")
                         .WithMany("MessagesRec")
-                        .HasForeignKey("RecieverId")
+                        .HasForeignKey("ReceiverId")
                         .HasConstraintName("fk_messages_recieverUser");
 
                     b.HasOne("HomeHealth.Identity.ApplicationUser", "Sender")

@@ -28,6 +28,9 @@ namespace HomeHealth.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("Dob")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Email")
                         .HasColumnType("TEXT")
                         .HasMaxLength(256);
@@ -76,9 +79,6 @@ namespace HomeHealth.Migrations
                     b.Property<string>("UserName")
                         .HasColumnType("TEXT")
                         .HasMaxLength(256);
-
-                    b.Property<int>("age")
-                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -157,10 +157,10 @@ namespace HomeHealth.Migrations
                     b.Property<int?>("ServiceId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("serviceCost")
+                    b.Property<float?>("serviceCost")
                         .IsRequired()
                         .HasColumnName("Service_Cost")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("REAL");
 
                     b.HasKey("ChargeId");
 
@@ -243,6 +243,12 @@ namespace HomeHealth.Migrations
                     b.Property<int>("ProfessionalsId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("Biography")
+                        .IsRequired()
+                        .HasColumnName("Biography")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(500);
 
                     b.Property<string>("City")
                         .IsRequired()

@@ -43,20 +43,9 @@ namespace HomeHealth.Services
             _context = context;
         }
 
-        // public async Task<TokenData> GetTokenDataAsync(string Token){
-
-        //     var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
-        //     var tokenHandler = new JwtSecurityTokenHandler();
-
-        //     var data = tokenHandler.ReadToken(Token);
-
-        //     data
-
-        
+       
 
             
-        // }
-
         public async Task<User> AuthenticateAsync(string Email, string Password)
         {
             try {

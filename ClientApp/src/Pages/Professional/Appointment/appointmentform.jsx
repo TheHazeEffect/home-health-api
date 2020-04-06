@@ -22,13 +22,14 @@ export const Appointmentform = ({
   
         <>
           <Modal show={show} onHide={() => setShow(false)} >
+          {AlertComp}
             <Modal.Dialog>
               <Modal.Header >
                 <Modal.Title> Make an Appointment</Modal.Title>
               </Modal.Header>
 
               <Modal.Body>
-                {AlertComp}
+                
                 <Form className="bottompadding">
 
                   <FormInput
@@ -58,7 +59,7 @@ export const Appointmentform = ({
                   Services.map( (S,i) => (
                     <FormCheckbox
                     key={i}
-                    FieldLabel={`${S.service.serviceName} - ${S.serviceCost}`}
+                    FieldLabel={`${S.service.serviceName} - $${S.serviceCost.toFixed(2)}`}
                     fieldName={"ServiceList"}
                     value={S.professional_ServiceId}
                     onchange={handleChange}

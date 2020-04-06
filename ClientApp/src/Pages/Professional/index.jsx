@@ -13,6 +13,7 @@ import { MakeAppointment } from "./Appointment";
 import { SendMessage } from "./SendMessage";
 import './Professional.css'
 
+import { DisabledOverlayButton } from "./DisabledOverlayButton";
 
 export const Professional = ({match,user}) => {
 
@@ -118,24 +119,41 @@ export const Professional = ({match,user}) => {
                             </Card.Text>
                         </Card.Body>
                         <Card.Footer>
-                            <Button 
-                                onClick={()=> setShowAppointment(true)}
-                                className="prof-button" 
-                                variant="success" 
-                                disabled={user.loggedin === false ? true :  false}>
-                                    Make Appointment
-                            </Button>{' '}
-                            <Button
-                                onClick={ () => setShowMessage(true)}
-                                className="prof-button" 
-                                disabled={user.loggedin === false ? true :  false}
-                                variant="info">
-                                    Send Message
-                            </Button>{' '}
-                        </Card.Footer>
-                    </Card>
-                </Col>
-                <Col  >
+
+                            {
+                                user.loggedin === true  ?
+                                    <>
+                                        <Button 
+                                            onClick={()=> setShowAppointment(true)}
+                                            className="prof-button" 
+                                            variant="success">
+                                            Make Appointment
+                                        </Button>
+                                        <Button
+                                            onClick={ () => setShowMessage(true)}
+                                            className="prof-button" 
+                                            disabled={user.loggedin === false ? true :  false}
+                                            variant="info">
+                                                Send Message
+                                        </Button>{' '}
+                                    </>
+                                :
+                                    <>
+                                        <DisabledOverlayButton
+                                            variant="success"
+                                            Text="Make Appointment"
+                                        />
+                                        <DisabledOverlayButton
+                                            variant="info"
+                                            Text="Send Message"
+                                        />
+                                    </>
+                                }
+                                    
+                                </Card.Footer>
+                            </Card>
+                        </Col>
+                        <Col  >
                         
                         <Tabs variant="pills" defaultActiveKey="Details" id="uncontrolled-tab-example">
                         
@@ -156,7 +174,7 @@ export const Professional = ({match,user}) => {
                                     </Card.Subtitle>
                                     <hr />
                                     <Card.Subtitle>
-                                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Maiores, ad inventore ipsa odit ex dolorum fugiat saepe voluptate molestias magni nostrum. Architecto repellendus repellat optio ut minima officiis obcaecati doloribus?
+                                       {Professional.biography}
                                     </Card.Subtitle>
                                 
                                     </Card.Body>
@@ -169,7 +187,7 @@ export const Professional = ({match,user}) => {
                                             {Professional.prof_services.map( (PS,i) => (
                                                 <>
                                                     <ListGroup.Item as={Card.Subtitle} key={i}>
-                                                        {`${PS.service.serviceName} - $${PS.serviceCost}JMD`}
+                                                        {`${PS.service.serviceName} - $${PS.serviceCost.toFixed(2)}JMD`}
                                                     </ListGroup.Item>
                                                     <hr />
                                                 </> 

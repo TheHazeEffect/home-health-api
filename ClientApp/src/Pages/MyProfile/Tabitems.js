@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { Chats } from "./Chats";
 import {Appointments} from "./Appointments";
-import {MyProfession} from "./MyProfession";
+import {Personalize} from "./Personalize";
 
 
 const mapStateToprops = state => {
@@ -13,7 +13,7 @@ const mapStateToprops = state => {
 
 const connectedChat = connect(mapStateToprops,null)(Chats)
 const connectedAppointment= connect(mapStateToprops,null)(Appointments)
-const ConnecedProfession = connect(mapStateToprops,null)(MyProfession)
+const ConnecedPersonalize = connect(mapStateToprops,null)(Personalize)
 
 export const Tabitems = [
     {
@@ -31,8 +31,8 @@ export const Tabitems = [
     {
         eventKey: 3,
         IconClass: "fas fa-user-tie",
-        Name : "My Profession",
-        content: ConnecedProfession
+        Name : "Personalize",
+        content: ConnecedPersonalize
     },
 ]
 

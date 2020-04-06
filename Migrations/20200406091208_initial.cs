@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HomeHealth.Migrations
 {
-    public partial class init : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -43,7 +43,7 @@ namespace HomeHealth.Migrations
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     Gender = table.Column<string>(nullable: true),
-                    age = table.Column<int>(nullable: false)
+                    Dob = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -204,6 +204,7 @@ namespace HomeHealth.Migrations
                     ProfessionalsId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     user_id = table.Column<string>(nullable: false),
+                    Biography = table.Column<string>(maxLength: 500, nullable: false),
                     City = table.Column<string>(nullable: false),
                     state_parish = table.Column<string>(nullable: false),
                     Country = table.Column<string>(nullable: false),
@@ -237,6 +238,7 @@ namespace HomeHealth.Migrations
                     Content = table.Column<string>(nullable: true),
                     SenderId = table.Column<string>(nullable: true),
                     ReceiverId = table.Column<string>(nullable: true),
+                    TimeStamp = table.Column<DateTime>(nullable: false),
                     ProfessionalsId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -297,7 +299,7 @@ namespace HomeHealth.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     appointment_id = table.Column<int>(nullable: false),
                     service_id = table.Column<int>(nullable: false),
-                    Service_Cost = table.Column<int>(nullable: false),
+                    Service_Cost = table.Column<float>(nullable: false),
                     ServiceId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>

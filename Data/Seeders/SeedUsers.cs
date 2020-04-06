@@ -41,14 +41,14 @@ namespace HomeHealth.Data.Seeders
                     Bogus.DataSets.Name.Gender.Female 
                 : 
                     Bogus.DataSets.Name.Gender.Male))
-                .RuleFor(user => user.age, (faker) => faker.Random.Int(30,50))
+                .RuleFor(user => user.Dob, (faker) => faker.Person.DateOfBirth)
                 .RuleFor(user => user.PhoneNumber, (faker) => faker.Phone.PhoneNumber())
                 .RuleFor(user => user.Email, (faker,user) => faker.Internet.Email(user.FirstName,user.LastName))
                 .RuleFor(user => user.UserName, (faker,user) => faker.Internet.Email(user.FirstName,user.LastName));
 
             var users = UserRules.Generate(GeneratedUsers-1);
 
-            var myUser = userFactory("Troy","Anderson","Male",22);
+            var myUser = userFactory("Troy","Anderson","Male");
 
             users.Add(myUser);
 
@@ -78,6 +78,7 @@ namespace HomeHealth.Data.Seeders
                 {
                     p.City = f.Address.City();
                     p.state_parish = f.Address.State();
+                    p.Biography = f.Lorem.Paragraphs();
                     p.Country = f.Address.Country();
                     p.DoctorsAddress1 = f.Address.StreetAddress();
                     p.DoctorsAddress2 = f.Address.SecondaryAddress();
@@ -156,12 +157,15 @@ namespace HomeHealth.Data.Seeders
             
         }
 
-        public static ApplicationUser userFactory(string firstname,string lastname,string Gender,int Age){
+        public static ApplicationUser userFactory(string firstname,string lastname,string Gender){
+
+            var faker = new Faker("en");
+
             return new ApplicationUser {
                 FirstName = firstname,
                 LastName = lastname,
                 Gender = Gender,
-                age = Age,
+                Dob = faker.Person.DateOfBirth,
                 Email = firstname+lastname+".d@gmail.com",
                 UserName = firstname+lastname+".d@gmail.com"
             };

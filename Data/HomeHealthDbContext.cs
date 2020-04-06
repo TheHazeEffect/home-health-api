@@ -105,6 +105,10 @@ namespace HomeHealth.Data
 
                 entity.Property(e => e.userId).HasColumnName("user_id");
 
+                entity.Property(e => e.Biography)
+                    .HasColumnName("Biography")
+                    .HasMaxLength(500);
+
 
                 entity.Property(e => e.DoctorsAddress1)
                     .HasColumnName("doctors_Address1")

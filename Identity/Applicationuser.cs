@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System;
 
 using HomeHealth.data.tables;
 
@@ -22,7 +23,7 @@ namespace HomeHealth.Identity
 
         public string Gender  {get;set;}
 
-        public int age {get;set;}
+        public DateTime Dob {get;set;}
 
 
         public virtual ICollection<Appointments> Appointmentsprof { get; set; }

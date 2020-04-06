@@ -13,7 +13,7 @@ export const SendMessage = ({
     const initailMessageObj = {
 
         SenderId : patientId,
-        RecieverId : profId,
+        ReceiverId : profId,
         Content : ""
     }
 

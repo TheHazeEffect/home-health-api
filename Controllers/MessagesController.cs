@@ -108,7 +108,7 @@ namespace HomeHealth.Controllers
                 var MessageList = messages.FindAll( m => m.SenderId == id && m.ReceiverId == item.Id ||
                 m.ReceiverId == id && m.SenderId == item.Id);
 
-                MessageList.Sort((x, y) => DateTime.Compare(x.TimeStamp, y.TimeStamp));
+                // MessageList.Sort((x, y) => DateTime.Compare(x.TimeStamp, y.TimeStamp));
                 foreach (var item2 in MessageList)
                 {
                     item2.Sender = null;

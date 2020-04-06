@@ -18,6 +18,8 @@ namespace HomeHealth.data.tables
         public string userId {get;set;}
 
         [Required]
+        public string Biography { get; set; }
+        [Required]
         public string City { get; set; }
 
         [Required]
