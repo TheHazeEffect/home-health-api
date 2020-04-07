@@ -85,6 +85,7 @@ export const Chats = ({user}) => {
     <>
         <Accordion as={Table}>
             { Loading === true ? <div className="App-SpinnerStyle"> <LoadingSpinner Show={Loading}/> </div> : 
+                History.length < 1 ?  <div className="App-SpinnerStyle"> <h1>You Have No Messages</h1></div> :
                 History.map( (H,x) => (
                     <Card>
                         <Accordion.Toggle as={"tr"} className="ChatHead"  eventKey={H.id} key={`${H.id} - ${x}`}>

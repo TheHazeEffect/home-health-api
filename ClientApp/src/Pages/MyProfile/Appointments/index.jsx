@@ -45,8 +45,8 @@ export const Appointments = ({user}) => {
 
     return (
         <>
-            {Loading === true ? <div className="App-SpinnerStyle"> <LoadingSpinner Show={Loading}/> </div>
-                :
+            {Loading === true ? <div className="App-SpinnerStyle"> <LoadingSpinner Show={Loading}/> </div> :
+                Appointments.length < 1 ? <div className="App-SpinnerStyle"> <h1> You have no Appointments</h1></div> :
                 Appointments.map( (A,i) => (
                     <Accordion key={i} as={Table}>
                         <Accordion.Toggle as={"tr"} eventKey={A.appointmentId}>

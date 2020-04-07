@@ -50,7 +50,7 @@ namespace HomeHealth.Controllers
                 .Include("Service")
                 .Where( PS => PS.Professional.userId == id )
                 .Select( PS => new ProfileServicesDto{
-                    id = (int)PS.ServiceId,
+                    id = (int)PS.Professional_ServiceId,
                     Name = PS.Service.ServiceName,
                     Cost = (float)PS.ServiceCost
 
@@ -63,6 +63,44 @@ namespace HomeHealth.Controllers
             }
 
             return Ok(services);
+        }
+
+        [HttpPost("profile")]
+        public async Task<ActionResult<ProfileServicesDto>> AddProfessional_Service(AddProfServiceDto ProfServDto)
+        {
+            var Prof = await _context.Professional
+                .Where( PS => PS.userId == ProfServDto.id ).FirstOrDefaultAsync();
+
+            if (Prof == null)
+            {
+                return NotFound();
+            }
+
+            var newProfService = new Professional_Service {
+                ServiceId = ProfServDto.ServiceId,
+                ServiceCost = ProfServDto.ServiceCost
+            };
+
+            Prof.Prof_services.Add(newProfService);
+
+
+            _context.Professional.Update(Prof);
+            
+            await _context.SaveChangesAsync();
+
+
+            var service =await  _context.Service
+                .Where(S => S.ServiceId == ProfServDto.ServiceId)
+                .FirstOrDefaultAsync();
+
+            var payload = new ProfileServicesDto{
+                Cost = (float)newProfService.ServiceCost,
+                Name = service.ServiceName,
+                id = newProfService.Professional_ServiceId
+            };
+                
+
+            return Ok(payload);
         }
 
         // PUT: api/Professional_Service/5
@@ -113,7 +151,14 @@ namespace HomeHealth.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Professional_Service>> DeleteProfessional_Service(int id)
         {
-            var professional_Service = await _context.Professional_Service.FindAsync(id);
+
+            Console.WriteLine("-------------------------------------");
+            Console.WriteLine(id);
+            Console.WriteLine("-------------------------------------");
+
+            var professional_Service = await _context.Professional_Service
+                .Where( S => S.Professional_ServiceId  == id)
+                .FirstOrDefaultAsync();
             if (professional_Service == null)
             {
                 return NotFound();
