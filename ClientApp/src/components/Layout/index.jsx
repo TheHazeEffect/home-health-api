@@ -14,7 +14,6 @@ export class Layout extends Component {
         <Container className="page">
           {this.props.children}
         </Container>
-        <Footer />
       </div>
     );
   }

@@ -29,7 +29,10 @@ export class Home extends Component {
             <Image src={img2} alt="Smiley face" height="auto" width="auto"/> 
           </Col>
         </Row>
-          <div className="card">Sign up Now!</div>
+        <br />
+        <br />
+        
+
       </React.Fragment>
     );
   }
