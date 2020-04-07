@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HomeHealth.Migrations
 {
     [DbContext(typeof(HomeHealthDbContext))]
-    [Migration("20200407171724_init")]
+    [Migration("20200407232403_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -101,6 +101,14 @@ namespace HomeHealth.Migrations
                         .HasColumnName("appointment_id")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("AddressString")
+                        .IsRequired()
+                        .HasColumnName("Prof_Address1")
+                        .HasColumnType("TEXT")
+                        .IsFixedLength(true)
+                        .HasMaxLength(80)
+                        .IsUnicode(false);
+
                     b.Property<DateTime?>("AppDate")
                         .IsRequired()
                         .HasColumnName("app_date")
@@ -126,6 +134,18 @@ namespace HomeHealth.Migrations
                         .IsRequired()
                         .HasColumnName("doctor_id")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("ishomevisit")
+                        .HasColumnName("isHomeVisist")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("lat")
+                        .HasColumnName("lat")
+                        .HasColumnType("REAL");
+
+                    b.Property<double>("lng")
+                        .HasColumnName("lng")
+                        .HasColumnType("REAL");
 
                     b.Property<float>("totalcost")
                         .HasColumnName("Total_cost")

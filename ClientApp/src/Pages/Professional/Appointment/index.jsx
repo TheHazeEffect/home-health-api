@@ -19,9 +19,13 @@ export const MakeAppointment = ({
         AppTime: "",
         AppReason: "",
         ProfessionalId: profId,
-        totalcost : 5000,
+        totalcost : 0.00,
         PatientId : patientId,
-        ServiceList: []
+        ServiceList: [],
+        ishomevisit: false,
+        name : "",
+        lat: 0.00,
+        lng: 0.00
     } 
 
 

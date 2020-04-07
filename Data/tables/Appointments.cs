@@ -24,6 +24,17 @@ namespace HomeHealth.data.tables
         public string AppReason { get; set; }
 
         [Required]
+        public string AddressString { get; set; }
+        [Required]
+        public int ishomevisit { get; set; }
+
+        [Required]
+        public double lat { get; set; }
+
+        [Required]
+        public double lng { get; set; }
+
+        [Required]
         public string ProfessionalId { get; set; }
 
         [Required]

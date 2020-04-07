@@ -72,6 +72,21 @@ namespace HomeHealth.Data
                     .HasColumnName("app_date")
                     .HasColumnType("date");
 
+                entity.Property(e => e.AddressString)
+                    .HasColumnName("Prof_Address1")
+                    .HasMaxLength(80)
+                    .IsUnicode(false)
+                    .IsFixedLength();
+
+                entity.Property(e => e.lat)
+                    .HasColumnName("lat");
+
+                entity.Property(e => e.lng)      
+                    .HasColumnName("lng");
+
+                entity.Property(e => e.ishomevisit) 
+                    .HasColumnName("isHomeVisist");
+
                 entity.Property(e => e.AppReason)
                     .HasColumnName("app_reason")
                     .IsUnicode(false);
@@ -79,6 +94,7 @@ namespace HomeHealth.Data
                 entity.Property(e => e.AppTime)
                     .HasColumnName("app_time")
                     .HasColumnType("datetime");
+
 
                 entity.Property(e => e.ProfessionalId).HasColumnName("doctor_id");
 

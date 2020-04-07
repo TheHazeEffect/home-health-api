@@ -59,6 +59,10 @@ namespace HomeHealth.Controllers
                 .Include("Charges.Professional_Service.Service")
                 .Where(A => A.PatientId == id || A.ProfessionalId == id)
                 .Select( A => new AppointmentProfile {
+                    ishomevisit = A.ishomevisit,
+                    lat = A.lat,
+                    lng = A.lat,
+                    addressstring = A.AddressString,
                     AppointmentId = A.AppointmentId,
                     AppDate = A.AppDate,
                     AppTime = A.AppTime,
@@ -143,16 +147,35 @@ namespace HomeHealth.Controllers
         [HttpPost("transaction")]
         public async Task<ActionResult<Appointments>> MakeAppointment(AppTransaction Transaction)
         {
-             var newAppointment = new Appointments {
+             var newAppointment = new Appointments{
                     AppDate = Transaction.AppDate,
                     AppTime = Transaction.AppTime,
                     AppReason = Transaction.AppReason,
                     PatientId = Transaction.PatientId,
+                    ishomevisit = Transaction.ishomevisit  == true ? 1 : 0,
                     ProfessionalId = Transaction.ProfessionalId,
                     totalcost = 0
                 };
 
+            var prof =  await _context.Professional
+                .Include("user")
+                .Where( p => p.userId == newAppointment.ProfessionalId)
+                .FirstOrDefaultAsync();
+
+            
+
             try {
+
+                if(Transaction.ishomevisit){
+                    newAppointment.lat = Transaction.lat;
+                    newAppointment.lng = Transaction.lng;
+                    newAppointment.AddressString = Transaction.name;
+                }else{
+                    newAppointment.lat = prof.lat;
+                    newAppointment.lng = prof.lng;
+                    newAppointment.AddressString = prof.AddressString;
+
+                }
 
                 var SelectedServices = await _context.Professional_Service
                     .Where( PS => Transaction.ServiceList.Contains(PS.Professional_ServiceId))
@@ -180,11 +203,7 @@ namespace HomeHealth.Controllers
                 await _context.SaveChangesAsync();
                 Console.WriteLine("AFTER SAVE --------------------------");
 
-                var prof =  await _context.Professional
-                    .Include("user")
-                    .Where( p => p.userId == newAppointment.ProfessionalId)
-                    .FirstOrDefaultAsync();
-
+               
                 
 
                 await _emailSender.SendEmailUsingId(

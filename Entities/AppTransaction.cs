@@ -18,8 +18,16 @@ namespace HomeHealth.data.tables
 
         [Required]
         public DateTime? AppTime { get; set; }
+        [Required]
+        public bool ishomevisit { get; set; }
+        public string name { get; set; }
+
+        public double lat { get; set; }
+
+        public double lng { get; set; }
 
         [Required]
+
         public string AppReason { get; set; }
 
         [Required]

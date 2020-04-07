@@ -93,6 +93,10 @@ namespace HomeHealth.Migrations
                     app_date = table.Column<DateTime>(type: "date", nullable: false),
                     app_time = table.Column<DateTime>(type: "datetime", nullable: false),
                     app_reason = table.Column<string>(unicode: false, nullable: false),
+                    Prof_Address1 = table.Column<string>(unicode: false, fixedLength: true, maxLength: 80, nullable: false),
+                    isHomeVisist = table.Column<int>(nullable: false),
+                    lat = table.Column<double>(nullable: false),
+                    lng = table.Column<double>(nullable: false),
                     doctor_id = table.Column<string>(nullable: false),
                     Total_cost = table.Column<float>(nullable: false),
                     patient_id = table.Column<string>(nullable: false)

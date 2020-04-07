@@ -19,7 +19,9 @@ export const Appointmentform = ({
   handleChange,
   show,
   setShow,
-  Services
+  Services,
+  PayloadObj,
+  setPayloadObj
 }) => {
 
   const {
@@ -68,6 +70,7 @@ export const Appointmentform = ({
                     onchange={handleChange}
                   />
 
+
                 {
                   Services.map( (S,i) => (
                     <FormCheckbox
@@ -79,7 +82,39 @@ export const Appointmentform = ({
                     />
                 ))}
 
+
+              <FormCheckbox
+                    FieldLabel="Home Visit?"
+                    fieldName={"ishomevisit"}
+                    // onchange={handleChange}
+                    onchange={ () => setPayloadObj({...PayloadObj,ishomevisit:!PayloadObj.ishomevisit})}
+                    value={PayloadObj.ishomevisit}
+              />
+
+
+                {PayloadObj.ishomevisit !== true ? false :
+
+                  <AlgoliaPlaces
+                    placeholder='Enter your address'
+                    
+                    options={{
+                      appId: 'pl6KKCA8IQ7Q',
+                      apiKey: '7e8742de8a04a136cd660e00fc9d7a02',
+                      language: 'en',
+                      countries: ['JM'],
+                      type: 'address',
+                      // Other options from https://community.algolia.com/places/documentation.html#options
+                    }}
+                    onChange={handleChange}
+                    onError={({ message }) => 
+                    console.log('Fired when we could not make the request to Algolia Places servers for any reason but reaching your rate limit.')}
+                    />
+                }
+
+                  <br />
                   <hr/>
+                
+
 
                   <PaymentInputsWrapper {...wrapperProps}>
                         <svg {...getCardImageProps({ images })} />

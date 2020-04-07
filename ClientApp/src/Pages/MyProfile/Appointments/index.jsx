@@ -5,6 +5,7 @@ import Table from 'react-bootstrap/Table'
 import { LoadingSpinner } from "../../../components/LoadingSpinner";
 import './Appointment.css'
 import axios from "axios";
+import {  MapComponent } from "../../Professional/MapComponent";
 
 
 
@@ -54,7 +55,7 @@ export const Appointments = ({user}) => {
                         {`${new Date(A.appDate).getDate()}/${new Date(A.appDate).getMonth()}/${new Date(A.appDate).getFullYear()} - `}
                         {`${new Date(A.appTime).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}`} <br/>
                         {`$${A.totalcost.toFixed(2)}JMD`} <br/>
-                        {`location`} 
+                        {`${A.addressstring}`} 
                         </Accordion.Toggle>
                         <Accordion.Collapse eventKey={A.appointmentId}>
                             <Card.Body>
@@ -71,6 +72,17 @@ export const Appointments = ({user}) => {
                             </Accordion.Collapse>                     
                         ))
                     }
+                    <Accordion.Collapse  eventKey={A.appointmentId}>
+                    <Card>
+
+                    <MapComponent   
+                        lat={A.lat}
+                        lng={A.lng}
+                        MarkerText={`${A.personFirstName} ${A.personLastName}`}
+                    />    
+                    </Card>
+                    </Accordion.Collapse>                     
+
                 </Accordion>
                 ))
             }

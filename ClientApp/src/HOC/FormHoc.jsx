@@ -145,6 +145,7 @@ otherprops
         <Component 
             {...otherprops}
             PayloadObj={PayloadObj}
+            setPayloadObj={setPayloadObj}
             Loading={Loading}
             handleChange={handleChange}
             handleSubmit={handleSubmit}

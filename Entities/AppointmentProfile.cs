@@ -12,6 +12,13 @@ namespace HomeHealth.data.tables
             Charges = new HashSet<AppointmentProfileCharge>();
         }
 
+        public string addressstring {get; set;}
+
+        public double lat {get; set;}
+
+        public double lng {get;set;}
+
+        public int ishomevisit {get;set;}
         public int AppointmentId { get; set; }
 
         [Required]

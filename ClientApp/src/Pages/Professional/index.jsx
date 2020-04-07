@@ -17,7 +17,7 @@ import './Professional.css'
 
 import { DisabledOverlayButton } from "./DisabledOverlayButton";
 
-export const Professional = ({match,user}) => {
+export const Professional = ({match,user}) =>{
 
     const [Professional,setProfessional] = useState(null)
     const [loading, setLoading] = useState(false)

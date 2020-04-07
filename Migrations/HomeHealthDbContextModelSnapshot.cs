@@ -99,6 +99,14 @@ namespace HomeHealth.Migrations
                         .HasColumnName("appointment_id")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("AddressString")
+                        .IsRequired()
+                        .HasColumnName("Prof_Address1")
+                        .HasColumnType("TEXT")
+                        .IsFixedLength(true)
+                        .HasMaxLength(80)
+                        .IsUnicode(false);
+
                     b.Property<DateTime?>("AppDate")
                         .IsRequired()
                         .HasColumnName("app_date")
@@ -124,6 +132,18 @@ namespace HomeHealth.Migrations
                         .IsRequired()
                         .HasColumnName("doctor_id")
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("ishomevisit")
+                        .HasColumnName("isHomeVisist")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double>("lat")
+                        .HasColumnName("lat")
+                        .HasColumnType("REAL");
+
+                    b.Property<double>("lng")
+                        .HasColumnName("lng")
+                        .HasColumnType("REAL");
 
                     b.Property<float>("totalcost")
                         .HasColumnName("Total_cost")

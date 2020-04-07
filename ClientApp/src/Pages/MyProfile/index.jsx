@@ -11,7 +11,7 @@ import { Tabitems } from "./Tabitems";
 export const MyProfile = () => {
     return (
         <>
-            <Tab.Container id="left-tabs-example" defaultActiveKey={Tabitems[2].eventKey}>
+            <Tab.Container id="left-tabs-example" defaultActiveKey={Tabitems[0].eventKey}>
                 <Row>
                     <Col sm={3}>
                     <Nav variant="pills" className="flex-column">
