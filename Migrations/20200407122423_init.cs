@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HomeHealth.Migrations
 {
-    public partial class initial : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -205,11 +205,9 @@ namespace HomeHealth.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     user_id = table.Column<string>(nullable: false),
                     Biography = table.Column<string>(maxLength: 500, nullable: false),
-                    City = table.Column<string>(nullable: false),
-                    state_parish = table.Column<string>(nullable: false),
-                    Country = table.Column<string>(nullable: false),
-                    doctors_Address1 = table.Column<string>(unicode: false, fixedLength: true, maxLength: 80, nullable: false),
-                    doctors_Address2 = table.Column<string>(unicode: false, fixedLength: true, maxLength: 80, nullable: false),
+                    Prof_Address1 = table.Column<string>(unicode: false, fixedLength: true, maxLength: 80, nullable: false),
+                    lat = table.Column<double>(nullable: false),
+                    lng = table.Column<double>(nullable: false),
                     ServiceId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>

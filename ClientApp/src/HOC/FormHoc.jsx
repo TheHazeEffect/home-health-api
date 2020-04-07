@@ -73,32 +73,56 @@ otherprops
     
 
     const handleChange = (event) => {
-        const {name,value} = event.target
-        let errors = ErrorObj
-        switch(name) {
-
-            case "ServiceList":
-                console.log(PayloadObj[name])
-                const numval = parseInt(value)
-                const found = PayloadObj[name].includes(numval)
-                var newList = PayloadObj[name]
-                console.log(found)
-                if(!found){
-                    newList.push(numval)
-                    setPayloadObj({...PayloadObj, [name]: newList})
-                }else{
-                    newList = newList.filter( S => S!==numval)
-                    setPayloadObj({...PayloadObj,[name] : newList })
-                }
-                break;
-            default:
-                errors[name] = value.length > 0 ? "" : `Must enter a value for ${name}`
-                setErrorObj(errors)
-                setPayloadObj({...PayloadObj, [name]:value})
-                break;
         
-        }
 
+        if(event.suggestion !== undefined)
+        {
+
+            const {latlng,value} = event.suggestion;
+            console.log(latlng.lat)
+            console.log(latlng.lng)
+            console.log(value)
+
+
+            var newPayLoad = PayloadObj
+                newPayLoad.lat = latlng.lat
+                newPayLoad.lng = latlng.lng
+                newPayLoad.name = value
+                
+            setPayloadObj({...newPayLoad})
+            console.log(PayloadObj)
+            return
+
+        }else{
+
+           const {name,value} = event.target
+            let errors = ErrorObj
+            switch(name) {
+
+                case "ServiceList":
+                    console.log(PayloadObj[name])
+                    const numval = parseInt(value)
+                    const found = PayloadObj[name].includes(numval)
+                    var newList = PayloadObj[name]
+                    console.log(found)
+                    if(!found){
+                        newList.push(numval)
+                        setPayloadObj({...PayloadObj, [name]: newList})
+                    }else{
+                        newList = newList.filter( S => S!==numval)
+                        setPayloadObj({...PayloadObj,[name] : newList })
+                    }
+                    break;
+                default:
+                    errors[name] = value.length > 0 ? "" : `Must enter a value for ${name}`
+                    setErrorObj(errors)
+                    setPayloadObj({...PayloadObj, [name]:value})
+                    break;
+            }
+        }
+            
+                   
+        
     }
     
     const CustomAlertComp =  <AlertComp

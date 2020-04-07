@@ -11,6 +11,7 @@ import Button from 'react-bootstrap/Button'
 import { LoadingSpinner } from "../../components/LoadingSpinner";
 import { MakeAppointment } from "./Appointment";
 import { SendMessage } from "./SendMessage";
+import { MapComponent } from "./MapComponent";
 import './Professional.css'
 
 import { DisabledOverlayButton } from "./DisabledOverlayButton";
@@ -115,7 +116,7 @@ export const Professional = ({match,user}) => {
                                 Location
                             </Card.Title>
                             <Card.Text>
-                                {`${Professional.city} ${Professional.state_parish} ${Professional.country}`}
+                                {`${Professional.addressString}`}
                             </Card.Text>
                         </Card.Body>
                         <Card.Footer>
@@ -200,6 +201,19 @@ export const Professional = ({match,user}) => {
                         </Tabs>
                    
                 </Col>
+            </Row>
+            <Row >
+                <Col >
+                    <MapComponent   
+                        lat={Professional.lat}
+                        lng={Professional.lng}
+                        MarkerText={`${Professional.user.firstName} ${Professional.user.lastName}` }
+                    />                    
+                </Col>
+                <Col >
+                                      
+                </Col>
+
             </Row>
             
            

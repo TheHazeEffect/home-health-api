@@ -76,12 +76,10 @@ namespace HomeHealth.Data.Seeders
             var professionalRules = new Faker<Professionals>()
                 .Rules( (f,p)=>
                 {
-                    p.City = f.Address.City();
-                    p.state_parish = f.Address.State();
                     p.Biography = f.Lorem.Paragraphs();
-                    p.Country = f.Address.Country();
-                    p.DoctorsAddress1 = f.Address.StreetAddress();
-                    p.DoctorsAddress2 = f.Address.SecondaryAddress();
+                    p.lat = f.Address.Latitude(18,18.5);
+                    p.lng = f.Address.Longitude(-77.5,-77.0);
+                    p.AddressString = f.Address.FullAddress();
                 });
 
             

@@ -9,6 +9,12 @@ namespace HomeHealth.Entities
         public string Email { get; set; }
         [Required]
         public string Biography { get; set; }
+        [Required]
+        public string name { get; set; }
+        [Required]
+        public double lat { get; set; }
+        [Required]
+        public double lng { get; set; }
 
 
 

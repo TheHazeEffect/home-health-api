@@ -20,19 +20,14 @@ namespace HomeHealth.data.tables
         [Required]
         public string Biography { get; set; }
         [Required]
-        public string City { get; set; }
+        public string AddressString { get; set; }
 
         [Required]
-        public string state_parish { get; set; }
+        public double lat { get; set; }
 
         [Required]
-        public string Country { get; set; }
+        public double lng { get; set; }
 
-        [Required]
-        public string DoctorsAddress1 { get; set; }
-
-        [Required]
-        public string DoctorsAddress2 { get; set; }
 
         public virtual ApplicationUser user {get;set;}
 

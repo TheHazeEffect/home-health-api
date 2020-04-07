@@ -65,11 +65,9 @@ namespace HomeHealth.Controllers
                     var newProf = new Professionals{
                         userId = user.Id,
                         Biography = updatedUser.Biography,
-                        City = faker.Address.City(),
-                        state_parish = faker.Address.State(),
-                        Country = faker.Address.County(),
-                        DoctorsAddress1 = faker.Address.StreetAddress(),
-                        DoctorsAddress2 = faker.Address.SecondaryAddress()
+                        lat = updatedUser.lat,
+                        AddressString = updatedUser.name,
+                        lng = updatedUser.lng
                     
                     };
                     user.Professional = newProf;
@@ -78,12 +76,15 @@ namespace HomeHealth.Controllers
                 }else{
 
                     prof.Biography = updatedUser.Biography;
+                    prof.lat = updatedUser.lat;
+                    prof.lng = updatedUser.lng;
+                    prof.AddressString = updatedUser.name;
                     _context.Professional.Update(prof);
                 }
 
 
                 await _context.SaveChangesAsync();
-                return Ok( new { message = "Profile Successuly Updated",user});
+                return Ok( new { message = "Profile Successuly Updated",updatedUser});
 
             }catch(Exception ex ){
                 Console.WriteLine(ex);

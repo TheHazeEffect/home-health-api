@@ -110,17 +110,19 @@ namespace HomeHealth.Data
                     .HasMaxLength(500);
 
 
-                entity.Property(e => e.DoctorsAddress1)
-                    .HasColumnName("doctors_Address1")
+                entity.Property(e => e.AddressString)
+                    .HasColumnName("Prof_Address1")
                     .HasMaxLength(80)
                     .IsUnicode(false)
                     .IsFixedLength();
 
-                entity.Property(e => e.DoctorsAddress2)
-                    .HasColumnName("doctors_Address2")
-                    .HasMaxLength(80)
-                    .IsUnicode(false)
-                    .IsFixedLength();
+                entity.Property(e => e.lat)
+                    .HasColumnName("lat");
+
+                entity.Property(e => e.lng)
+                
+                    .HasColumnName("lng");
+                    
 
                  entity.HasOne(d => d.user)
                     .WithOne(p => p.Professional)

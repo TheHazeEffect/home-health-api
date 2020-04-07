@@ -244,42 +244,30 @@ namespace HomeHealth.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("AddressString")
+                        .IsRequired()
+                        .HasColumnName("Prof_Address1")
+                        .HasColumnType("TEXT")
+                        .IsFixedLength(true)
+                        .HasMaxLength(80)
+                        .IsUnicode(false);
+
                     b.Property<string>("Biography")
                         .IsRequired()
                         .HasColumnName("Biography")
                         .HasColumnType("TEXT")
                         .HasMaxLength(500);
 
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("DoctorsAddress1")
-                        .IsRequired()
-                        .HasColumnName("doctors_Address1")
-                        .HasColumnType("TEXT")
-                        .IsFixedLength(true)
-                        .HasMaxLength(80)
-                        .IsUnicode(false);
-
-                    b.Property<string>("DoctorsAddress2")
-                        .IsRequired()
-                        .HasColumnName("doctors_Address2")
-                        .HasColumnType("TEXT")
-                        .IsFixedLength(true)
-                        .HasMaxLength(80)
-                        .IsUnicode(false);
-
                     b.Property<int?>("ServiceId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("state_parish")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<double>("lat")
+                        .HasColumnName("lat")
+                        .HasColumnType("REAL");
+
+                    b.Property<double>("lng")
+                        .HasColumnName("lng")
+                        .HasColumnType("REAL");
 
                     b.Property<string>("userId")
                         .IsRequired()

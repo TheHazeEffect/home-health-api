@@ -67,7 +67,7 @@ export const ProfForService = ({match}) => {
                     </Link>
 
                     <Card.Body>
-            <           Card.Text>{`${array[x].city} ${array[x].state_parish} ${array[x].country}`}</Card.Text>
+            <           Card.Text>{`${array[x].addressString}`}</Card.Text>
                     </Card.Body>
                 </Card>
             </Col>
