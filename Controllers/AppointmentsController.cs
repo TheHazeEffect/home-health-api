@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HomeHealth.Data;
 using HomeHealth.data.tables;
 using HomeHealth.Entities;
+using HomeHealth.Interfaces;
 
 namespace HomeHealth.Controllers
 {
@@ -15,10 +17,13 @@ namespace HomeHealth.Controllers
     [ApiController]
     public class AppointmentsController : ControllerBase
     {
+
+        private readonly IEmailService _emailSender;
         private readonly HomeHealthDbContext _context;
 
-        public AppointmentsController(HomeHealthDbContext context)
+        public AppointmentsController(HomeHealthDbContext context,IEmailService emailSender)
         {
+            _emailSender = emailSender;
             _context = context;
         }
 
@@ -175,6 +180,23 @@ namespace HomeHealth.Controllers
                 await _context.SaveChangesAsync();
                 Console.WriteLine("AFTER SAVE --------------------------");
 
+                var prof =  await _context.Professional
+                    .Include("user")
+                    .Where( p => p.userId == newAppointment.ProfessionalId)
+                    .FirstOrDefaultAsync();
+
+                
+
+                await _emailSender.SendEmailUsingId(
+                        Transaction.PatientId,"Appointment Notification", $"Your Appointment with {prof.user.FirstName} {prof.user.LastName} for {Transaction.AppDate} at {Transaction.AppTime} has been Successfully Scheduled");
+
+
+
+                await _emailSender.SendEmailUsingId(
+                    prof.userId,
+                    "New Appointment Notification",
+                    $"A new Appointment Has been Made by , Check your Professional DashBoard for more details"
+                );
 
                 return Ok(new { message = "Appointment Scheduled", newAppointment});
 

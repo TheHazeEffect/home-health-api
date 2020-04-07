@@ -9,6 +9,8 @@ using System.Text;
 using System;
 using Microsoft.IdentityModel.Tokens;
 
+using Microsoft.AspNetCore.Identity.UI.Services;
+
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -71,6 +73,8 @@ namespace HomeHealth
                 options.AddPolicy(Roles.MedicalProfessional,
                     policy => policy.RequireAssertion(context => context.User.HasClaim(c => c.Value == "Admin")));
             });
+
+            services.AddScoped<IEmailService, EmailService>();
 
              // configure jwt authentication
             var appSettings = appSettingsSection.Get<AppSettings>();

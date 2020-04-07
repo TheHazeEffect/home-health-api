@@ -7,7 +7,6 @@ namespace HomeHealth.data.tables
 {
     public partial class Comments
     {
-        [Required]
         public int CommentsId { get; set; }
 
         [Required]

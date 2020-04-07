@@ -35,20 +35,29 @@ otherprops
             var result = await axios
                 .post(endpoint,PayloadObj)
 
-            const AlertObj = result.status === 200 
-            ?
-            AlertFactory("success","Success!",result.data.message) 
-            :
-            AlertFactory("danger","Oops!",result.data.message)
+            if(result.status === 200) {
+                const AlertObj =  AlertFactory("success","Success!",result.data.message) 
+                setAlertProps(AlertObj)
 
+
+            }
+            else if(result.status === 201) {
+                const AlertObj =  AlertFactory("success","Success!",result.data.message) 
+                setAlertProps(AlertObj)
+
+                var oldPayload = PayloadObj
+                oldPayload.push(result.data)
+                
+            }else{
+
+                const AlertObj =  AlertFactory("danger","Oops!",result.data.message)
+                setAlertProps(AlertObj)
+
+            }
+               
 
             setLoading(false)
             setShowAlert(true)
-            setAlertProps(AlertObj)
-
-
-
-
 
         }catch(ex) {
 

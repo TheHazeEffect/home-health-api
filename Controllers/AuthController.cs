@@ -14,10 +14,13 @@ namespace HomeHealth.Controllers
     public class AuthController : ControllerBase
     {
         private IUserService _userService;
+        private readonly IEmailService _emailSender;
 
-        public AuthController(IUserService userService)
+
+        public AuthController(IUserService userService,IEmailService emailSender)
         {
             _userService = userService;
+            _emailSender = emailSender;
         }
 
         [AllowAnonymous]
@@ -63,6 +66,11 @@ namespace HomeHealth.Controllers
                 if(successful)
                 {
                     Registerdto.Password = null;
+                   await  _emailSender.SendEmailAsync(Registerdto.Email,
+                    "Registration Successful",
+                    $" <p>Hey {Registerdto.FirstName},</p> <p>Your Account has been successfully created, Welcome to HomeHealth </p>");
+
+                    
                     return Ok(new { message = "User Signup Successful",Registerdto});
                 }
 

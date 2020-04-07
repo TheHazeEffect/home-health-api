@@ -25,6 +25,7 @@ export const Professional = ({match,user}) => {
     const [ShowAppoinment,setShowAppointment] = useState(false)
 
     
+    const id = match.params.id
 
 
     useEffect (() => {
@@ -33,7 +34,6 @@ export const Professional = ({match,user}) => {
             setLoading(true);
 
             try {
-                const id = match.params.id
 
                 var result = await axios.get(`/api/Professionals/${id}/details`)
                 
@@ -47,7 +47,7 @@ export const Professional = ({match,user}) => {
         }
 
         fetchData();
-    },[match.params.id])
+    },[id])
 
 
     const returnImgForGender = (string) => {
@@ -218,6 +218,7 @@ export const Professional = ({match,user}) => {
             <Col>
                     <CommentSection
                         profId = {Professional.professionalsId}
+                        userid = {user.id}
                     />
                         
                 </Col>

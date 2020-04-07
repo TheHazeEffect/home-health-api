@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HomeHealth.Data;
 using HomeHealth.data.tables;
+using HomeHealth.Interfaces;
+
 
 namespace HomeHealth.Controllers
 {
@@ -15,9 +17,12 @@ namespace HomeHealth.Controllers
     public class CommentsController : ControllerBase
     {
         private readonly HomeHealthDbContext _context;
+        private readonly IEmailService _emailSender;
 
-        public CommentsController(HomeHealthDbContext context)
+
+        public CommentsController(HomeHealthDbContext context,IEmailService emailSender)
         {
+            _emailSender = emailSender;
             _context = context;
         }
 
@@ -96,12 +101,32 @@ namespace HomeHealth.Controllers
         [HttpPost]
         public async Task<ActionResult<Charges>> PostComment(Comments Comment)
         {
-            Comment.TimeStamp = DateTime.Now;
+            try{
 
-            _context.Comments.Add(Comment);
-            await _context.SaveChangesAsync();
+                Comment.TimeStamp = DateTime.Now;
+                Console.WriteLine("-----------------------------------" + Comment.Content);
+                Console.WriteLine("-----------------------------------" + Comment.ProfessionalId);
+                Console.WriteLine("-----------------------------------" + Comment.SenderId);
+                _context.Comments.Add(Comment);
+                await _context.SaveChangesAsync();
 
-            return Ok( new {message =  "Comment Added",Comment});
+
+                await _emailSender.SendEmailUsingProfId(
+                    Comment.ProfessionalId,
+                    "New Comment Notification",
+                    $"Someone commented on your Profile, Check it out"
+                );
+
+                return Ok( new {message =  "Comment Added",Comment});
+
+
+            }catch(Exception ex){
+                Console.WriteLine(ex);
+
+                return BadRequest(Comment);
+
+
+            }
         }
 
       
