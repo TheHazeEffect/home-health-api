@@ -12,6 +12,7 @@ import { LoadingSpinner } from "../../components/LoadingSpinner";
 import { MakeAppointment } from "./Appointment";
 import { SendMessage } from "./SendMessage";
 import { MapComponent } from "./MapComponent";
+import {  CommentSection } from "./Comments";
 import './Professional.css'
 
 import { DisabledOverlayButton } from "./DisabledOverlayButton";
@@ -203,17 +204,23 @@ export const Professional = ({match,user}) => {
                 </Col>
             </Row>
             <Row >
-                <Col >
+                <Col xs >
                     <MapComponent   
                         lat={Professional.lat}
                         lng={Professional.lng}
                         MarkerText={`${Professional.user.firstName} ${Professional.user.lastName}` }
                     />                    
                 </Col>
-                <Col >
-                                      
-                </Col>
+               
 
+            </Row>
+            <Row>
+            <Col>
+                    <CommentSection
+                        profId = {Professional.professionalsId}
+                    />
+                        
+                </Col>
             </Row>
             
            

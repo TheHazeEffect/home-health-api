@@ -85,7 +85,7 @@ namespace HomeHealth.Data.Seeders
             
             var Professionals = professionalRules.Generate(GeneratedUsers);
 
-
+        
             var count = 0;
             var createdUsers = await  userManager.Users.ToListAsync();
 
@@ -129,28 +129,42 @@ namespace HomeHealth.Data.Seeders
 
             await context.SaveChangesAsync();
 
+            var userIds = Professionals.Select(P => P.userId);
 
-            
-            //removing duplicates
+            var faker = new Faker("en");
+            Randomizer.Seed = new Random(8675309);
 
-            // var profserv = await context.Professional_Service.ToListAsync();
+            foreach (var item in Professionals)
+            {
 
+                var Comment = new Comments{
+                    ProfessionalId = item.ProfessionalsId,
+                    SenderId = userIds.ElementAt(faker.Random.Int(0,GeneratedUsers - 1)),
+                    Content = faker.Lorem.Sentence()
+                };
+                var Comment2 = new Comments{
+                    ProfessionalId = item.ProfessionalsId,
+                    SenderId = userIds.ElementAt(faker.Random.Int(0,GeneratedUsers - 1)),
+                    Content = faker.Lorem.Sentence()
+                };
+                var Comment3 = new Comments{
+                    ProfessionalId = item.ProfessionalsId,
+                    SenderId = userIds.ElementAt(faker.Random.Int(0,GeneratedUsers - 1)),
+                    Content = faker.Lorem.Sentence()
+                };
+
+                item.ProfComments.Add(Comment);
+                item.ProfComments.Add(Comment2);
+                item.ProfComments.Add(Comment3);
                 
-            // foreach (var service in serviceList)
-            // {
-            //         foreach (var prof in profserv)
-            //         {
+            }
 
-            //             prof.ser
-                            
-                            
-                        
-            //         }
-            // }
-                
+            context.Professional.UpdateRange(Professionals);
 
-                // .RuleFor( prof => prof.latitute,(faker) => faker.Address.Latitude;
-                // .RuleFor( prof => prof.Longitute,(faker) => faker.Address.Longitude               
+
+
+            await context.SaveChangesAsync();
+
 
             
         }
@@ -160,6 +174,7 @@ namespace HomeHealth.Data.Seeders
             var faker = new Faker("en");
 
             return new ApplicationUser {
+                PhoneNumber = faker.Phone.PhoneNumber(),
                 FirstName = firstname,
                 LastName = lastname,
                 Gender = Gender,

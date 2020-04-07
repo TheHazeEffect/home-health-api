@@ -14,13 +14,15 @@
     "react-bootstrap": "^1.0.0",
     "react-dom": "^16.0.0",
     "react-leaflet": "^2.6.3",
+    "react-payment-inputs": "^1.1.4",
     "react-redux": "^7.2.0",
     "react-router-bootstrap": "^0.24.4",
     "react-router-dom": "^4.2.2",
     "react-scripts": "^3.0.1",
     "reactstrap": "^6.3.0",
     "redux": "^4.0.5",
-    "rimraf": "^2.6.2"
+    "rimraf": "^2.6.2",
+    "styled-components": "^5.1.0"
   },
   "devDependencies": {
     "ajv": "^6.9.1",

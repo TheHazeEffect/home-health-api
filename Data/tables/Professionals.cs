@@ -10,6 +10,7 @@ namespace HomeHealth.data.tables
         {
             Messages = new HashSet<Messages>();
             Prof_services = new HashSet<Professional_Service>();
+            ProfComments = new HashSet<Comments>();
         }
 
         public int ProfessionalsId { get; set; }
@@ -33,5 +34,6 @@ namespace HomeHealth.data.tables
 
         public virtual ICollection<Professional_Service> Prof_services { get; set; }
         public virtual ICollection<Messages> Messages { get; set; }
+        public virtual ICollection<Comments> ProfComments { get; set; }
     }
 }

@@ -24,6 +24,7 @@ namespace HomeHealth.Data
 
         public virtual DbSet<Appointments> Appointment { get; set; }
         public virtual DbSet<Charges> Charge { get; set; }
+        public virtual DbSet<Comments> Comments { get; set; }
         public virtual DbSet<Professionals> Professional { get; set; }
         public virtual DbSet<Messages> Message { get; set; }
         public virtual DbSet<Professional_Service> Professional_Service { get; set; }
@@ -32,6 +33,32 @@ namespace HomeHealth.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Comments>(entity => {
+
+                entity.ToTable("Comments");
+
+                entity.HasKey( e => e.CommentsId);
+
+                entity.Property( e => e.Content);
+
+                entity.Property( e => e.SenderId);
+
+                entity.Property(e => e.ProfessionalId);
+
+                entity.Property( e => e.TimeStamp);
+
+
+                entity.HasOne( d => d.Sender)
+                    .WithMany( P => P.UsersComments)
+                    .HasForeignKey(d => d.SenderId);
+
+                entity.HasOne( d => d.Professional)
+                    .WithMany( p => p.ProfComments)
+                    .HasForeignKey( d => d.ProfessionalId);
+
+
+            });
 
             modelBuilder.Entity<Appointments>(entity =>
             {
@@ -138,7 +165,7 @@ namespace HomeHealth.Data
             {
                 entity.ToTable("message");
 
-                entity.HasKey(e => e.MessageId).HasName("message_id");;
+                entity.HasKey(e => e.MessageId).HasName("message_id");
 
                 entity.Property( e => e.TimeStamp).HasColumnName("TimeStamp");
 

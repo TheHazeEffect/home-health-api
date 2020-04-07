@@ -173,6 +173,35 @@ namespace HomeHealth.Migrations
                     b.ToTable("bill");
                 });
 
+            modelBuilder.Entity("HomeHealth.data.tables.Comments", b =>
+                {
+                    b.Property<int>("CommentsId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("ProfessionalId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("SenderId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("TimeStamp")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("CommentsId");
+
+                    b.HasIndex("ProfessionalId");
+
+                    b.HasIndex("SenderId");
+
+                    b.ToTable("Comments");
+                });
+
             modelBuilder.Entity("HomeHealth.data.tables.Messages", b =>
                 {
                     b.Property<int>("MessageId")
@@ -465,6 +494,21 @@ namespace HomeHealth.Migrations
                     b.HasOne("HomeHealth.data.tables.Service", null)
                         .WithMany("Charges")
                         .HasForeignKey("ServiceId");
+                });
+
+            modelBuilder.Entity("HomeHealth.data.tables.Comments", b =>
+                {
+                    b.HasOne("HomeHealth.data.tables.Professionals", "Professional")
+                        .WithMany("ProfComments")
+                        .HasForeignKey("ProfessionalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("HomeHealth.Identity.ApplicationUser", "Sender")
+                        .WithMany("UsersComments")
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("HomeHealth.data.tables.Messages", b =>

@@ -153,13 +153,16 @@ namespace HomeHealth.Controllers
                     .Where( PS => Transaction.ServiceList.Contains(PS.Professional_ServiceId))
                     .ToListAsync();
 
+                Console.WriteLine("Got Selected Services---------------------------");
+
                 var newCharges = new HashSet<Charges>();
                 foreach (var item in SelectedServices)
                 {
                     var charge = new Charges {
-                        Prof_serviceId = item.Professional_ServiceId,
-                        serviceCost = item.ServiceCost
+                        Prof_serviceId = (int?)item.Professional_ServiceId,
+                        serviceCost = item.ServiceCost,
                     };
+                    Console.WriteLine("adding charge for "+  item.Professional_ServiceId +" s---------------------------");
 
                     newAppointment.totalcost += (float)item.ServiceCost;
                     newCharges.Add(charge);
@@ -167,8 +170,11 @@ namespace HomeHealth.Controllers
 
                 newAppointment.Charges = newCharges;
 
+                Console.WriteLine("BEFORE SAVE --------------------------");
                 _context.Appointment.Add(newAppointment);
                 await _context.SaveChangesAsync();
+                Console.WriteLine("AFTER SAVE --------------------------");
+
 
                 return Ok(new { message = "Appointment Scheduled", newAppointment});
 

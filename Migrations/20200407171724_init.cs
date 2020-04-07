@@ -228,6 +228,34 @@ namespace HomeHealth.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Comments",
+                columns: table => new
+                {
+                    CommentsId = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Content = table.Column<string>(nullable: false),
+                    SenderId = table.Column<string>(nullable: false),
+                    ProfessionalId = table.Column<int>(nullable: false),
+                    TimeStamp = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comments", x => x.CommentsId);
+                    table.ForeignKey(
+                        name: "FK_Comments_ProfessionalsId_ProfessionalId",
+                        column: x => x.ProfessionalId,
+                        principalTable: "ProfessionalsId",
+                        principalColumn: "ProfessionalsId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Comments_AspNetUsers_SenderId",
+                        column: x => x.SenderId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "message",
                 columns: table => new
                 {
@@ -386,6 +414,16 @@ namespace HomeHealth.Migrations
                 column: "ServiceId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Comments_ProfessionalId",
+                table: "Comments",
+                column: "ProfessionalId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_SenderId",
+                table: "Comments",
+                column: "SenderId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_message_ProfessionalsId",
                 table: "message",
                 column: "ProfessionalsId");
@@ -441,6 +479,9 @@ namespace HomeHealth.Migrations
 
             migrationBuilder.DropTable(
                 name: "bill");
+
+            migrationBuilder.DropTable(
+                name: "Comments");
 
             migrationBuilder.DropTable(
                 name: "message");

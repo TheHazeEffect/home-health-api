@@ -16,6 +16,7 @@ namespace HomeHealth.Identity
             AppointmentsPati = new HashSet<Appointments>();
             MessagesSent = new HashSet<Messages>();
             MessagesRec = new HashSet<Messages>();
+            UsersComments = new HashSet<Comments>();
         }
         public string FirstName {get; set;}
 
@@ -33,6 +34,8 @@ namespace HomeHealth.Identity
 
         public virtual ICollection<Messages> MessagesSent {get;set;}
         public virtual ICollection<Messages> MessagesRec {get;set;}
+
+        public virtual ICollection<Comments> UsersComments {get;set;}
 
 
         
