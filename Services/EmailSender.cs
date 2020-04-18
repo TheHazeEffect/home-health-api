@@ -62,7 +62,7 @@ namespace HomeHealth.Services
             myMessage.Body = htmlMessage;
             myMessage.IsBodyHtml = true;
 
-            var credentials = new NetworkCredential("TroyAnderson.d@gmail.com", "Bookman123");
+            var credentials = new NetworkCredential("TroyAnderson.d@gmail.com", "xxxxxxxxxxxxx");
 
             var smtp = new SmtpClient
             {
