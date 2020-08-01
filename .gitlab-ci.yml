@@ -10,6 +10,7 @@ services:
 
 
 test:
+    image: mcr.microsoft.com/dotnet/core/sdk:3.1
     stage: test
     script:
         - dotnet test
