@@ -1,8 +1,8 @@
 image: docker:stable
 
 stages: 
-    - build 
     - test
+    - build 
     - deploy
 
 services:
