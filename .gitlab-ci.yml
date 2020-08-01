@@ -32,7 +32,7 @@ push_Image_to_GitlabRegsitry:
     tags:
         - docker
 
-#Todo replace external image with own or heroku cli image
+#Todo replace external image with own or heroku cli image 
 deploy_to_heroku:
     only:
         - master
