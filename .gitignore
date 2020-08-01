@@ -20,9 +20,13 @@ x86/
 build/
 bld/
 bin/
+src/bin/
 Bin/
+src/Bin/
 obj/
+src/obj/
 Obj/
+src/Obj/
 
 # Visual Studio 2015 cache/options directory
 .vs/
