@@ -9,6 +9,12 @@ services:
     - docker:dind
 
 
+test:
+    stage: test
+    script:
+        - dotnet test
+
+
 push_Image_to_GitlabRegsitry:
     only: 
         - master
