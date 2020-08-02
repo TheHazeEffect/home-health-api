@@ -12,8 +12,9 @@ namespace tests.Helpers
         [Fact]
         public void WithoutPassword_ChangesUserHashToNull_Test()
         {
-        //Given
-            var user = new ApplicationUser{
+            //Given
+            var user = new ApplicationUser
+            {
                 UserName = "Tim",
                 PasswordHash = "asdadsdsadsfsdasadas564d"
             };
@@ -27,28 +28,29 @@ namespace tests.Helpers
         [Fact]
         public void withoutPassword_withUserEnmerableHashToNull_Test()
         {
-        //Given
+            //Given
             var userList = new List<ApplicationUser>();
 
             for (int i = 0; i < 10; i++)
             {
                 userList.Add(
-                    new ApplicationUser{
-                        UserName = " User " + i,
-                        PasswordHash = "asdasdasd" + i
+                    new ApplicationUser
+                    {
+                        UserName = "Tim",
+                        PasswordHash = "asdadsdsadsfsdasadas564d"
                     }
                 );
             }
 
-            userList.WithoutPasswords();
+            var newusers = userList.WithoutPasswords();
 
 
             
-            Assert.All( userList, Appuser => Assert.Null(Appuser.PasswordHash));
+            Assert.All(newusers, Appuser => Assert.Null(Appuser.PasswordHash));
         //When
         
         //Then
         }
-        
-    }
+
+}
 }
