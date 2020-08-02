@@ -28,9 +28,9 @@ namespace HomeHealth.Controllers
 
         // GET: api/Charges
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Comments>>> GeComments()
+        public async Task<ActionResult<IEnumerable<Comments>>> GetComments()
         {
-            return await _context.Comments.ToListAsync();
+            return Ok(await _context.Comments.ToListAsync());
         }
 
         // GET: api/Charges/5

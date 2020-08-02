@@ -8,7 +8,8 @@ namespace HomeHealth.Helpers
     public static class ExtensionMethods
     {
         public static IEnumerable<ApplicationUser> WithoutPasswords(this IEnumerable<ApplicationUser> users) {
-            return users.Select(x => x.WithoutPassword());
+           var newusers =  users.Select(x => x.WithoutPassword());
+            return newusers;
         }
 
         public static ApplicationUser WithoutPassword(this ApplicationUser user) {
