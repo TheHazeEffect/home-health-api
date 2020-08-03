@@ -41,10 +41,10 @@ deploy_to_heroku:
     stage: deploy
     before_script:
         - docker login registry.gitlab.com -u ${REPOSITORY_NAME} -p ${CI_REGISTRY_PASSWORD}
-        - docker pull ${CI_REGISTRY}/${REPOSITORY_NAME}:latest
+        - docker pull registry.gitlab.com/troyanderson.d/home-health-medical-professional-locator:latest
     script:
         - docker login --username=troyanderson.d@gmail.com --password=$HEROKU_API_KEY registry.heroku.com
-        - docker tag ${CI_REGISTRY}/${REPOSITORY_NAME}:latest registry.heroku.com/homehealth876/web:latest
+        - docker tag registry.gitlab.com/troyanderson.d/home-health-medical-professional-locator:latest registry.heroku.com/homehealth876/web:latest
         - docker push registry.heroku.com/homehealth876/web:latest
         - "docker run --rm -e HEROKU_API_KEY=$HEROKU_API_KEY wingrunr21/alpine-heroku-cli container:release web --app=homehealth876"
     after_script:
