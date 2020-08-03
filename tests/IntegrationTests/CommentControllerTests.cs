@@ -1,22 +1,40 @@
 using System.Threading.Tasks;
 using System.Net;
+using System.Net.Http;
 using System.Collections.Generic;
 using HomeHealth.Entities;
 using Xunit;
 using FluentAssertions;
+using HomeHealth;
+using Microsoft.AspNetCore.Mvc.Testing;
+//
 
 namespace tests.IntegrationTests
 {
-    public class CommentControllerTests : BaseIntegerationTest
+    public class ApiTests : IClassFixture<CustomWebApplicationFactory<Startup>>
     {
-        [Fact]
-        public async Task GetComments_withPosts_returnsArray_Test(){
-            //Arrange
-            
+        private readonly HttpClient Testclient;
 
+        // private readonly WebApplicationFactory<Startup> _factory;
+        
+        public ApiTests(CustomWebApplicationFactory<Startup> factory) {
+            Testclient = factory.CreateClient();
+
+        }
+        [Theory]
+        [InlineData("/api/comments")]
+        [InlineData("/api/Charges")]
+        [InlineData("/api/Messages")]
+        [InlineData("/api/Professional_Service")]
+        [InlineData("/api/Appointments")]
+        [InlineData("/api/Professionals")]
+        [InlineData("/api/Service")]
+        public async Task GetAll_Test(string url){
+            //Arrange
+        
             //Act
 
-            var response = await Testclient.GetAsync("https://localhost:5001/api/Comments");
+            var response = await Testclient.GetAsync(url);
 
             //Assert
 

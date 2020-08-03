@@ -1,74 +1,59 @@
 using System;
-using Xunit;
-using System.Net.Http;
-using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System.Web;
+using Microsoft.Extensions.Logging;
 using HomeHealth;
 using HomeHealth.Data;
-using HomeHealth.Models;
-using HomeHealth.Constants;
-
+// using Web.Api.Infrastructure.Data;
 
 namespace tests.IntegrationTests
 {
-    public class BaseIntegerationTest
+    public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<Startup>
     {
-        protected readonly HttpClient Testclient;
-        protected BaseIntegerationTest(){
+        protected override void ConfigureWebHost(IWebHostBuilder builder)
+        {
+            builder.ConfigureServices(services =>
+            {
+                // Create a new service provider.
+                var serviceProvider = new ServiceCollection()
+                    .AddEntityFrameworkInMemoryDatabase()
+                    .BuildServiceProvider();
 
-            //build test client, remove services and add inmemory db
-
-            var appFactory = new WebApplicationFactory<Startup>()
-                .WithWebHostBuilder(builder =>
+                // Add a database context (AppDbContext) using an in-memory database for testing.
+                services.AddDbContext<HomeHealthDbContext>(options =>
                 {
-                    builder.ConfigureServices( services => 
-                    {
-                        services.RemoveAll(typeof(HomeHealthDbContext));
-                        // services.AddScoped<IUserService, UserService>();
-                        services.AddDbContext<HomeHealthDbContext>(options => {
-                            options.UseInMemoryDatabase("testDb");
-                        });
-                    });
+                    options.UseInMemoryDatabase("InMemoryAppDb");
+                    options.UseInternalServiceProvider(serviceProvider);
                 });
-            Testclient = appFactory.CreateClient();
 
+                // Build the service provider.
+                var sp = services.BuildServiceProvider();
+
+                // Create a scope to obtain a reference to the database contexts
+                using (var scope = sp.CreateScope())
+                {
+                    var scopedServices = scope.ServiceProvider;
+                    var appDb = scopedServices.GetRequiredService<HomeHealthDbContext>();
+
+                    var logger = scopedServices.GetRequiredService<ILogger<CustomWebApplicationFactory<TStartup>>>();
+
+                    // Ensure the database is created.
+                    appDb.Database.EnsureCreated();
+
+                    // try
+                    // {
+                    //     // Seed the database with some specific test data.
+                    //     SeedData.PopulateTestData(appDb);
+                    // }
+                    // catch (Exception ex)
+                    // {
+                    //     logger.LogError(ex, "An error occurred seeding the " +
+                    //                         "database with test messages. Error: {ex.Message}");
+                    // }
+                }
+            });
         }
-
-        // protected async Task AuthenticateAsync(){
-        //     Testclient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer",await GetJwtAsync());
-        // }
-
-        // private async Task<string> GetJwtAsync()
-        // {
-        //     var response = await  Testclient.PostAsJsonAsync(
-        //             "https://localhost:5001/auth/signup", 
-        //         new UserRegisterDto{
-        //         Email = "User@IntegrationTest.com",
-        //         Password = "Password12#3e",
-        //         FirstName = "Test FirstName",
-        //         LastName = "Test Last Name",
-        //         RoleName = Roles.MedicalProfessional
-        //      });
-
-        //      var registerresponse = await response.content.ReadAsAsync<>();
-
-        //      var response2 = await Testclient.PostAsJsonAsync(
-        //             "https://localhost:5001/auth/login", 
-        //         new UserLoginDto{
-        //         Email = "User@IntegrationTest.com",
-        //         Password = "Password12#3e",
-        //         FirstName = "Test FirstName",
-        //         LastName = "Test Last Name",
-        //         RoleName = Roles.MedicalProfessional
-        //      });
-
-
-                        
-        // }
     }
 }
