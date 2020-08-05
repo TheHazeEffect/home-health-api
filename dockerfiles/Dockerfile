@@ -1,6 +1,6 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
 
-WORKDIR /source
+WORKDIR /src
 # Copy project files
 COPY ["HomeHealth.csproj", "."]
 # RUN ls -l
@@ -20,7 +20,7 @@ RUN dotnet publish -c release -o /publish
 #build runtimeimage
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-alpine as runtime
 WORKDIR /publish
-COPY --from=build-env /publish .
+COPY --from=build-env /src/publish .
 # ENTRYPOINT ["dotnet", "HomeHealth.dll"]
 # CMD ["dotnet", "HomeHealth.dll"]
 CMD ASPNETCORE_URLS=http://*:$PORT dotnet HomeHealth.dll
