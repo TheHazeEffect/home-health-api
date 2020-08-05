@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using System;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 
 using Microsoft.AspNetCore.Identity.UI.Services;
 
@@ -34,6 +35,9 @@ namespace HomeHealth
         {
             Configuration = configuration;
             _env = env;
+            Log.Logger = new LoggerConfiguration()
+            .ReadFrom.Configuration(configuration)
+            .CreateLogger();
             
         }
 

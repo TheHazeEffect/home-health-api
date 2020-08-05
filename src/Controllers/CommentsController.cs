@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
+
 using HomeHealth.Data;
 using HomeHealth.Data.Tables;
 using HomeHealth.Interfaces;
@@ -30,6 +32,8 @@ namespace HomeHealth.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Comments>>> GetComments()
         {
+            Log.Debug("Get Comments Started");
+
             return Ok(await _context.Comments.ToListAsync());
         }
 
@@ -37,6 +41,7 @@ namespace HomeHealth.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Comments>> GetComment(int id)
         {
+            
             var comment = await _context.Comments.FindAsync(id);
 
             if (comment == null)
