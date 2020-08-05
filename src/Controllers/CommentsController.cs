@@ -32,9 +32,23 @@ namespace HomeHealth.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Comments>>> GetComments()
         {
-            Log.Debug("Get Comments Started");
+            try{
 
-            return Ok(await _context.Comments.ToListAsync());
+                Log.Debug("Get Comments Started");
+                Log.Debug("Getting Comments");
+
+                var comments = await _context.Comments.ToListAsync();
+
+                Log.Debug("Comments recieved from db");
+
+                return Ok(comments);
+
+            }catch(Exception ex){
+
+                Log.Error("Get Comments Failed", ex);
+                throw new Exception("Get Comments API Failed", innerException: ex);
+                
+            }
         }
 
         // GET: api/Charges/5
