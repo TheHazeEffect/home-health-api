@@ -48,8 +48,11 @@ namespace HomeHealth
             if(_env.IsDevelopment())
             {
                 
+                // services.AddDbContext<HomeHealthDbContext>(options =>
+                //     options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));   
+
                 services.AddDbContext<HomeHealthDbContext>(options =>
-                    options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));   
+                    options.UseNpgsql(Configuration.GetConnectionString("HomeHealthdb")));
             }
             else {
 

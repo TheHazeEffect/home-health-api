@@ -69,8 +69,8 @@ namespace HomeHealth.Data
                 entity.Property(e => e.AppointmentId).HasColumnName("appointment_id");
 
                 entity.Property(e => e.AppDate)
-                    .HasColumnName("app_date")
-                    .HasColumnType("date");
+                    .HasColumnName("app_date");
+                    // .HasColumnType("date");
 
                 entity.Property(e => e.AddressString)
                     .HasColumnName("Prof_Address1")
@@ -92,8 +92,8 @@ namespace HomeHealth.Data
                     .IsUnicode(false);
 
                 entity.Property(e => e.AppTime)
-                    .HasColumnName("app_time")
-                    .HasColumnType("datetime");
+                    .HasColumnName("app_time");
+                    // .HasColumnType("datetime");
 
 
                 entity.Property(e => e.ProfessionalId).HasColumnName("doctor_id");
