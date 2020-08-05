@@ -49,7 +49,8 @@ namespace HomeHealth
             services.AddCors();
             services.AddControllersWithViews();
 
-            if(_env.IsDevelopment())
+            if(true)
+            // if(_env.IsDevelopment())
             {
                 
                 services.AddDbContext<HomeHealthDbContext>(options =>
