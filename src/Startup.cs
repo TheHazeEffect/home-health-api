@@ -53,11 +53,15 @@ namespace HomeHealth
             }
             else {
 
-                var connectionstring = Environment.GetEnvironmentVariable("DATABASE_URL");
-                Console.WriteLine("------------COnnection String -----------------");
-                Console.WriteLine(connectionstring);
-
                 //Heroku automatically set environment viarbales for it's postgress db which resets every now and then
+                var pgUserId = Environment.GetEnvironmentVariable("POSTGRES_USER_ID");
+                var pgPassword = Environment.GetEnvironmentVariable("POSTGRES_PASSWORD");
+                var pgHost = Environment.GetEnvironmentVariable("POSTGRES_HOST");
+                var pgPort = Environment.GetEnvironmentVariable("POSTGRES_PORT");
+                var pgDatabase = Environment.GetEnvironmentVariable("POSTGRES_DB");
+
+                var connectionstring = $"Server={pgHost};Port={pgPort};User Id={pgUserId};Password={pgPassword};Database={pgDatabase}";
+
                 services.AddDbContext<HomeHealthDbContext>(options =>
                     options.UseNpgsql(connectionstring));
             }
