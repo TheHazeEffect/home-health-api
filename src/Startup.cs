@@ -52,6 +52,8 @@ namespace HomeHealth
                     options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));   
             }
             else {
+
+                //Heroku automatically set environment viarbales for it's postgress db which resets every now and then
                 services.AddDbContext<HomeHealthDbContext>(options =>
                     options.UseNpgsql(Environment.GetEnvironmentVariable("DATABASE_URL")));
             }
