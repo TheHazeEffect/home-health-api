@@ -27,32 +27,34 @@ namespace HomeHealth
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public IConfiguration Configuration { get; }
+        private readonly IWebHostEnvironment _env;
+
+        public Startup(IConfiguration configuration,IWebHostEnvironment env)
         {
             Configuration = configuration;
+            _env = env;
             
         }
 
 
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
             services.AddCors();
             services.AddControllersWithViews();
 
-            // if (env  == "Development")
-            // {
+            if(_env.IsDevelopment())
+            {
+                
                 services.AddDbContext<HomeHealthDbContext>(options =>
                     options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));   
-            // }
-
-            // else {
-            //     services.AddDbContext<HomeHealthDbContext>(options =>
-            //         options.UseSqlServer(Configuration.GetConnectionString("HomeHealthdb")));
-            // }
+            }
+            else {
+                services.AddDbContext<HomeHealthDbContext>(options =>
+                    options.UseNpgsql(Environment.GetEnvironmentVariable("DATABASE_URL")));
+            }
 
 
             services.AddIdentity<ApplicationUser, IdentityRole> (config => {
