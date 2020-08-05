@@ -60,7 +60,11 @@ namespace HomeHealth
                 var pgPort = Environment.GetEnvironmentVariable("POSTGRES_PORT");
                 var pgDatabase = Environment.GetEnvironmentVariable("POSTGRES_DB");
 
+
                 var connectionstring = $"Server={pgHost};Port={pgPort};User Id={pgUserId};Password={pgPassword};Database={pgDatabase}";
+
+                Console.WriteLine("-------------- connectionstring --------------");
+                Console.WriteLine(connectionstring);
 
                 services.AddDbContext<HomeHealthDbContext>(options =>
                     options.UseNpgsql(connectionstring));
