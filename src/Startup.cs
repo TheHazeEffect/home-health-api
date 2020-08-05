@@ -53,9 +53,13 @@ namespace HomeHealth
             }
             else {
 
+                var connectionstring = Environment.GetEnvironmentVariable("DATABASE_URL");
+                Console.WriteLine("------------COnnection String -----------------");
+                Console.WriteLine(connectionstring);
+
                 //Heroku automatically set environment viarbales for it's postgress db which resets every now and then
                 services.AddDbContext<HomeHealthDbContext>(options =>
-                    options.UseNpgsql(Environment.GetEnvironmentVariable("DATABASE_URL")));
+                    options.UseNpgsql(connectionstring));
             }
 
 
