@@ -8,13 +8,17 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using System;
 using Microsoft.IdentityModel.Tokens;
+using System.Linq;
 using Serilog;
 
-using Microsoft.AspNetCore.Identity.UI.Services;
-
+using Newtonsoft.Json;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+// using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Swashbuckle.AspNetCore.Swagger;
 
 using HomeHealth.Constants;
 using HomeHealth.Interfaces;
@@ -22,6 +26,7 @@ using HomeHealth.Helpers;
 using HomeHealth.Services;
 using HomeHealth.Data;
 using HomeHealth.Identity;
+using HomeHealth.Models;
 
 
 namespace HomeHealth
@@ -48,6 +53,16 @@ namespace HomeHealth
         {
             services.AddCors();
             services.AddControllersWithViews();
+
+            services.AddSwaggerGen(options => 
+            {
+                options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Title = "Microservice - Order Web API",
+                    Version = "V1",
+                    Description = "Sample microservice HomeHealth"
+                });
+            });
 
             if(true)
             // if(_env.IsDevelopment())
@@ -81,6 +96,9 @@ namespace HomeHealth
                 services.AddDbContext<HomeHealthDbContext>(options =>
                     options.UseNpgsql(connectionstring));
             }
+
+            services.AddHealthChecks()
+            .AddDbContextCheck<HomeHealthDbContext>();
 
 
             services.AddIdentity<ApplicationUser, IdentityRole> (config => {
@@ -148,6 +166,34 @@ namespace HomeHealth
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI( options => options.SwaggerEndpoint("/swagger/v1/swagger.json","HomeHealth Services"));
+
+            app.UseHealthChecks("/health", new HealthCheckOptions
+            {
+                ResponseWriter = async (context, report) => 
+                {
+                    context.Response.ContentType = "application/json";
+                    var response = new HealthCheckReponse
+                    {
+                        Status = report.Status.ToString(),
+                        HealthChecks = report.Entries.Select(x => new IndividualHealthCheckResponse
+                        {
+                            Component = x.Key,
+                            Status = x.Value.Status.ToString(),
+                            Description = x.Value.Description
+                        }),
+
+                        HealthCheckDuration = report.TotalDuration
+
+                    };
+
+                    await context.Response.WriteAsync(JsonConvert.SerializeObject(response));
+
+                }
+
+            });
 
             app.UseRouting();
 
