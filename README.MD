@@ -32,7 +32,7 @@ Dotnet Restore
 - Download Node dependencies for React Application
 
 ```shell
-cd src/ClientApp
+cd Homehealth.Web/ClientApp
 ```
 ```shell
 Yarn
