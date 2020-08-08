@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeHealth", "src\HomeHealth.csproj", "{E0A2C2D1-48E7-4017-ACB4-A45F7BC9609E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeHealth.Web", "HomeHealth.Web\HomeHealth.Web.csproj", "{E0A2C2D1-48E7-4017-ACB4-A45F7BC9609E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeHealth-Tests", "tests\HomeHealth-Tests.csproj", "{1FE54810-D442-45FA-915B-D4F916FD0381}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeHealth.Test", "HomeHealth.Test\HomeHealth.Test.csproj", "{1FE54810-D442-45FA-915B-D4F916FD0381}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
