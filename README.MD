@@ -1,4 +1,4 @@
-# Home Health Medical Professional Locator (web app)
+# Home Health Medical Professional Locator (Web API)
 
 [![pipeline status](https://gitlab.com/troyanderson.d/home-health-medical-professional-locator/Home/pipeline.svg)](https://gitlab.com/troyanderson.d/home-health-medical-professional-locator/commits/master)
 [![coverage report](https://gitlab.com/troyanderson.d/home-health-medical-professional-locator/badges/master/coverage.svg)](https://gitlab.com/troyanderson.d/home-health-medical-professional-locator/commits/master)
@@ -12,7 +12,6 @@ Built with [.NetCore 3.1](https://docs.microsoft.com/en-us/aspnet/core/introduct
 - [Git](https://git-scm.com/downloads)
 - [Dotnet EF](https://docs.microsoft.com/en-us/ef/core/miscellaneous/cli/dotnet)
 - [Docker](https://www.docker.com/) (Optional)
-- [Yarn](https://yarnpkg.com/en/docs/install)
 
 ## Getting Started
 
@@ -29,19 +28,13 @@ git clone <url>
 ```shell
 Dotnet Restore
 ```
-- Download Node dependencies for React Application
 
-```shell
-cd Homehealth.Web/ClientApp
-```
-```shell
-Yarn
-```
 - Finally, to start the project:
 
 ```php
 dotnet run
 ```
+
 NB: Migrations are ran automatically
 
 You can then access the app at http://localhost:5001
