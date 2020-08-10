@@ -27,6 +27,7 @@ using HomeHealth.Web.Services;
 using HomeHealth.Web.Data;
 using HomeHealth.Web.Identity;
 using HomeHealth.Web.Models;
+using HomeHealth.Web.Repositories;
 
 
 namespace HomeHealth
@@ -145,6 +146,9 @@ namespace HomeHealth
             // configure DI for application services
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IEmailService, EmailService>();
+
+            //condifure DI for Repositories
+            services.AddScoped<ICommentsRepository,CommentRepository>();
 
 
             // In production, the React files will be served from this directory

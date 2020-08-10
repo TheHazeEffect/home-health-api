@@ -1,9 +1,5 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using Microsoft.EntityFrameworkCore.Metadata;
+﻿using Microsoft.EntityFrameworkCore;
 using HomeHealth.Web.Data.Tables;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using HomeHealth.Web.Identity;
 

@@ -8,8 +8,9 @@ using FluentAssertions;
 using HomeHealth;
 using Microsoft.AspNetCore.Mvc.Testing;
 //
+using HomeHealth.Test;
 
-namespace HomeHealth.Test.IntegrationTests
+namespace HomeHealth.Test.Controllers
 {
     public class ApiTests : IClassFixture<CustomWebApplicationFactory<Startup>>
     {

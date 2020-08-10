@@ -6,9 +6,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using HomeHealth;
 using HomeHealth.Web.Data;
+using HomeHealth.Web.Interfaces;
+using HomeHealth.Web.Repositories;
 // using Web.Api.Infrastructure.Data;
 
-namespace HomeHealth.Test.IntegrationTests
+namespace HomeHealth.Test
 {
     public class CustomWebApplicationFactory<TStartup> : WebApplicationFactory<Startup>
     {
@@ -28,6 +30,8 @@ namespace HomeHealth.Test.IntegrationTests
                     options.UseInternalServiceProvider(serviceProvider);
                 });
 
+                services.AddScoped<ICommentsRepository,CommentRepository>();
+
                 // Build the service provider.
                 var sp = services.BuildServiceProvider();
 
@@ -36,6 +40,8 @@ namespace HomeHealth.Test.IntegrationTests
                 {
                     var scopedServices = scope.ServiceProvider;
                     var appDb = scopedServices.GetRequiredService<HomeHealthDbContext>();
+
+                
 
                     var logger = scopedServices.GetRequiredService<ILogger<CustomWebApplicationFactory<TStartup>>>();
 
