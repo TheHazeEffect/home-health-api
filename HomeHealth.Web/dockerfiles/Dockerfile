@@ -9,12 +9,6 @@ RUN dotnet restore "HomeHealth.Web.csproj"
 # RUN dotnet restore 
 COPY . .
 
-#install node dependencie
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
-RUN apt-get install -y nodejs
-# COPY . .
-RUN npm --prefix ./ClientApp/src install -g react ./ClientApp/src
-
 RUN dotnet publish -c release -o /publish
 
 #build runtimeimage
