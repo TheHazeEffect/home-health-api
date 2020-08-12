@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace HomeHealth.Web.Migrations
 {
@@ -56,7 +55,7 @@ namespace HomeHealth.Web.Migrations
                 columns: table => new
                 {
                     ServiceId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Service_name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
@@ -69,7 +68,7 @@ namespace HomeHealth.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -90,7 +89,7 @@ namespace HomeHealth.Web.Migrations
                 columns: table => new
                 {
                     appointment_id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     app_date = table.Column<DateTime>(nullable: false),
                     app_time = table.Column<DateTime>(nullable: false),
                     app_reason = table.Column<string>(unicode: false, nullable: false),
@@ -122,7 +121,7 @@ namespace HomeHealth.Web.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -207,7 +206,7 @@ namespace HomeHealth.Web.Migrations
                 columns: table => new
                 {
                     ProfessionalsId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     user_id = table.Column<string>(nullable: false),
                     Biography = table.Column<string>(maxLength: 500, nullable: false),
                     Prof_Address1 = table.Column<string>(unicode: false, fixedLength: true, maxLength: 80, nullable: false),
@@ -237,7 +236,7 @@ namespace HomeHealth.Web.Migrations
                 columns: table => new
                 {
                     CommentsId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Content = table.Column<string>(nullable: false),
                     SenderId = table.Column<string>(nullable: false),
                     ProfessionalId = table.Column<int>(nullable: false),
@@ -265,7 +264,7 @@ namespace HomeHealth.Web.Migrations
                 columns: table => new
                 {
                     message_id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Content = table.Column<string>(nullable: true),
                     SenderId = table.Column<string>(nullable: true),
                     ReceiverId = table.Column<string>(nullable: true),
@@ -300,7 +299,7 @@ namespace HomeHealth.Web.Migrations
                 columns: table => new
                 {
                     Professional_ServiceId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     ServiceId = table.Column<int>(nullable: true),
                     Service_cost = table.Column<float>(nullable: true),
                     ProfessionalId = table.Column<int>(nullable: true)
@@ -327,7 +326,7 @@ namespace HomeHealth.Web.Migrations
                 columns: table => new
                 {
                     ChargeId = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     appointment_id = table.Column<int>(nullable: false),
                     service_id = table.Column<int>(nullable: false),
                     Service_Cost = table.Column<float>(nullable: false),

@@ -4,7 +4,6 @@ using HomeHealth.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace HomeHealth.Web.Migrations
 {
@@ -15,22 +14,19 @@ namespace HomeHealth.Web.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
-                .HasAnnotation("ProductVersion", "3.1.4")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+                .HasAnnotation("ProductVersion", "3.1.6");
 
             modelBuilder.Entity("HomeHealth.Web.Data.Tables.Appointments", b =>
                 {
                     b.Property<int>("AppointmentId")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("appointment_id")
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("AddressString")
                         .IsRequired()
                         .HasColumnName("Prof_Address1")
-                        .HasColumnType("character(80)")
+                        .HasColumnType("TEXT")
                         .IsFixedLength(true)
                         .HasMaxLength(80)
                         .IsUnicode(false);
@@ -38,44 +34,44 @@ namespace HomeHealth.Web.Migrations
                     b.Property<DateTime?>("AppDate")
                         .IsRequired()
                         .HasColumnName("app_date")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("AppReason")
                         .IsRequired()
                         .HasColumnName("app_reason")
-                        .HasColumnType("text")
+                        .HasColumnType("TEXT")
                         .IsUnicode(false);
 
                     b.Property<DateTime?>("AppTime")
                         .IsRequired()
                         .HasColumnName("app_time")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("PatientId")
                         .IsRequired()
                         .HasColumnName("patient_id")
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ProfessionalId")
                         .IsRequired()
                         .HasColumnName("doctor_id")
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("ishomevisit")
                         .HasColumnName("isHomeVisist")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<double>("lat")
                         .HasColumnName("lat")
-                        .HasColumnType("double precision");
+                        .HasColumnType("REAL");
 
                     b.Property<double>("lng")
                         .HasColumnName("lng")
-                        .HasColumnType("double precision");
+                        .HasColumnType("REAL");
 
                     b.Property<float>("totalcost")
                         .HasColumnName("Total_cost")
-                        .HasColumnType("real");
+                        .HasColumnType("REAL");
 
                     b.HasKey("AppointmentId");
 
@@ -90,26 +86,25 @@ namespace HomeHealth.Web.Migrations
                 {
                     b.Property<int>("ChargeId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("AppointmentId")
                         .IsRequired()
                         .HasColumnName("appointment_id")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("Prof_serviceId")
                         .IsRequired()
                         .HasColumnName("service_id")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("ServiceId")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<float?>("serviceCost")
                         .IsRequired()
                         .HasColumnName("Service_Cost")
-                        .HasColumnType("real");
+                        .HasColumnType("REAL");
 
                     b.HasKey("ChargeId");
 
@@ -126,22 +121,21 @@ namespace HomeHealth.Web.Migrations
                 {
                     b.Property<int>("CommentsId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Content")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("ProfessionalId")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("SenderId")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("TimeStamp")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("CommentsId");
 
@@ -157,27 +151,26 @@ namespace HomeHealth.Web.Migrations
                     b.Property<int>("MessageId")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("message_id")
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Content")
                         .HasColumnName("Content")
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<int?>("ProfessionalsId")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("ReceiverId")
                         .HasColumnName("ReceiverId")
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("SenderId")
                         .HasColumnName("SenderId")
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("TimeStamp")
                         .HasColumnName("TimeStamp")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("MessageId")
                         .HasName("message_id");
@@ -195,19 +188,18 @@ namespace HomeHealth.Web.Migrations
                 {
                     b.Property<int>("Professional_ServiceId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .HasColumnType("INTEGER");
 
                     b.Property<int?>("ProfessionalId")
                         .HasColumnName("ProfessionalId")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<float?>("ServiceCost")
                         .HasColumnName("Service_cost")
-                        .HasColumnType("real");
+                        .HasColumnType("REAL");
 
                     b.Property<int?>("ServiceId")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Professional_ServiceId")
                         .HasName("Prof_service_id");
@@ -223,13 +215,12 @@ namespace HomeHealth.Web.Migrations
                 {
                     b.Property<int>("ProfessionalsId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("AddressString")
                         .IsRequired()
                         .HasColumnName("Prof_Address1")
-                        .HasColumnType("character(80)")
+                        .HasColumnType("TEXT")
                         .IsFixedLength(true)
                         .HasMaxLength(80)
                         .IsUnicode(false);
@@ -237,24 +228,24 @@ namespace HomeHealth.Web.Migrations
                     b.Property<string>("Biography")
                         .IsRequired()
                         .HasColumnName("Biography")
-                        .HasColumnType("character varying(500)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(500);
 
                     b.Property<int?>("ServiceId")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<double>("lat")
                         .HasColumnName("lat")
-                        .HasColumnType("double precision");
+                        .HasColumnType("REAL");
 
                     b.Property<double>("lng")
                         .HasColumnName("lng")
-                        .HasColumnType("double precision");
+                        .HasColumnType("REAL");
 
                     b.Property<string>("userId")
                         .IsRequired()
                         .HasColumnName("user_id")
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("ProfessionalsId")
                         .HasName("pk_Duser_id");
@@ -271,13 +262,12 @@ namespace HomeHealth.Web.Migrations
                 {
                     b.Property<int>("ServiceId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("ServiceName")
                         .IsRequired()
                         .HasColumnName("Service_name")
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("ServiceId");
 
@@ -287,65 +277,65 @@ namespace HomeHealth.Web.Migrations
             modelBuilder.Entity("HomeHealth.Web.Identity.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("integer");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Dob")
-                        .HasColumnType("timestamp without time zone");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
-                        .HasColumnType("character varying(256)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("boolean");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Gender")
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("boolean");
+                        .HasColumnType("INTEGER");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasColumnType("character varying(256)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(256);
 
                     b.Property<string>("NormalizedUserName")
-                        .HasColumnType("character varying(256)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(256);
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("boolean");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("boolean");
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("UserName")
-                        .HasColumnType("character varying(256)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
@@ -363,18 +353,18 @@ namespace HomeHealth.Web.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .HasColumnType("character varying(256)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(256);
 
                     b.Property<string>("NormalizedName")
-                        .HasColumnType("character varying(256)")
+                        .HasColumnType("TEXT")
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
@@ -390,18 +380,17 @@ namespace HomeHealth.Web.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("RoleId")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -414,18 +403,17 @@ namespace HomeHealth.Web.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -437,17 +425,17 @@ namespace HomeHealth.Web.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -459,10 +447,10 @@ namespace HomeHealth.Web.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("RoleId")
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -474,16 +462,16 @@ namespace HomeHealth.Web.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Value")
-                        .HasColumnType("text");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
