@@ -18,7 +18,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 // using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Swashbuckle.AspNetCore.Swagger;
+// using Swashbuckle.AspNetCore.Swagger;
 
 using HomeHealth.Web.Constants;
 using HomeHealth.Web.Interfaces;
@@ -59,9 +59,9 @@ namespace HomeHealth
             {
                 options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
                 {
-                    Title = "Microservice - Order Web API",
+                    Title = "HomeHealth API",
                     Version = "V1",
-                    Description = "Sample microservice HomeHealth"
+                    Description = "HomeHealth API Endpoints"
                 });
             });
 
@@ -79,17 +79,7 @@ namespace HomeHealth
 
                 //Heroku automatically set environment viarbales for it's postgress db which resets every now and then
                 var urlhelper = new HerokuPostgresHelper(Environment.GetEnvironmentVariable("DATABASE_URL"));
-                // var pgUserId = Environment.GetEnvironmentVariable("POSTGRES_USER_ID");
-                // var pgPassword = Environment.GetEnvironmentVariable("POSTGRES_PASSWORD");
-                // // var pgHost = Environment.GetEnvironmentVariable("POSTGRES_HOST");
-                // var pgHost = urlhelper.parseHost();
-
-                // var pgPort = Environment.GetEnvironmentVariable("POSTGRES_PORT");
-                // var pgDatabase = Environment.GetEnvironmentVariable("POSTGRES_DB");
-
-
-                // var connectionstring = $"Server={pgHost};Port={pgPort};User Id={pgUserId};Password={pgPassword};Database={pgDatabase}";
-
+               
                 var connectionstring = urlhelper.buildConnectionString();
                 Console.WriteLine("-------------- connectionstring --------------");
                 Console.WriteLine(connectionstring);
@@ -151,11 +141,6 @@ namespace HomeHealth
             services.AddScoped<ICommentsRepository,CommentRepository>();
 
 
-            // In production, the React files will be served from this directory
-            // services.AddSpaStaticFiles(configuration =>
-            // {
-            //     configuration.RootPath = "ClientApp/build";
-            // });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -173,7 +158,11 @@ namespace HomeHealth
             }
 
             app.UseSwagger();
-            app.UseSwaggerUI( options => options.SwaggerEndpoint("/swagger/v1/swagger.json","HomeHealth Services"));
+            app.UseSwaggerUI( options =>{
+                options.SwaggerEndpoint("/swagger/v1/swagger.json","HomeHealth Services");
+                options.RoutePrefix = string.Empty;
+
+            });
 
             app.UseHealthChecks("/health", new HealthCheckOptions
             {
