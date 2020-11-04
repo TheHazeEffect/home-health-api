@@ -38,14 +38,14 @@ namespace HomeHealth
         public IConfiguration Configuration { get; }
         private readonly IWebHostEnvironment _env;
 
-        public Startup(IConfiguration configuration,IWebHostEnvironment env)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
             _env = env;
             Log.Logger = new LoggerConfiguration()
             .ReadFrom.Configuration(configuration)
             .CreateLogger();
-            
+
         }
 
 
@@ -57,7 +57,7 @@ namespace HomeHealth
             services.AddControllersWithViews();
 
             //Swagger configurations
-            services.AddSwaggerGen(options => 
+            services.AddSwaggerGen(options =>
             {
                 options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
                 {
@@ -68,20 +68,24 @@ namespace HomeHealth
             });
 
             // if(true)
-            if(_env.IsDevelopment())
+            if (_env.IsDevelopment())
             {
-                
+
                 // services.AddDbContext<HomeHealthDbContext>(options =>
                 //     options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));   
 
+                // services.AddDbContext<HomeHealthDbContext>(options =>
+                //     options.UseNpgsql(Configuration.GetConnectionString("HomeHealthdb")));
+
                 services.AddDbContext<HomeHealthDbContext>(options =>
-                    options.UseNpgsql(Configuration.GetConnectionString("HomeHealthdb")));
+                options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
             }
-            else {
+            else
+            {
 
                 //Heroku automatically set environment viarbales for it's postgress db which resets every now and then
                 var urlhelper = new HerokuPostgresHelper(Environment.GetEnvironmentVariable("DATABASE_URL"));
-               
+
                 var connectionstring = urlhelper.buildConnectionString();
                 Console.WriteLine("-------------- connectionstring --------------");
                 Console.WriteLine(connectionstring);
@@ -94,29 +98,31 @@ namespace HomeHealth
             .AddDbContextCheck<HomeHealthDbContext>();
 
 
-            services.AddIdentity<ApplicationUser, IdentityRole> (config => {
-					config.SignIn.RequireConfirmedEmail = false;
-				}).AddEntityFrameworkStores<HomeHealthDbContext> ()
-				.AddDefaultTokenProviders ();
+            services.AddIdentity<ApplicationUser, IdentityRole>(config =>
+            {
+                config.SignIn.RequireConfirmedEmail = false;
+            }).AddEntityFrameworkStores<HomeHealthDbContext>()
+                .AddDefaultTokenProviders();
 
             services.AddControllers().AddNewtonsoftJson(options =>
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
                 );
 
 
-             // configure strongly typed settings objects
+            // configure strongly typed settings objects
             var appSettingsSection = Configuration.GetSection("AppSettings");
-                services.Configure<AppSettings>(appSettingsSection);
+            services.Configure<AppSettings>(appSettingsSection);
 
-            services.AddAuthorization(options => {
+            services.AddAuthorization(options =>
+            {
                 options.AddPolicy(Roles.MedicalProfessional,
                     policy => policy.RequireAssertion(context => context.User.HasClaim(c => c.Value == "Admin")));
             });
 
             //Email service configs
             services.Configure<EmailOptipns>(Configuration.GetSection(EmailOptipns.Email));
-        
-             // configure jwt authentication
+
+            // configure jwt authentication
             var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
             services.AddAuthentication(x =>
@@ -136,13 +142,13 @@ namespace HomeHealth
                     ValidateAudience = false
                 };
             });
-                
+
             // configure DI for application services
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IEmailService, EmailService>();
 
             //condifure DI for Repositories
-            services.AddScoped<ICommentsRepository,CommentRepository>();
+            services.AddScoped<ICommentsRepository, CommentRepository>();
 
 
         }
@@ -162,15 +168,16 @@ namespace HomeHealth
             }
 
             app.UseSwagger();
-            app.UseSwaggerUI( options =>{
-                options.SwaggerEndpoint("/swagger/v1/swagger.json","HomeHealth Services");
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "HomeHealth Services");
                 options.RoutePrefix = string.Empty;
 
             });
 
             app.UseHealthChecks("/health", new HealthCheckOptions
             {
-                ResponseWriter = async (context, report) => 
+                ResponseWriter = async (context, report) =>
                 {
                     context.Response.ContentType = "application/json";
                     var response = new HealthCheckReponse
@@ -201,14 +208,14 @@ namespace HomeHealth
                 .AllowAnyMethod()
                 .AllowAnyHeader());
 
-            
+
             app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             // app.UseSpaStaticFiles();
-            
+
 
             app.UseEndpoints(endpoints =>
             {

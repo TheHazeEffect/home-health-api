@@ -46,11 +46,11 @@ namespace HomeHealth.Web.Data.Seeders
                 .RuleFor(user => user.Email, (faker,user) => faker.Internet.Email(user.FirstName,user.LastName))
                 .RuleFor(user => user.UserName, (faker,user) => faker.Internet.Email(user.FirstName,user.LastName));
 
-            var users = UserRules.Generate(GeneratedUsers-1);
+            var users = UserRules.Generate(GeneratedUsers);
 
-            var myUser = userFactory("Troy","Anderson","Male");
+            // var myUser = userFactory("Troy","Anderson","Male");
 
-            users.Add(myUser);
+            // users.Add(myUser);
 
             foreach (var user in users)
             {
