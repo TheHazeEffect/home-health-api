@@ -49,7 +49,7 @@ namespace HomeHealth.Controllers
         }
 
         [HttpGet("profile/{id}")]
-        public async Task<ActionResult<Appointments>> GetAppointments(string id)
+        public async Task<ActionResult<AppointmentProfile>> GetAppointments(string id)
         {
 
         

@@ -10,23 +10,23 @@ using Microsoft.AspNetCore.Identity;
 using HomeHealth.Web.Identity;
 using HomeHealth.Web.Data;
 using HomeHealth.Web.Interfaces;
-
+using HomeHealth.Web.Options;
 using Microsoft.EntityFrameworkCore;
 
 
 
 namespace HomeHealth.Web.Services
 {
-    public class EmailService : IEmailService
+    public class  EmailService : IEmailService
     {
-        public EmailSettings _emailSettings { get; }
+        public EmailOptipns _emailOptions { get; }
         private readonly UserManager<ApplicationUser> _userManager;
 
         private readonly HomeHealthDbContext _context;
 
-        public EmailService(IOptions<EmailSettings> emailSettings, UserManager<ApplicationUser> userManager,HomeHealthDbContext context)
+        public EmailService(IOptions<EmailOptipns> emailOptions, UserManager<ApplicationUser> userManager,HomeHealthDbContext context)
         {
-            _emailSettings = emailSettings.Value;
+            _emailOptions = emailOptions.Value;
             _userManager = userManager;
             _context = context;
         }
@@ -57,19 +57,19 @@ namespace HomeHealth.Web.Services
         {
             var myMessage = new MailMessage();
             myMessage.To.Add(new MailAddress(email));
-            myMessage.From = new MailAddress("TroyAnderson.d@gmail.com", "HomeHealth");
+            myMessage.From = new MailAddress(_emailOptions.FromEmail, "HomeHealth");
             myMessage.Subject = subject;
             myMessage.Body = htmlMessage;
             myMessage.IsBodyHtml = true;
 
-            var credentials = new NetworkCredential("TroyAnderson.d@gmail.com", "xxxxxxxxxxxxx");
+            var credentials = new NetworkCredential(_emailOptions.Username, _emailOptions.Password);
 
             var smtp = new SmtpClient
             {
                 Credentials = credentials,
-                Host = "smtp.gmail.com",
-                Port = 587,
-                EnableSsl = true
+                Host = _emailOptions.Host,
+                Port = _emailOptions.Port,
+                EnableSsl = _emailOptions.EnableSsl
             };
 
 
@@ -77,21 +77,6 @@ namespace HomeHealth.Web.Services
 
         }
     }
-
-    public class EmailSettings
-    {
-        public string Host { get; set; }
-
-        public int Port { get; set; }
-
-        public string Username { get; set; }
-
-        public string Password { get; set; }
-
-        public string FromEmail { get; set; }
-
-        public string FromUsername { get; set; }
-
-        public bool EnableSsl { get; set; }
-    }
 }
+
+    

@@ -28,6 +28,7 @@ using HomeHealth.Web.Data;
 using HomeHealth.Web.Identity;
 using HomeHealth.Web.Models;
 using HomeHealth.Web.Repositories;
+using HomeHealth.Web.Options;
 
 
 namespace HomeHealth
@@ -55,6 +56,7 @@ namespace HomeHealth
             services.AddCors();
             services.AddControllersWithViews();
 
+            //Swagger configurations
             services.AddSwaggerGen(options => 
             {
                 options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
@@ -65,15 +67,15 @@ namespace HomeHealth
                 });
             });
 
-            if(true)
-            // if(_env.IsDevelopment())
+            // if(true)
+            if(_env.IsDevelopment())
             {
                 
-                services.AddDbContext<HomeHealthDbContext>(options =>
-                    options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));   
-
                 // services.AddDbContext<HomeHealthDbContext>(options =>
-                //     options.UseNpgsql(Configuration.GetConnectionString("HomeHealthdb")));
+                //     options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));   
+
+                services.AddDbContext<HomeHealthDbContext>(options =>
+                    options.UseNpgsql(Configuration.GetConnectionString("HomeHealthdb")));
             }
             else {
 
@@ -111,7 +113,9 @@ namespace HomeHealth
                     policy => policy.RequireAssertion(context => context.User.HasClaim(c => c.Value == "Admin")));
             });
 
-
+            //Email service configs
+            services.Configure<EmailOptipns>(Configuration.GetSection(EmailOptipns.Email));
+        
              // configure jwt authentication
             var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
