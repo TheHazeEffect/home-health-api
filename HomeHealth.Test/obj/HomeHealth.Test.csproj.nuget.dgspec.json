@@ -14,7 +14,7 @@
         "outputPath": "/Users/troy/Desktop/projects/Personal/home-health-api/HomeHealth.Test/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/troy/.nuget/NuGet/NuGet.Config"
+          "/Users/troy/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -117,7 +117,7 @@
         "outputPath": "/Users/troy/Desktop/projects/Personal/home-health-api/HomeHealth.Web/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/troy/.nuget/NuGet/NuGet.Config"
+          "/Users/troy/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"

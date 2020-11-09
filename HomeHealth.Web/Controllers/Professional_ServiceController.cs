@@ -43,7 +43,7 @@ namespace HomeHealth.Controllers
             return professional_Service;
         }
         [HttpGet("profile/{id}")]
-        public async Task<ActionResult<ProfileServicesDto>> GetProfessional_Service(string id)
+        public async Task<ActionResult<IEnumerable<ProfileServicesDto>>> GetProfessional_Service(string id)
         {
             var services = await _context.Professional_Service
                 .Include("Professional")
