@@ -80,13 +80,14 @@ namespace HomeHealth
                 services.AddDbContext<HomeHealthDbContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
 
-               
+
             }
             else
             {
+                var connectionString = Environment.GetEnvironmentVariable("azuredbconnectionstring");
 
-                 services.AddDbContext<HomeHealthDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("azuredbconnectionstring")));
+                services.AddDbContext<HomeHealthDbContext>(options =>
+               options.UseSqlServer(connectionString));
 
                 // //Heroku automatically set environment viarbales for it's postgress db which resets every now and then
                 // var urlhelper = new HerokuPostgresHelper(Environment.GetEnvironmentVariable("DATABASE_URL"));
