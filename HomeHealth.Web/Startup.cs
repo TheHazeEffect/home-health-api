@@ -88,7 +88,7 @@ namespace HomeHealth
                 const String connectionStringKey = "azuredbconnectionstring";
 
                 var connectionString = ConfigurationManager.ConnectionStrings[connectionStringKey].ConnectionString;
-                Log.Information($"Connection String is :{connectionString}");
+                Console.WriteLine($"Connection String is :{connectionString}");
 
                 services.AddDbContext<HomeHealthDbContext>(options =>
                options.UseSqlServer(connectionString));
