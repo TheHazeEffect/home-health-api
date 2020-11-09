@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using System;
+using System.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.Linq;
 using Serilog;
@@ -84,7 +85,10 @@ namespace HomeHealth
             }
             else
             {
-                var connectionString = Environment.GetEnvironmentVariable("azuredbconnectionstring");
+                const String connectionStringKey = "azuredbconnectionstring";
+
+                var connectionString = ConfigurationManager.ConnectionStrings[connectionStringKey].ConnectionString;
+                Console.WriteLine($"Connection String is :{connectionString}");
 
                 services.AddDbContext<HomeHealthDbContext>(options =>
                options.UseSqlServer(connectionString));
