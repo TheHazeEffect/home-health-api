@@ -67,8 +67,8 @@ namespace HomeHealth
                 });
             });
 
-            if (true)
-            //if (_env.IsDevelopment())
+            // if (true)
+            if (_env.IsDevelopment())
             {
 
                 // services.AddDbContext<HomeHealthDbContext>(options =>
@@ -79,19 +79,24 @@ namespace HomeHealth
 
                 services.AddDbContext<HomeHealthDbContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("SqliteConnection")));
+
+               
             }
             else
             {
 
-                //Heroku automatically set environment viarbales for it's postgress db which resets every now and then
-                var urlhelper = new HerokuPostgresHelper(Environment.GetEnvironmentVariable("DATABASE_URL"));
+                 services.AddDbContext<HomeHealthDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("azuredbconnectionstring")));
 
-                var connectionstring = urlhelper.buildConnectionString();
-                Console.WriteLine("-------------- connectionstring --------------");
-                Console.WriteLine(connectionstring);
+                // //Heroku automatically set environment viarbales for it's postgress db which resets every now and then
+                // var urlhelper = new HerokuPostgresHelper(Environment.GetEnvironmentVariable("DATABASE_URL"));
 
-                services.AddDbContext<HomeHealthDbContext>(options =>
-                    options.UseNpgsql(connectionstring));
+                // var connectionstring = urlhelper.buildConnectionString();
+                // Console.WriteLine("-------------- connectionstring --------------");
+                // Console.WriteLine(connectionstring);
+
+                // services.AddDbContext<HomeHealthDbContext>(options =>
+                //     options.UseNpgsql(connectionstring));
             }
 
             services.AddHealthChecks()
