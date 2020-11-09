@@ -68,7 +68,7 @@ namespace HomeHealth
             });
 
             if (true)
-            //if (_env.IsDevelopment())
+            if (_env.IsDevelopment())
             {
 
                 // services.AddDbContext<HomeHealthDbContext>(options =>
