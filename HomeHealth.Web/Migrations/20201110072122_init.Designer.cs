@@ -4,14 +4,16 @@ using HomeHealth.Web.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HomeHealth.Web.Migrations
 {
     [DbContext(typeof(HomeHealthDbContext))]
-    partial class HomeHealthDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201110072122_init")]
+    partial class init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -237,8 +239,8 @@ namespace HomeHealth.Web.Migrations
                     b.Property<string>("Biography")
                         .IsRequired()
                         .HasColumnName("Biography")
-                        .HasColumnType("nvarchar(1000)")
-                        .HasMaxLength(1000);
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
 
                     b.Property<int?>("ServiceId")
                         .HasColumnType("int");

@@ -47,7 +47,8 @@ namespace HomeHealth.Web.Data
 
                 entity.HasOne( d => d.Sender)
                     .WithMany( P => P.UsersComments)
-                    .HasForeignKey(d => d.SenderId);
+                    .HasForeignKey(d => d.SenderId)
+                    .OnDelete(DeleteBehavior.NoAction);
 
                 entity.HasOne( d => d.Professional)
                     .WithMany( p => p.ProfComments)
@@ -146,7 +147,7 @@ namespace HomeHealth.Web.Data
 
                 entity.Property(e => e.Biography)
                     .HasColumnName("Biography")
-                    .HasMaxLength(500);
+                    .HasMaxLength(1000);
 
 
                 entity.Property(e => e.AddressString)

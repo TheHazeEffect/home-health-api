@@ -76,7 +76,7 @@ namespace HomeHealth.Web.Data.Seeders
             var professionalRules = new Faker<Professionals>()
                 .Rules( (f,p)=>
                 {
-                    p.Biography = f.Lorem.Paragraphs();
+                    p.Biography = f.Lorem.Paragraphs(count: 2);
                     p.lat = f.Address.Latitude(18,18.5);
                     p.lng = f.Address.Longitude(-77.5,-77.0);
                     p.AddressString = f.Address.FullAddress();
