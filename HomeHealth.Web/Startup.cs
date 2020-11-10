@@ -86,12 +86,9 @@ namespace HomeHealth
             else
             {
 
-                var connectionString = Configuration.GetConnectionString("azureDb");
-                Console.WriteLine($"Connection String is :{connectionString}");
-
 
                services.AddDbContext<HomeHealthDbContext>(options =>
-                options.UseSqlServer(connectionString));
+                options.UseSqlServer(Configuration.GetConnectionString("azureDb")));
 
 
                 // //Heroku automatically set environment viarbales for it's postgress db which resets every now and then
