@@ -133,7 +133,7 @@ namespace HomeHealth
             });
 
             //Email service configs
-            services.Configure<EmailOptipns>(Configuration.GetSection(EmailOptipns.Email));
+            services.Configure<EmailOptipns>(Configuration.GetSection(EmailOptipns.Section));
 
             // configure jwt authentication
             var appSettings = appSettingsSection.Get<AppSettings>();
