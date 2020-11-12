@@ -43,7 +43,7 @@ steps:
       command: "publish"
       publishWebProjects: true
       arguments: "-c $(buildConfiguration) -o $(Build.ArtifactStagingDirectory)"
-      workingDirectory: "$(System.DefaultWorkingDirectory)/HomeHealth.web"
+      workingDirectory: "$(System.DefaultWorkingDirectory)/HomeHealth.Web"
       zipAfterPublish: true
   - task: PublishBuildArtifacts@1
     inputs:
