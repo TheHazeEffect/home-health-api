@@ -38,6 +38,16 @@ steps:
       testRunTitle: "Home Health API Tests"
       workingDirectory: "$(System.DefaultWorkingDirectory)/HomeHealth.Test"
 
+  - task: DownloadSecureFile@1
+    inputs:
+      secureFile: 'appsettings.Production.json'
+    
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: '$(Agent.WorkFolder)\_temp'
+      Contents: 'appsettings.Production.json'
+      TargetFolder: '$(System.DefaultWorkingDirectory)/HomeHealth.Web'
+
   - task: DotNetCoreCLI@2
     inputs:
       command: "publish"
