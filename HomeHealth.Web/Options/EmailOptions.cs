@@ -8,7 +8,7 @@ namespace HomeHealth.Web.Options
     public class EmailOptipns
     {
 
-        public const string Email = "Email";
+        public const string Section = "Email";
         public string Host { get; set; }
 
         public int Port { get; set; }
